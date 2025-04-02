@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -9,6 +10,8 @@ public class UnitStats : ScriptableObject
     [SerializeField] float attackInterval;
     [SerializeField] float attackRadius;
     [SerializeField] float knockBack;
+
+    [NonSerialized] public bool isSortie;
 
     public int MaxHealth => maxHealth;
     public float Speed => speed;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855dae1766a3b464b9b5cc9e52a5fe5a, type: 3}
   m_Name: NormalBee
   m_EditorClassIdentifier: 
+  target: {fileID: 11400000, guid: 1451bebf9b8f9f745b94b83ef0684d1e, type: 2}
   prefab: {fileID: 1858036909408944744, guid: d102b07fb2d3b704e985b68c1b4a4e6f, type: 3}
   maxCount: 10
   timeToGenerate: 1

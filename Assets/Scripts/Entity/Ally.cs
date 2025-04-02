@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Ally : UnitBase
 {
-    bool _isSortie = true;
-
     protected override IEnumerator AttackState()
     {
         return base.AttackState();
@@ -15,7 +13,7 @@ public class Ally : UnitBase
     {
         while (true)
         {
-            if (_isSortie)
+            if (stats.isSortie)
             {
                 var targets = GameObject.FindGameObjectsWithTag(destinationTag);
                 if (targets.Count() > 0)

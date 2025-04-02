@@ -1,12 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Hive : MonoBehaviour
 {
-    [SerializeField] UnitGenerateSettings[] units;
-
-    readonly List<UnitGenerateState> unitStates = new();
+    [SerializeField] UnitGenerateStats[] units;
 
     private void Start()
     {
@@ -18,47 +15,42 @@ public class Hive : MonoBehaviour
 
     private void Update()
     {
-        foreach (var state in unitStates)
+        foreach (var generateStats in units)
         {
-            if (state.isSortie && state.outside < state.exists)
+            if (generateStats.Target.isSortie && generateStats.outside < generateStats.exists)
             {
-                var newUnitObj = Instantiate(state.settings.Prefab);
-                newUnitObj.GetComponent<Health>().OnDied += () => state.exists -= 1;
-                state.outside += 1;
+                var newUnitObj = Instantiate(generateStats.Prefab);
+                newUnitObj.GetComponent<Health>().OnDied += () => generateStats.exists -= 1;
+                generateStats.outside += 1;
             }
         }
     }
 
-    private IEnumerator Generate(UnitGenerateSettings unit)
+    private IEnumerator Generate(UnitGenerateStats unit)
     {
-        var generateState = new UnitGenerateState(unit);
-        unitStates.Add(generateState);
-
         while (true)
         {
             yield return new WaitForSeconds(unit.TimeToGenerate);
 
-            if (generateState.exists < unit.MaxCount)
+            if (unit.exists < unit.MaxCount)
             {
-                generateState.exists += 1;
+                unit.exists += 1;
             }
         }
     }
 
     public void ToggleSortie(int i)
     {
-        unitStates[i].isSortie = !unitStates[i].isSortie;
+        units[i].Target.isSortie = !units[i].Target.isSortie;
     }
 }
 
 public class UnitGenerateState
 {
-    public UnitGenerateSettings settings;
-    public int exists;
-    public int outside;
+    public UnitGenerateStats settings;
     public bool isSortie;
 
-    public UnitGenerateState(UnitGenerateSettings settings)
+    public UnitGenerateState(UnitGenerateStats settings)
     {
         this.settings = settings;
     }
