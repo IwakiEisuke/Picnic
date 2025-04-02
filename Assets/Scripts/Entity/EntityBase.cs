@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,16 +9,11 @@ public class EntityBase : MonoBehaviour, IDamageable
     [SerializeField] LayerMask opponentLayer;
     [SerializeField] string destinationTag;
     [SerializeField] GameObject dead;
+    [SerializeField] Health health;
 
     Rigidbody _rb;
     NavMeshAgent _agent;
     Collider[] _hits = new Collider[1];
-
-    int _currentHealth;
-
-    public float HealthRatio => 1f * _currentHealth / stats.MaxHealth;
-
-    public event System.Action OnDead;
 
     private void Awake()
     {
@@ -28,7 +22,19 @@ public class EntityBase : MonoBehaviour, IDamageable
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = stats.Speed;
 
-        _currentHealth = stats.MaxHealth;
+        health.OnDied += () =>
+        {
+            print($"{name}: Dead");
+
+            Destroy(gameObject);
+
+            StopAllCoroutines();
+
+            if (dead)
+            {
+                Instantiate(dead, transform.position, transform.rotation);
+            }
+        };
     }
 
     private void Start()
@@ -77,7 +83,10 @@ public class EntityBase : MonoBehaviour, IDamageable
     private void Attack()
     {
         print($"{name}: Attack");
-        _hits[0].GetComponentInParent<IDamageable>().TakeDamage(stats);
+        foreach (var damageable in _hits[0].GetComponentsInParent<IDamageable>())
+        {
+            damageable.TakeDamage(stats);
+        }
     }
 
     private bool CheckAround()
@@ -87,33 +96,7 @@ public class EntityBase : MonoBehaviour, IDamageable
 
     public void TakeDamage(UnitStats other)
     {
-        _currentHealth -= other.Atk;
-
         _rb.AddForce(transform.position.normalized * other.KnockBack, ForceMode.Impulse);
-
-        if (_currentHealth <= 0)
-        {
-            Dead();
-        }
-    }
-
-    private void Dead()
-    {
-        print($"{name}: Dead");
-
-        Destroy(gameObject);
-
-        StopAllCoroutines();
-
-        if (dead)
-        {
-            Instantiate(dead, transform.position, transform.rotation);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        OnDead?.Invoke();
     }
 
     private void OnDrawGizmos()

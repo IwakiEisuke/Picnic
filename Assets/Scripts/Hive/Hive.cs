@@ -30,7 +30,7 @@ public class Hive : MonoBehaviour
                 
                 generatedUnits[unit.name].Add(newUnitObj);
 
-                newUnitObj.GetComponent<EntityBase>().OnDead += () => generatedUnits[unit.name].Remove(newUnitObj);
+                newUnitObj.GetComponent<Health>().OnDied += () => generatedUnits[unit.name].Remove(newUnitObj);
             }
         }
     }
