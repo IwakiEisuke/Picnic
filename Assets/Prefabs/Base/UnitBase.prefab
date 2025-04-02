@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7286572145506970006}
   - component: {fileID: 7528319036318301096}
   - component: {fileID: 5099450346594814981}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 31a5e5cbc0c914a4dba2baeb66571ac8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 3923156516610817657}
   - component: {fileID: 8497073131368536544}
   - component: {fileID: 6950292162215690403}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,9 +210,9 @@ GameObject:
   - component: {fileID: 4204332661540018278}
   - component: {fileID: 3485320637964202718}
   - component: {fileID: 2992659440231433127}
-  m_Layer: 0
-  m_Name: Entity
-  m_TagString: Untagged
+  m_Layer: 7
+  m_Name: UnitBase
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,11 +268,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f82868003fd12a438917fb71aee1437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 11400000, guid: 9c393134285ebe04db8db37db9ecd926, type: 2}
   opponentLayer:
     serializedVersion: 2
-    m_Bits: 0
-  destinationTag: 
+    m_Bits: 576
+  destinationTag: Base
   dead: {fileID: 0}
 --- !u!54 &2992659440231433127
 Rigidbody:
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 5814168604525165813}
   - component: {fileID: 8803403797314063060}
   - component: {fileID: 3010280570028130083}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

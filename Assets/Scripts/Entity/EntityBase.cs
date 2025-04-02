@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,6 +18,8 @@ public class EntityBase : MonoBehaviour, IDamageable
     int _currentHealth;
 
     public float HealthRatio => 1f * _currentHealth / stats.MaxHealth;
+
+    public event System.Action OnDead;
 
     private void Awake()
     {
@@ -106,6 +109,11 @@ public class EntityBase : MonoBehaviour, IDamageable
         {
             Instantiate(dead, transform.position, transform.rotation);
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnDead?.Invoke();
     }
 
     private void OnDrawGizmos()

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2695864832366242214
+--- !u!1001 &4926688862632747900
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,17 +8,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 452406351122154731, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 452406351122154731, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 2334293146028736811, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.88
+      value: 4.02
       objectReference: {fileID: 0}
     - target: {fileID: 2334293146028736811, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2334293146028736811, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.91
+      value: -5.03
       objectReference: {fileID: 0}
     - target: {fileID: 2334293146028736811, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56,34 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3485320637964202718, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: stats
-      value: 
-      objectReference: {fileID: 11400000, guid: 9c393134285ebe04db8db37db9ecd926, type: 2}
-    - target: {fileID: 3485320637964202718, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: destinationTag
-      value: Base
-      objectReference: {fileID: 0}
-    - target: {fileID: 3485320637964202718, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: opponentLayer.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
     - target: {fileID: 3599539401788001567, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_Name
-      value: Enemy Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 3599539401788001567, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3599539401788001567, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7528319036318301096, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 31a5e5cbc0c914a4dba2baeb66571ac8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
