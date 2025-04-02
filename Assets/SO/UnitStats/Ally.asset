@@ -17,3 +17,4 @@ MonoBehaviour:
   atk: 2
   attackInterval: 1
   attackRadius: 2
+  knockBack: 3

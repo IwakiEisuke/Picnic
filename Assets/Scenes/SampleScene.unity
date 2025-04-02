@@ -787,7 +787,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1130,9 +1130,9 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 190580641}
   - {fileID: 6511118}
+  - {fileID: 1386397526}
   - {fileID: 6731420007407678379}
   - {fileID: 1597633542}
   - {fileID: 1498733115869480707}
   - {fileID: 737216493}
   - {fileID: 1690579761}
-  - {fileID: 1386397526}

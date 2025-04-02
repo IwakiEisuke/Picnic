@@ -10,17 +10,18 @@ public class EntityBase : MonoBehaviour, IDamageable
     [SerializeField] string destinationTag;
     [SerializeField] GameObject dead;
 
-    NavMeshAgent agent;
-    Collider[] hit = new Collider[1];
+    Rigidbody _rb;
+    NavMeshAgent _agent;
+    Collider[] _hits = new Collider[1];
 
     int _currentHealth;
 
-    Coroutine _currentState;
-
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = stats.Speed;
+        _rb = GetComponent<Rigidbody>();
+
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = stats.Speed;
 
         _currentHealth = stats.MaxHealth;
     }
@@ -39,13 +40,13 @@ public class EntityBase : MonoBehaviour, IDamageable
             if (targets.Count() > 0)
             {
                 var closest = targets.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).First();
-                agent.stoppingDistance = stats.AttackRadius;
-                agent.SetDestination(closest.transform.position);
+                _agent.stoppingDistance = stats.AttackRadius;
+                _agent.SetDestination(closest.transform.position);
             }
             else
             {
-                agent.stoppingDistance = 0;
-                agent.SetDestination(Vector3.zero);
+                _agent.stoppingDistance = 0;
+                _agent.SetDestination(Vector3.zero);
             }
 
             yield return null;
@@ -71,17 +72,19 @@ public class EntityBase : MonoBehaviour, IDamageable
     private void Attack()
     {
         print($"{name}: Attack");
-        hit[0].GetComponentInParent<IDamageable>().TakeDamage(stats.Atk);
+        _hits[0].GetComponentInParent<IDamageable>().TakeDamage(stats);
     }
 
     private bool CheckAround()
     {
-        return Physics.OverlapSphereNonAlloc(transform.position, stats.AttackRadius, hit, opponentLayer.value) > 0;
+        return Physics.OverlapSphereNonAlloc(transform.position, stats.AttackRadius, _hits, opponentLayer.value) > 0;
     }
 
-    public void TakeDamage(int value)
+    public void TakeDamage(UnitStats other)
     {
-        _currentHealth -= value;
+        _currentHealth -= other.Atk;
+
+        _rb.AddForce(transform.position.normalized * other.KnockBack, ForceMode.Impulse);
 
         if (_currentHealth <= 0)
         {
