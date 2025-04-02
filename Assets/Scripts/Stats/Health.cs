@@ -12,6 +12,8 @@ public class Health : MonoBehaviour, IDamageable
     int _maxHealth;
     int _currentHealth;
 
+    bool _isDead;
+
     public void TakeDamage(UnitStats other)
     {
         _currentHealth -= other.Atk;
@@ -19,7 +21,13 @@ public class Health : MonoBehaviour, IDamageable
         if (_currentHealth <= 0)
         {
             OnDied.Invoke();
+            _isDead = true;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (!_isDead) OnDied.Invoke();
     }
 
     private void Awake()
