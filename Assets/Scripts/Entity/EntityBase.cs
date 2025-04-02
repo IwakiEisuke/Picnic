@@ -16,6 +16,8 @@ public class EntityBase : MonoBehaviour, IDamageable
 
     int _currentHealth;
 
+    public float HealthRatio => 1f * _currentHealth / stats.MaxHealth;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -108,7 +110,10 @@ public class EntityBase : MonoBehaviour, IDamageable
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, stats.AttackRadius);
+        if (stats)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, stats.AttackRadius);
+        }
     }
 }
