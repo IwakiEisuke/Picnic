@@ -6,7 +6,6 @@ using UnityEngine;
 public class Hive : MonoBehaviour
 {
     [SerializeField] UnitGenerateSettings[] units;
-    [SerializeField] int unitTest;
 
     readonly List<UnitGenerateState> unitStates = new();
 
@@ -31,13 +30,6 @@ public class Hive : MonoBehaviour
         }
     }
 
-    [ContextMenu("Test")]
-    private void Sortie()
-    {
-        var i = unitTest;
-        unitStates[i].isSortie = !unitStates[i].isSortie;
-    }
-
     private IEnumerator Generate(UnitGenerateSettings unit)
     {
         var generateState = new UnitGenerateState(unit);
@@ -52,6 +44,11 @@ public class Hive : MonoBehaviour
                 generateState.exists += 1;
             }
         }
+    }
+
+    public void ToggleSortie(int i)
+    {
+        unitStates[i].isSortie = !unitStates[i].isSortie;
     }
 }
 
