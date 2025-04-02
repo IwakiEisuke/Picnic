@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +51,6 @@ public class Hive : MonoBehaviour
     }
 }
 
-[Serializable]
 public class UnitGenerateState
 {
     public UnitGenerateSettings settings;

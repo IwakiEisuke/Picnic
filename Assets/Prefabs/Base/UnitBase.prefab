@@ -208,7 +208,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2334293146028736811}
   - component: {fileID: 4204332661540018278}
-  - component: {fileID: 3485320637964202718}
   - component: {fileID: 202787359112742274}
   - component: {fileID: 2992659440231433127}
   m_Layer: 0
@@ -257,25 +256,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3485320637964202718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3599539401788001567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f82868003fd12a438917fb71aee1437, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 0}
-  opponentLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  destinationTag: 
-  dead: {fileID: 0}
-  health: {fileID: 202787359112742274}
 --- !u!114 &202787359112742274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +292,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

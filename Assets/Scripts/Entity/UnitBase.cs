@@ -1,26 +1,23 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EntityBase : MonoBehaviour, IDamageable
+public abstract class UnitBase : MonoBehaviour, IDamageable
 {
-    [SerializeField] UnitStats stats;
-    [SerializeField] LayerMask opponentLayer;
-    [SerializeField] string destinationTag;
-    [SerializeField] GameObject dead;
-    [SerializeField] Health health;
+    [SerializeField] protected UnitStats stats;
+    [SerializeField] protected LayerMask opponentLayer;
+    [SerializeField] protected string destinationTag;
+    [SerializeField] protected GameObject dead;
+    [SerializeField] protected Health health;
 
-    Rigidbody _rb;
-    NavMeshAgent _agent;
-    Collider[] _hits = new Collider[1];
+    protected Rigidbody _rb;
+    protected NavMeshAgent _agent;
+    protected Collider[] _hits = new Collider[1];
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = stats.Speed;
 
         health.OnDied += () =>
         {
@@ -43,28 +40,24 @@ public class EntityBase : MonoBehaviour, IDamageable
         StartCoroutine(AttackState());
     }
 
-    private IEnumerator MoveState()
+    private void Update()
+    {
+        _agent.speed = stats.Speed;
+    }
+
+    virtual protected IEnumerator MoveState()
     {
         while (true)
         {
-            var targets = GameObject.FindGameObjectsWithTag(destinationTag);
-            if (targets.Count() > 0)
-            {
-                var closest = targets.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).First();
-                _agent.stoppingDistance = stats.AttackRadius;
-                _agent.SetDestination(closest.transform.position);
-            }
-            else
-            {
-                _agent.stoppingDistance = 0;
-                _agent.SetDestination(Vector3.zero);
-            }
+            var random = Random.insideUnitCircle;
+            var dir = new Vector3(random.x, 0, random.y);
+            _agent.SetDestination(transform.position + dir * stats.Speed);
 
-            yield return null;
+            yield return new WaitForSeconds(1);
         }
     }
 
-    private IEnumerator AttackState()
+    virtual protected IEnumerator AttackState()
     {
         while (true)
         {
@@ -96,7 +89,7 @@ public class EntityBase : MonoBehaviour, IDamageable
 
     public void TakeDamage(UnitStats other)
     {
-        _rb.AddForce(transform.position.normalized * other.KnockBack, ForceMode.Impulse);
+        _agent.velocity = transform.position.normalized * other.KnockBack;
     }
 
     private void OnDrawGizmos()
