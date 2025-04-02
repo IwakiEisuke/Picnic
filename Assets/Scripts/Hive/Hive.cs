@@ -8,7 +8,7 @@ public class Hive : MonoBehaviour
     [SerializeField] UnitGenerateSettings[] units;
     [SerializeField] int unitTest;
 
-    readonly Dictionary<string, UnitGenerateState> unitStates = new();
+    readonly List<UnitGenerateState> unitStates = new();
 
     private void Start()
     {
@@ -20,16 +20,13 @@ public class Hive : MonoBehaviour
 
     private void Update()
     {
-        foreach (var unit in units)
+        foreach (var state in unitStates)
         {
-            if (unitStates.TryGetValue(unit.name, out var state))
+            if (state.isSortie && state.outside < state.exists)
             {
-                if (state.isSortie && state.outside < state.exists)
-                {
-                    var newUnitObj = Instantiate(unit.Prefab);
-                    newUnitObj.GetComponent<Health>().OnDied += () => unitStates[unit.name].exists -= 1;
-                    state.outside += 1;
-                }
+                var newUnitObj = Instantiate(state.settings.Prefab);
+                newUnitObj.GetComponent<Health>().OnDied += () => state.exists -= 1;
+                state.outside += 1;
             }
         }
     }
@@ -38,20 +35,21 @@ public class Hive : MonoBehaviour
     private void Sortie()
     {
         var i = unitTest;
-        unitStates[units[i].name].isSortie = !unitStates[units[i].name].isSortie;
+        unitStates[i].isSortie = !unitStates[i].isSortie;
     }
 
     private IEnumerator Generate(UnitGenerateSettings unit)
     {
-        unitStates.Add(unit.name, new UnitGenerateState());
+        var generateState = new UnitGenerateState(unit);
+        unitStates.Add(generateState);
 
         while (true)
         {
             yield return new WaitForSeconds(unit.TimeToGenerate);
 
-            if (unitStates[unit.name].exists < unit.MaxCount)
+            if (generateState.exists < unit.MaxCount)
             {
-                unitStates[unit.name].exists += 1;
+                generateState.exists += 1;
             }
         }
     }
@@ -60,12 +58,13 @@ public class Hive : MonoBehaviour
 [Serializable]
 public class UnitGenerateState
 {
+    public UnitGenerateSettings settings;
     public int exists;
     public int outside;
     public bool isSortie;
 
-    public UnitGenerateState(int exists = 0)
+    public UnitGenerateState(UnitGenerateSettings settings)
     {
-        this.exists = exists;
+        this.settings = settings;
     }
 }
