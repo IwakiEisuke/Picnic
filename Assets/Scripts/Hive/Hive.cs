@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Hive : MonoBehaviour
 {
-    [SerializeField] UnitGenerateStats[] units;
+    [SerializeField] UnitGenerateSettings[] units;
+    [SerializeField] int unitTest;
 
-    readonly Dictionary<string, List<GameObject>> generatedUnits = new();
+    readonly Dictionary<string, UnitGenerateState> unitStates = new();
 
     private void Start()
     {
@@ -16,22 +18,54 @@ public class Hive : MonoBehaviour
         }
     }
 
-    private IEnumerator Generate(UnitGenerateStats unit)
+    private void Update()
     {
-        generatedUnits.Add(unit.name, new List<GameObject>());
+        foreach (var unit in units)
+        {
+            if (unitStates.TryGetValue(unit.name, out var state))
+            {
+                if (state.isSortie && state.outside < state.exists)
+                {
+                    var newUnitObj = Instantiate(unit.Prefab);
+                    newUnitObj.GetComponent<Health>().OnDied += () => unitStates[unit.name].exists -= 1;
+                    state.outside += 1;
+                }
+            }
+        }
+    }
+
+    [ContextMenu("Test")]
+    private void Sortie()
+    {
+        var i = unitTest;
+        unitStates[units[i].name].isSortie = !unitStates[units[i].name].isSortie;
+    }
+
+    private IEnumerator Generate(UnitGenerateSettings unit)
+    {
+        unitStates.Add(unit.name, new UnitGenerateState());
 
         while (true)
         {
             yield return new WaitForSeconds(unit.TimeToGenerate);
 
-            if (generatedUnits[unit.name].Count < unit.MaxCount)
+            if (unitStates[unit.name].exists < unit.MaxCount)
             {
-                var newUnitObj = Instantiate(unit.Prefab);
-                
-                generatedUnits[unit.name].Add(newUnitObj);
-
-                newUnitObj.GetComponent<Health>().OnDied += () => generatedUnits[unit.name].Remove(newUnitObj);
+                unitStates[unit.name].exists += 1;
             }
         }
+    }
+}
+
+[Serializable]
+public class UnitGenerateState
+{
+    public int exists;
+    public int outside;
+    public bool isSortie;
+
+    public UnitGenerateState(int exists = 0)
+    {
+        this.exists = exists;
     }
 }

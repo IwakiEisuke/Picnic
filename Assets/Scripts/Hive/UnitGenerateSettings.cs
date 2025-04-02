@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class UnitGenerateStats : ScriptableObject
+public class UnitGenerateSettings : ScriptableObject
 {
     [SerializeField] GameObject prefab;
     [SerializeField] int maxCount;
