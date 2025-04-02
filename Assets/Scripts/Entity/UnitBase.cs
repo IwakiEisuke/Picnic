@@ -14,6 +14,8 @@ public abstract class UnitBase : MonoBehaviour, IDamageable
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
 
+    public UnitStats Stats { get { return stats; } }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();

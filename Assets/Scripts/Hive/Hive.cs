@@ -1,9 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Hive : MonoBehaviour
 {
     [SerializeField] UnitGenerateStats[] units;
+
+    Dictionary<GameObject, UnitGenerateStats> unitInstances = new();
 
     private void Start()
     {
@@ -22,6 +25,7 @@ public class Hive : MonoBehaviour
                 var newUnitObj = Instantiate(generateStats.Prefab);
                 newUnitObj.GetComponent<Health>().OnDied += () => generateStats.exists -= 1;
                 generateStats.outside += 1;
+                unitInstances[newUnitObj] = generateStats;
             }
         }
     }
@@ -43,15 +47,18 @@ public class Hive : MonoBehaviour
     {
         units[i].Target.isSortie = !units[i].Target.isSortie;
     }
-}
 
-public class UnitGenerateState
-{
-    public UnitGenerateStats settings;
-    public bool isSortie;
-
-    public UnitGenerateState(UnitGenerateStats settings)
+    private void OnTriggerStay(Collider other)
     {
-        this.settings = settings;
+        if (other.attachedRigidbody.TryGetComponent<Ally>(out var ally))
+        {
+            if (unitInstances.TryGetValue(ally.gameObject, out var gen) && !ally.Stats.isSortie)
+            {
+                Destroy(ally.gameObject);
+                unitInstances.Remove(ally.gameObject);
+                gen.outside -= 1;
+            }
+        }
+        
     }
 }
