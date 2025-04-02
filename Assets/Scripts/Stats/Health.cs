@@ -20,14 +20,14 @@ public class Health : MonoBehaviour, IDamageable
 
         if (_currentHealth <= 0)
         {
-            OnDied.Invoke();
+            OnDied?.Invoke();
             _isDead = true;
         }
     }
 
     private void OnDestroy()
     {
-        if (!_isDead) OnDied.Invoke();
+        if (!_isDead) OnDied?.Invoke();
     }
 
     private void Awake()
