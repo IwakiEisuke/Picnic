@@ -46,6 +46,7 @@ public class Hive : MonoBehaviour
     public void ToggleSortie(int i)
     {
         units[i].Target.isSortie = !units[i].Target.isSortie;
+        print($"{units[i].name} {units[i].Target.isSortie}");
     }
 
     private void OnTriggerStay(Collider other)

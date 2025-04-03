@@ -11,6 +11,8 @@ public class Ally : UnitBase
 
     protected override IEnumerator MoveState()
     {
+        var pos = Quaternion.AngleAxis(90, Vector3.right) * Random.insideUnitCircle;
+
         while (true)
         {
             if (stats.isSortie)
@@ -21,6 +23,10 @@ public class Ally : UnitBase
                     var closest = targets.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).First();
                     _agent.stoppingDistance = stats.AttackRadius;
                     _agent.SetDestination(closest.transform.position);
+                }
+                else
+                {
+                    _agent.SetDestination(pos);
                 }
             }
             else
