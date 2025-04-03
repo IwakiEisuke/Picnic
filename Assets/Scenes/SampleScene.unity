@@ -1530,7 +1530,7 @@ GameObject:
   - component: {fileID: 903700146}
   - component: {fileID: 903700145}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: NextWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1875,6 +1875,36 @@ MonoBehaviour:
   waves:
   - {fileID: 11400000, guid: b965aaf3043940648b14228ad212491d, type: 2}
   enemySpawnerManager: {fileID: 1041680081}
+  OnStartWave:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 903700143}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnEndWave:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 903700143}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!4 &1189260062
 Transform:
   m_ObjectHideFlags: 0

@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] WaveSO[] waves;
     [SerializeField] EnemySpawnerManager enemySpawnerManager;
+
+    public UnityEvent OnStartWave;
+    public UnityEvent OnEndWave;
 
     int waveCount = 0;
 
@@ -16,5 +20,12 @@ public class WaveManager : MonoBehaviour
         {
             enemySpawnerManager.SetSpawn(waves[waveCount - 1]);
         }
+
+        OnStartWave.Invoke();
+    }
+
+    public void EndWave()
+    {
+        OnEndWave.Invoke();
     }
 }
