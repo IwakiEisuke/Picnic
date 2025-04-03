@@ -15,4 +15,6 @@ MonoBehaviour:
   target: {fileID: 11400000, guid: 1451bebf9b8f9f745b94b83ef0684d1e, type: 2}
   prefab: {fileID: 1858036909408944744, guid: d102b07fb2d3b704e985b68c1b4a4e6f, type: 3}
   maxCount: 10
-  timeToGenerate: 1
+  timeToGenerate: 2
+  exists: 10
+  outside: 0
