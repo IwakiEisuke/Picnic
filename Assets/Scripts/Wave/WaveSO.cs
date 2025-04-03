@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu]
 public class WaveSO : ScriptableObject
@@ -9,7 +10,7 @@ public class WaveSO : ScriptableObject
 [System.Serializable]
 public struct WaveEnemyData
 {
-    public GameObject enemy;
+    [FormerlySerializedAs("enemy")] public GameObject prefab;
     public int count;
     public float startTime;
     public float spawnInterval;
