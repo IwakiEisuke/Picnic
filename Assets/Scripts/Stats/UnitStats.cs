@@ -11,7 +11,12 @@ public class UnitStats : ScriptableObject
     [SerializeField] float attackRadius;
     [SerializeField] float knockBack;
 
-    [NonSerialized] public bool isSortie;
+    public bool isSortie;
+
+    public void Init()
+    {
+        isSortie = false;
+    }
 
     public int MaxHealth => maxHealth;
     public float Speed => speed;

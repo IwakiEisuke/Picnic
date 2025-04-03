@@ -12,6 +12,8 @@ public class Hive : MonoBehaviour
     {
         for (int i = 0; i < units.Length; i++)
         {
+            units[i].Init();
+            units[i].Target.Init();
             StartCoroutine(Generate(units[i]));
         }
     }
@@ -24,6 +26,7 @@ public class Hive : MonoBehaviour
             {
                 var newUnitObj = Instantiate(generateStats.Prefab);
                 newUnitObj.GetComponent<Health>().OnDied += () => generateStats.exists -= 1;
+                newUnitObj.GetComponent<Health>().OnDestroyEvent += () => generateStats.outside -= 1;
                 generateStats.outside += 1;
                 unitInstances[newUnitObj] = generateStats;
             }
@@ -57,9 +60,7 @@ public class Hive : MonoBehaviour
             {
                 Destroy(ally.gameObject);
                 unitInstances.Remove(ally.gameObject);
-                gen.outside -= 1;
             }
         }
-        
     }
 }

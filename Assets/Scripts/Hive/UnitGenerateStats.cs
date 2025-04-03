@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -9,8 +8,14 @@ public class UnitGenerateStats : ScriptableObject
     [SerializeField] int maxCount;
     [SerializeField] float timeToGenerate;
 
-    [NonSerialized] public int exists;
-    [NonSerialized] public int outside;
+    public int exists;
+    public int outside;
+
+    public void Init()
+    {
+        exists = 0;
+        outside = 0;
+    }
 
     public UnitStats Target { get { return target; } }
     public GameObject Prefab { get { return prefab; } }

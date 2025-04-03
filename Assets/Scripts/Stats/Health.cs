@@ -8,11 +8,10 @@ public class Health : MonoBehaviour, IDamageable
     public float HealthRatio => 1f * _currentHealth / _maxHealth;
 
     public event Action OnDied;
+    public event Action OnDestroyEvent;
 
     int _maxHealth;
     int _currentHealth;
-
-    bool _isDead;
 
     public void TakeDamage(UnitStats other)
     {
@@ -21,13 +20,12 @@ public class Health : MonoBehaviour, IDamageable
         if (_currentHealth <= 0)
         {
             OnDied?.Invoke();
-            _isDead = true;
         }
     }
 
     private void OnDestroy()
     {
-        if (!_isDead) OnDied?.Invoke();
+        OnDestroyEvent?.Invoke();
     }
 
     private void Awake()
