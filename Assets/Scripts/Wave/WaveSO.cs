@@ -10,7 +10,7 @@ public class WaveSO : ScriptableObject
 [System.Serializable]
 public struct WaveEnemyData
 {
-    [FormerlySerializedAs("enemy")] public GameObject prefab;
+    public GameObject prefab;
     public int count;
     public float startTime;
     public float spawnInterval;

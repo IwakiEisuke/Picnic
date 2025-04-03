@@ -6,7 +6,7 @@ public class Hive : MonoBehaviour
 {
     [SerializeField] UnitGenerateStats[] units;
 
-    Dictionary<GameObject, UnitGenerateStats> unitInstances = new();
+    readonly Dictionary<GameObject, UnitGenerateStats> unitInstances = new();
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class Hive : MonoBehaviour
             if (generateStats.Target.isSortie && generateStats.outside < generateStats.exists)
             {
                 var newUnitObj = Instantiate(generateStats.Prefab);
-                newUnitObj.GetComponent<Health>().OnDied += () => generateStats.exists -= 1;
+                newUnitObj.GetComponent<Health>().OnDied.AddListener(() => generateStats.exists -= 1);
                 newUnitObj.GetComponent<Health>().OnDestroyEvent += () => generateStats.outside -= 1;
                 generateStats.outside += 1;
                 unitInstances[newUnitObj] = generateStats;

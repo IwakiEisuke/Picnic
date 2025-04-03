@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] UnitStats stats;
+    [SerializeField] GameObject dieObj;
 
     public float HealthRatio => 1f * _currentHealth / _maxHealth;
 
-    public event Action OnDied;
+    public UnityEvent OnDied;
     public event Action OnDestroyEvent;
 
     int _maxHealth;
@@ -19,6 +21,8 @@ public class Health : MonoBehaviour, IDamageable
 
         if (_currentHealth <= 0)
         {
+            if (dieObj != null) Instantiate(dieObj, transform.position, transform.rotation);
+            Destroy(gameObject);
             OnDied?.Invoke();
         }
     }

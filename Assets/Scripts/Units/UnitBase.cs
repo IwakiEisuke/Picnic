@@ -7,7 +7,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable
     [SerializeField] protected UnitStats stats;
     [SerializeField] protected LayerMask opponentLayer;
     [SerializeField] protected string destinationTag;
-    [SerializeField] protected GameObject dead;
+    [SerializeField] protected GameObject deadObj;
     [SerializeField] protected Health health;
 
     protected Rigidbody _rb;
@@ -20,20 +20,12 @@ public abstract class UnitBase : MonoBehaviour, IDamageable
     {
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
+        health.OnDied.AddListener(Die);
+    }
 
-        health.OnDied += () =>
-        {
-            print($"{name}: Dead");
-
-            Destroy(gameObject);
-
-            StopAllCoroutines();
-
-            if (dead)
-            {
-                Instantiate(dead, transform.position, transform.rotation);
-            }
-        };
+    public void Die()
+    {
+        StopAllCoroutines();
     }
 
     private void Start()
