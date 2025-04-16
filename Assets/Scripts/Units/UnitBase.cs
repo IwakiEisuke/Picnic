@@ -13,6 +13,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
+    protected EntityObserver observer;
 
     public UnitStats Stats { get { return stats; } }
 
@@ -24,10 +25,14 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
         _agent = GetComponent<NavMeshAgent>();
         health.Init(transform);
         health.OnDied.AddListener(Die);
+
+        observer = new EntityObserver(stats.name);
+        observer.Register();
     }
 
     public void Die()
     {
+        observer.Remove();
         StopAllCoroutines();
     }
 
