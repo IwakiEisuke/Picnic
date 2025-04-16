@@ -101,17 +101,6 @@ PrefabInstance:
       insertIndex: 2
       addedObject: {fileID: -8183712840257897774}
   m_SourcePrefab: {fileID: 100100000, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
---- !u!114 &5084405020963890942 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 202787359112742274, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-  m_PrefabInstance: {fileID: 4926688862632747900}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8478940444707892835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c964f678a67d64ea430a26a5f08273, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8478940444707892835 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3599539401788001567, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
@@ -134,5 +123,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   destinationTag: Base
-  dead: {fileID: 0}
-  health: {fileID: 5084405020963890942}
+  deadObj: {fileID: 0}
+  health:
+    stats: {fileID: 11400000, guid: 9c393134285ebe04db8db37db9ecd926, type: 2}
+    dieObj: {fileID: 0}
+    OnDied:
+      m_PersistentCalls:
+        m_Calls: []

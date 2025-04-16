@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 159bd37afe4706649a194a4d96db3a9e, type: 2}
+    - target: {fileID: 2085086610286189054, guid: d592412050932a649ba6b5666115c102, type: 3}
+      propertyPath: health.stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 159bd37afe4706649a194a4d96db3a9e, type: 2}
     - target: {fileID: 2142131121711891363, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: stats
       value: 

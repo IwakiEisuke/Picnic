@@ -2103,6 +2103,12 @@ MonoBehaviour:
   units:
   - {fileID: 11400000, guid: 1d5ea3db0c085f948a8243e1bc14ddfe, type: 2}
   - {fileID: 11400000, guid: a4f1223f5e2863e4daf91dede70fb137, type: 2}
+  health:
+    stats: {fileID: 11400000, guid: 4f42e18b1f18fa94ba88bc90abeabb29, type: 2}
+    dieObj: {fileID: 0}
+    OnDied:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!136 &1386397528
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2409,7 +2415,7 @@ PrefabInstance:
     - target: {fileID: 2257692189379580062, guid: 60a1e51439aad814a9fb3d55f7532549, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1386397525}
     - target: {fileID: 3973518281256443554, guid: 60a1e51439aad814a9fb3d55f7532549, type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
