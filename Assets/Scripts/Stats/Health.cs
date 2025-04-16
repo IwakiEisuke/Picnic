@@ -28,14 +28,19 @@ public class Health : IDamageable
 
         if (_currentHealth <= 0)
         {
-            OnDied?.Invoke();
+            Die();
         }
     }
 
     public void Die()
     {
         OnDied?.Invoke();
-        GameObject.Instantiate(dieObj, _parent.position, _parent.rotation);
+        GameObject.Destroy(_parent.gameObject);
+
+        if (dieObj != null)
+        {
+            GameObject.Instantiate(dieObj, _parent.position, _parent.rotation);
+        }
     }
 }
 
