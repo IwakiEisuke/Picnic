@@ -38,3 +38,8 @@ public class Health : IDamageable
         GameObject.Instantiate(dieObj, _parent.position, _parent.rotation);
     }
 }
+
+public interface IHealth
+{
+    public Health Health { get; }
+}
