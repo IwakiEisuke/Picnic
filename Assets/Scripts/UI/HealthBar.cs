@@ -3,13 +3,20 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] Health target;
+    [SerializeField] GameObject target;
     [SerializeField] Image barImage;
     [SerializeField] Image back;
+
+    Health health;
+
+    private void Start()
+    {
+        health = target.GetComponent<IHealth>().Health;
+    }
 
     private void Update()
     {
         back.transform.rotation = Camera.main.transform.rotation;
-        barImage.fillAmount = target.HealthRatio;
+        barImage.fillAmount = health.HealthRatio;
     }
 }
