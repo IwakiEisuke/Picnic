@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class UnitBase : MonoBehaviour, IDamageable
+public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
 {
     [SerializeField] protected UnitStats stats;
     [SerializeField] protected LayerMask opponentLayer;
@@ -16,10 +16,13 @@ public abstract class UnitBase : MonoBehaviour, IDamageable
 
     public UnitStats Stats { get { return stats; } }
 
+    public Health Health => health;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
+        health.Init(transform);
         health.OnDied.AddListener(Die);
     }
 
@@ -84,6 +87,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable
     public void TakeDamage(UnitStats other)
     {
         _agent.velocity = transform.position.normalized * other.KnockBack;
+        health.TakeDamage(other);
     }
 
     private void OnDrawGizmos()
