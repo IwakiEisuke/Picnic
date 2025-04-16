@@ -2,18 +2,25 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour, IDamageable
+[Serializable]
+public class Health : IDamageable
 {
     [SerializeField] UnitStats stats;
     [SerializeField] GameObject dieObj;
 
-    public float HealthRatio => 1f * _currentHealth / _maxHealth;
-
     public UnityEvent OnDied;
     public event Action OnDestroyEvent;
 
-    int _maxHealth;
     int _currentHealth;
+    Transform _parent;
+
+    public float HealthRatio => 1f * _currentHealth / stats.MaxHealth;
+
+    public void Init(Transform parent)
+    {
+        _parent = parent;
+        _currentHealth = stats.MaxHealth;
+    }
 
     public void TakeDamage(UnitStats other)
     {
@@ -21,20 +28,13 @@ public class Health : MonoBehaviour, IDamageable
 
         if (_currentHealth <= 0)
         {
-            if (dieObj != null) Instantiate(dieObj, transform.position, transform.rotation);
-            Destroy(gameObject);
             OnDied?.Invoke();
         }
     }
 
-    private void OnDestroy()
+    public void Die()
     {
-        OnDestroyEvent?.Invoke();
-    }
-
-    private void Awake()
-    {
-        _maxHealth = stats.MaxHealth;
-        _currentHealth = stats.MaxHealth;
+        OnDied?.Invoke();
+        GameObject.Instantiate(dieObj, _parent.position, _parent.rotation);
     }
 }
