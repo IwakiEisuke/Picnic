@@ -3,7 +3,23 @@ using UnityEngine;
 
 public class Enemy : UnitBase
 {
-    protected override IEnumerator MoveState()
+    private UnitMoveLogicBase moveLogic = new EnemyMoveLogic();
+    protected override UnitMoveLogicBase MoveLogic => moveLogic;
+}
+
+public class EnemyMoveLogic : UnitMoveLogicBase
+{
+    public override void Start()
+    {
+        if (!IsInitialized()) return;
+
+        parent.StartCoroutine(MoveState());
+        parent.StartCoroutine(AttackState());
+
+        parent.Health.OnDestroyEvent += () => parent.StopAllCoroutines();
+    }
+
+    protected IEnumerator MoveState()
     {
         while (true)
         {
@@ -13,8 +29,19 @@ public class Enemy : UnitBase
         }
     }
 
-    protected override IEnumerator AttackState()
+    protected IEnumerator AttackState()
     {
-        return base.AttackState();
+        while (true)
+        {
+            if (CheckAround(parent.opponentLayer))
+            {
+                Attack();
+                yield return new WaitForSeconds(_stats.AttackInterval);
+            }
+            else
+            {
+                yield return null;
+            }
+        }
     }
 }

@@ -4,24 +4,35 @@ using UnityEngine;
 
 public class Ally : UnitBase
 {
-    protected override IEnumerator AttackState()
+    private UnitMoveLogicBase moveLogic = new AllyMoveLogic();
+    protected override UnitMoveLogicBase MoveLogic => moveLogic;
+}
+
+class AllyMoveLogic : UnitMoveLogicBase
+{
+    public override void Start()
     {
-        return base.AttackState();
+        if (!IsInitialized()) return;
+
+        parent.StartCoroutine(MoveState());
+        parent.StartCoroutine(AttackState());
+
+        parent.Health.OnDestroyEvent += () => parent.StopAllCoroutines();
     }
 
-    protected override IEnumerator MoveState()
+    protected IEnumerator MoveState()
     {
         var pos = Quaternion.AngleAxis(90, Vector3.right) * Random.insideUnitCircle;
 
         while (true)
         {
-            if (stats.isSortie)
+            if (_stats.isSortie)
             {
-                var targets = GameObject.FindGameObjectsWithTag(destinationTag);
+                var targets = GameObject.FindGameObjectsWithTag(parent.destinationTag);
                 if (targets.Count() > 0)
                 {
-                    var closest = targets.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).First();
-                    _agent.stoppingDistance = stats.AttackRadius;
+                    var closest = targets.OrderBy(x => Vector3.Distance(_agent.transform.position, x.transform.position)).First();
+                    _agent.stoppingDistance = _stats.AttackRadius;
                     _agent.SetDestination(closest.transform.position);
                 }
                 else
@@ -36,6 +47,22 @@ public class Ally : UnitBase
             }
 
             yield return null;
+        }
+    }
+
+    protected IEnumerator AttackState()
+    {
+        while (true)
+        {
+            if (CheckAround(parent.opponentLayer))
+            {
+                Attack();
+                yield return new WaitForSeconds(_stats.AttackInterval);
+            }
+            else
+            {
+                yield return null;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// </summary>
 public static class EnemyManager
 {
-    static Dictionary<string, int> enemyMap;
+    static Dictionary<string, int> enemyMap = new();
 
     public static void AddEnemy(string name)
     {
