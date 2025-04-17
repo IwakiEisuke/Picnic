@@ -4,7 +4,6 @@ using UnityEngine.AI;
 public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
 {
     [SerializeField] protected UnitStats stats;
-    [SerializeField] protected GameObject deadObj;
     [SerializeField] protected Health health;
 
     [SerializeField] public LayerMask opponentLayer;
