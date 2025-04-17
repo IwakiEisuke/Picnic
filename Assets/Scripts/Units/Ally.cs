@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -94,6 +93,8 @@ public class NearTargetAttack : FSM.IState
     readonly NavMeshAgent _agent;
     readonly Collider[] _hits;
 
+    float t;
+
     public NearTargetAttack(UnitBase parent)
     {
         _parent = parent;
@@ -105,12 +106,14 @@ public class NearTargetAttack : FSM.IState
 
     public void Exit() { }
 
-    public async void Update()
+    public void Update()
     {
-        if (CheckAround(_parent.opponentLayer))
+        t -= Time.deltaTime;
+
+        if (t <= 0 && CheckAround(_parent.opponentLayer))
         {
             Attack();
-            await Task.Delay((int)(_stats.AttackInterval * 1000));
+            t = _stats.AttackInterval;
         }
     }
 
