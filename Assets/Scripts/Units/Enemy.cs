@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Enemy : UnitBase
 {
-    private UnitMoveLogicBase moveLogic = new EnemyMoveLogic();
-    protected override UnitMoveLogicBase MoveLogic => moveLogic;
 }
 
 public class EnemyMoveLogic : UnitMoveLogicBase

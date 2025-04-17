@@ -15,8 +15,6 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
     protected Collider[] _hits = new Collider[1];
     protected EntityObserver observer;
 
-    protected abstract UnitMoveLogicBase MoveLogic { get; }
-
     public UnitStats Stats { get { return stats; } }
 
     public Health Health => health;
@@ -30,18 +28,12 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
 
         observer = new EntityObserver(stats.name);
         observer.Register();
-        MoveLogic.Init(this);
     }
 
     public void Die()
     {
         observer.Remove();
         StopAllCoroutines();
-    }
-
-    private void Start()
-    {
-        MoveLogic.Start();
     }
 
     private void Update()
