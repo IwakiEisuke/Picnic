@@ -54,4 +54,9 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
             Gizmos.DrawWireSphere(transform.position, stats.AttackRadius);
         }
     }
+
+    private void OnDestroy()
+    {
+        health.OnDestroyEvent?.Invoke();
+    }
 }
