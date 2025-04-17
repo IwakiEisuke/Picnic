@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : UnitBase
 {
@@ -11,7 +12,7 @@ public class Enemy : UnitBase
             new(
                 new()
                 {
-                    { new NearTargetMove(this), new(){ new FSM.Transition(1, () => false) } },
+                    { new MoveToOrigin(this), new(){ new FSM.Transition(1, () => false) } },
                 }
             );
 
@@ -28,6 +29,23 @@ public class Enemy : UnitBase
     {
         movementFSM.Update();
         attackFSM.Update();
+    }
+}
+
+public class MoveToOrigin : FSM.IState
+{
+    NavMeshAgent _agent;
+
+    public MoveToOrigin(UnitBase target) { _agent = target.GetComponent<NavMeshAgent>(); }
+
+    public void Enter() { }
+
+    public void Exit() { }
+
+    public void Update()
+    {
+        _agent.stoppingDistance = 0;
+        _agent.SetDestination(Vector3.zero);
     }
 }
 
