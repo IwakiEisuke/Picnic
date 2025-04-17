@@ -18,13 +18,18 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
 
     public Health Health => health;
 
-    private void Awake()
+    protected void Awake()
+    {
+        InitializeUnitBase();
+    }
+
+    protected void InitializeUnitBase()
     {
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = Stats.Speed; 
         health.Init(transform);
         health.OnDied.AddListener(Die);
-
         observer = new EntityObserver(stats.name);
         observer.Register();
     }
@@ -33,11 +38,6 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
     {
         observer.Remove();
         StopAllCoroutines();
-    }
-
-    private void Update()
-    {
-        _agent.speed = stats.Speed;
     }
 
     public void TakeDamage(UnitStats other)
