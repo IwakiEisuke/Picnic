@@ -5,7 +5,8 @@ public class Enemy : UnitBase
 {
     public FSM movementFSM;
     public FSM attackFSM;
-    public void Awake()
+
+    private void Start()
     {
         movementFSM =
             new(
