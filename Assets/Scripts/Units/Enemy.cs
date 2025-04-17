@@ -34,7 +34,7 @@ public class Enemy : UnitBase
 
 public class MoveToOrigin : FSM.IState
 {
-    NavMeshAgent _agent;
+    readonly NavMeshAgent _agent;
 
     public MoveToOrigin(UnitBase target) { _agent = target.GetComponent<NavMeshAgent>(); }
 
