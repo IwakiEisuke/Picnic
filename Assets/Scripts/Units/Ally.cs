@@ -90,7 +90,7 @@ public class NearTargetAttack : FSM.IState
     readonly UnitBase _parent;
     readonly UnitStats _stats;
     readonly NavMeshAgent _agent;
-    readonly Collider[] _hits;
+    readonly Collider[] _hits = new Collider[1];
 
     float t;
 
