@@ -11,13 +11,13 @@ public class FSM
     public FSM(Dictionary<IState, List<Transition>> states, int initStateIndex = 0)
     {
         _states = states;
-        currentState = _states.ElementAt(initStateIndex).Key;
+        Next(initStateIndex);
     }
 
-    public void Next(IState newState)
+    public void Next(int stateIndex)
     {
         currentState?.Exit();
-        currentState = newState;
+        currentState = _states.ElementAt(stateIndex).Key;
         currentState.Enter();
     }
 
@@ -27,9 +27,7 @@ public class FSM
         {
             if (transition.condition.Invoke())
             {
-                currentState.Exit();
-                currentState = _states.ElementAt(transition.to).Key;
-                currentState.Enter();
+                Next(transition.to);
             }
         }
 
