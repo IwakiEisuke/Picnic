@@ -25,8 +25,10 @@ public class AllyManager : MonoBehaviour
             if (generateStats.Target.isSortie && generateStats.outside < generateStats.exists)
             {
                 var newUnitObj = GameObject.Instantiate(generateStats.Prefab);
+
                 newUnitObj.GetComponent<IHealth>().Health.OnDied.AddListener(() => generateStats.exists -= 1);
-                newUnitObj.GetComponent<IHealth>().Health.OnDestroyEvent += () => generateStats.outside -= 1;
+                newUnitObj.GetComponent<IUnit>().Destroyed += () => generateStats.outside -= 1;
+
                 generateStats.outside += 1;
                 unitInstances[newUnitObj] = generateStats;
             }

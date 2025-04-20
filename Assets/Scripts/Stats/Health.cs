@@ -9,7 +9,6 @@ public class Health : IDamageable
     [SerializeField] GameObject dieObj;
 
     public UnityEvent OnDied;
-    public Action OnDestroyEvent;
 
     int _currentHealth;
     Transform _parent;

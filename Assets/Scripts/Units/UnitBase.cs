@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
+public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
 {
     [SerializeField] protected UnitStats stats;
     [SerializeField] protected Health health;
@@ -17,6 +18,8 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
     public UnitStats Stats { get { return stats; } }
 
     public Health Health => health;
+
+    public event Action Destroyed;
 
     protected void Awake()
     {
@@ -57,6 +60,12 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth
 
     private void OnDestroy()
     {
-        health.OnDestroyEvent?.Invoke();
+        Destroyed?.Invoke();
     }
+}
+
+
+public interface IUnit
+{
+    public event Action Destroyed;
 }
