@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public class AllyManager : MonoBehaviour
         {
             units[i].Init();
             units[i].Target.Init();
-            StartCoroutine(Generate(units[i]));
+            StartCoroutine(units[i].Generate());
         }
     }
 
@@ -24,26 +23,13 @@ public class AllyManager : MonoBehaviour
         {
             if (generateStats.Target.isSortie && generateStats.outside < generateStats.exists)
             {
-                var newUnitObj = GameObject.Instantiate(generateStats.Prefab);
+                var newUnitObj = Instantiate(generateStats.Prefab);
 
                 newUnitObj.GetComponent<IHealth>().Health.OnDied.AddListener(() => generateStats.exists -= 1);
                 newUnitObj.GetComponent<IUnit>().Destroyed += () => generateStats.outside -= 1;
 
                 generateStats.outside += 1;
                 unitInstances[newUnitObj] = generateStats;
-            }
-        }
-    }
-
-    private IEnumerator Generate(UnitGenerateStats unit)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(unit.TimeToGenerate);
-
-            if (unit.exists < unit.MaxCount)
-            {
-                unit.exists += 1;
             }
         }
     }
@@ -65,4 +51,22 @@ public class AllyManager : MonoBehaviour
             }
         }
     }
+}
+
+public class UnitGenerator
+{
+    UnitGenerateStats _unit;
+    Coroutine _generate;
+
+    public UnitGenerator(UnitGenerateStats unit)
+    {
+        _unit = unit;
+    }
+
+    public void Start()
+    {
+
+    }
+
+
 }

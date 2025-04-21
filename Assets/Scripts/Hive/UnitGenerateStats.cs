@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -21,4 +22,17 @@ public class UnitGenerateStats : ScriptableObject
     public GameObject Prefab { get { return prefab; } }
     public int MaxCount { get { return maxCount; } }
     public float TimeToGenerate { get { return timeToGenerate; } }
+
+    public IEnumerator Generate()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(timeToGenerate);
+
+            if (exists < maxCount)
+            {
+                exists += 1;
+            }
+        }
+    }
 }
