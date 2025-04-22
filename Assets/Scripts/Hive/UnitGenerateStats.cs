@@ -23,15 +23,28 @@ public class UnitGenerateStats : ScriptableObject
     public int MaxCount { get { return maxCount; } }
     public float TimeToGenerate { get { return timeToGenerate; } }
 
+    readonly Timer timer = new();
+    public float ProgressRatio => timer.ProgressRatio;
+
+    bool generate;
+
     public IEnumerator Generate()
     {
+        timer.Set(timeToGenerate);
+        timer.TimeUp += () => generate = true;
+
         while (true)
         {
-            yield return new WaitForSeconds(timeToGenerate);
+            yield return null;
 
-            if (exists < maxCount)
+            if (generate)
             {
-                exists += 1;
+                if (exists < maxCount)
+                {
+                    exists += 1;
+                    generate = false;
+                    timer.Set(timeToGenerate);
+                }
             }
         }
     }
