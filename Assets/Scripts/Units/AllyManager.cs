@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 味方ユニットの管理
+/// </summary>
 public class AllyManager : MonoBehaviour
 {
     [SerializeField] UnitGenerateStats[] units;
@@ -38,6 +41,9 @@ public class AllyManager : MonoBehaviour
     }
 }
 
+/// <summary>
+/// ユニットGameObjectの生成を管理するクラス
+/// </summary>
 public class UnitFactory
 {
     readonly public UnitGenerateStats generateStats;
@@ -71,6 +77,9 @@ public class UnitFactory
     }
 }
 
+/// <summary>
+/// ユニットの初期化と生産処理を行うクラス
+/// </summary>
 public class UnitGenerator
 {
     readonly MonoBehaviour _parent;
@@ -87,6 +96,9 @@ public class UnitGenerator
     }
 }
 
+/// <summary>
+/// 複数種類のユニット生産を管理するクラス
+/// </summary>
 public class UnitGenerateManager
 {
     readonly UnitGenerator[] _generators;
