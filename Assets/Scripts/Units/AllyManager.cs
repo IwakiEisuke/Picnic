@@ -7,14 +7,11 @@ public class AllyManager : MonoBehaviour
 
     readonly Dictionary<GameObject, UnitGenerateStats> unitInstances = new();
 
+    UnitGenerateManager generateManager;
+
     private void Start()
     {
-        for (int i = 0; i < units.Length; i++)
-        {
-            units[i].Init();
-            units[i].Target.Init();
-            StartCoroutine(units[i].Generate());
-        }
+        generateManager = new UnitGenerateManager(this, units);
     }
 
     private void Update()
@@ -55,18 +52,31 @@ public class AllyManager : MonoBehaviour
 
 public class UnitGenerator
 {
+    MonoBehaviour _parent;
     UnitGenerateStats _unit;
     Coroutine _generate;
 
-    public UnitGenerator(UnitGenerateStats unit)
+    public UnitGenerator(MonoBehaviour parent, UnitGenerateStats unit)
     {
         _unit = unit;
+        _unit.Init();
+        _unit.Target.Init();
+        _parent = parent;
+        _generate = _parent.StartCoroutine(unit.Generate());
     }
+}
 
-    public void Start()
+public class UnitGenerateManager
+{
+    UnitGenerator[] _units;
+
+    public UnitGenerateManager(MonoBehaviour parent, UnitGenerateStats[] units)
     {
+        _units = new UnitGenerator[_units.Length];
 
+        for (int i = 0; i < units.Length; i++)
+        {
+            _units[i] = new(parent, units[i]);
+        }
     }
-
-
 }
