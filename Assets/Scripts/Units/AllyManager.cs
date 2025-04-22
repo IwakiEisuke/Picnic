@@ -11,7 +11,7 @@ public class AllyManager : MonoBehaviour
 
     private void Start()
     {
-        generateManager = new UnitGenerateManager(this, units);
+        generateManager = new UnitGenerateManager(this, units, unitInstances);
     }
 
     private void Update()
@@ -91,12 +91,13 @@ public class UnitGenerateManager
 {
     readonly UnitGenerator[] _generators;
     readonly UnitFactory[] _factories;
-    readonly Dictionary<GameObject, UnitGenerateStats> _unitInstances = new();
+    readonly Dictionary<GameObject, UnitGenerateStats> _unitInstances;
 
-    public UnitGenerateManager(MonoBehaviour parent, UnitGenerateStats[] units)
+    public UnitGenerateManager(MonoBehaviour parent, UnitGenerateStats[] units, Dictionary<GameObject, UnitGenerateStats> unitInstances)
     {
         _generators = new UnitGenerator[units.Length];
         _factories = new UnitFactory[units.Length];
+        _unitInstances = unitInstances;
 
         for (int i = 0; i < units.Length; i++)
         {
