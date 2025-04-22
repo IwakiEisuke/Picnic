@@ -50,6 +50,37 @@ public class AllyManager : MonoBehaviour
     }
 }
 
+public class UnitFactory
+{
+    readonly UnitGenerateStats _generateStats;
+    readonly Transform _transform;
+
+    public UnitFactory(UnitGenerateStats generateStats, Transform transform)
+    {
+        _generateStats = generateStats;
+        _transform = transform;
+    }
+
+    public void Update()
+    {
+        if (_generateStats.Target.isSortie && _generateStats.outside < _generateStats.exists)
+        {
+            Produce(_generateStats, _transform);
+        }
+    }
+
+    public GameObject Produce(UnitGenerateStats generateStats, Transform transform)
+    {
+        var newUnitObj = Object.Instantiate(generateStats.Prefab, transform.position, transform.rotation);
+
+        newUnitObj.GetComponent<IHealth>().Health.OnDied.AddListener(() => generateStats.exists -= 1);
+        newUnitObj.GetComponent<IUnit>().Destroyed += () => generateStats.outside -= 1;
+
+        generateStats.outside += 1;
+        return newUnitObj;
+    }
+}
+
 public class UnitGenerator
 {
     MonoBehaviour _parent;
@@ -68,15 +99,18 @@ public class UnitGenerator
 
 public class UnitGenerateManager
 {
-    UnitGenerator[] _units;
+    UnitGenerator[] _generators;
+    UnitFactory[] _factories;
 
     public UnitGenerateManager(MonoBehaviour parent, UnitGenerateStats[] units)
     {
-        _units = new UnitGenerator[_units.Length];
+        _generators = new UnitGenerator[_generators.Length];
+        _factories = new UnitFactory[_factories.Length];
 
         for (int i = 0; i < units.Length; i++)
         {
-            _units[i] = new(parent, units[i]);
+            _generators[i] = new(parent, units[i]);
+            _factories[i] = new(units[i], parent.transform);
         }
     }
 }
