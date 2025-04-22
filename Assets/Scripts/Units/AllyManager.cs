@@ -16,19 +16,7 @@ public class AllyManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (var generateStats in units)
-        {
-            if (generateStats.Target.isSortie && generateStats.outside < generateStats.exists)
-            {
-                var newUnitObj = Instantiate(generateStats.Prefab);
-
-                newUnitObj.GetComponent<IHealth>().Health.OnDied.AddListener(() => generateStats.exists -= 1);
-                newUnitObj.GetComponent<IUnit>().Destroyed += () => generateStats.outside -= 1;
-
-                generateStats.outside += 1;
-                unitInstances[newUnitObj] = generateStats;
-            }
-        }
+        generateManager.Update();
     }
 
     public void ToggleSortie(int i)
@@ -52,21 +40,23 @@ public class AllyManager : MonoBehaviour
 
 public class UnitFactory
 {
-    readonly UnitGenerateStats _generateStats;
+    readonly public UnitGenerateStats generateStats;
     readonly Transform _transform;
 
     public UnitFactory(UnitGenerateStats generateStats, Transform transform)
     {
-        _generateStats = generateStats;
+        this.generateStats = generateStats;
         _transform = transform;
     }
 
-    public void Update()
+    public GameObject Update()
     {
-        if (_generateStats.Target.isSortie && _generateStats.outside < _generateStats.exists)
+        if (generateStats.Target.isSortie && generateStats.outside < generateStats.exists)
         {
-            Produce(_generateStats, _transform);
+            return Produce(generateStats, _transform);
         }
+
+        return null;
     }
 
     public GameObject Produce(UnitGenerateStats generateStats, Transform transform)
@@ -83,9 +73,9 @@ public class UnitFactory
 
 public class UnitGenerator
 {
-    MonoBehaviour _parent;
-    UnitGenerateStats _unit;
-    Coroutine _generate;
+    readonly MonoBehaviour _parent;
+    readonly UnitGenerateStats _unit;
+    readonly Coroutine _generate;
 
     public UnitGenerator(MonoBehaviour parent, UnitGenerateStats unit)
     {
@@ -99,18 +89,32 @@ public class UnitGenerator
 
 public class UnitGenerateManager
 {
-    UnitGenerator[] _generators;
-    UnitFactory[] _factories;
+    readonly UnitGenerator[] _generators;
+    readonly UnitFactory[] _factories;
+    readonly Dictionary<GameObject, UnitGenerateStats> _unitInstances = new();
 
     public UnitGenerateManager(MonoBehaviour parent, UnitGenerateStats[] units)
     {
-        _generators = new UnitGenerator[_generators.Length];
-        _factories = new UnitFactory[_factories.Length];
+        _generators = new UnitGenerator[units.Length];
+        _factories = new UnitFactory[units.Length];
 
         for (int i = 0; i < units.Length; i++)
         {
             _generators[i] = new(parent, units[i]);
             _factories[i] = new(units[i], parent.transform);
+        }
+    }
+
+    public void Update()
+    {
+        for (int i = 0; i < _factories.Length; i++)
+        {
+            var product = _factories[i].Update();
+
+            if (product)
+            {
+                _unitInstances.Add(product, _factories[i].generateStats);
+            }
         }
     }
 }
