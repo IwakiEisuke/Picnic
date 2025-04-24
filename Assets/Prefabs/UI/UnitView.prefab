@@ -331,19 +331,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3664593274875602677}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AllyManager, Assembly-CSharp
-        m_MethodName: ToggleSortie
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7072832077216085200
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +384,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 1d5ea3db0c085f948a8243e1bc14ddfe, type: 2}
+  allyManager: {fileID: 0}
+  buttonToggleSortie: {fileID: 5845954340404851294}
   generateBar: {fileID: 901681024006055274}
   countText: {fileID: 5171347438068876509}
 --- !u!1 &7994610468233159715

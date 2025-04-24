@@ -22,10 +22,11 @@ public class AllyManager : MonoBehaviour
         generateManager.Update();
     }
 
-    public void ToggleSortie(int i)
+    public void ToggleSortie(UnitGenerateStats stats)
     {
-        units[i].Target.isSortie = !units[i].Target.isSortie;
-        print($"{units[i].name} {units[i].Target.isSortie}");
+        var unit = stats.Target;
+        unit.isSortie = !unit.isSortie;
+        print($"{unit.name} {unit.isSortie}");
     }
 
     private void OnTriggerStay(Collider other)
