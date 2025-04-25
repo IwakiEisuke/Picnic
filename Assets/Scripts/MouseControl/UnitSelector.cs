@@ -203,7 +203,7 @@ public class MouseInputManager
         {
             //Debug.Log("drag complete");
             OnMouseUp?.Invoke();
-            if (!isDragging) OnClicked.Invoke();
+            if (!isDragging) OnClicked?.Invoke();
             isDragging = false;
         };
 
