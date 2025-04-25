@@ -5,72 +5,43 @@ using UnityEngine.UI;
 
 public class UnitSelector : MonoBehaviour
 {
+    [SerializeField] MouseInputManager mouseInputManager = new();
     [SerializeField] Image mouseDragArea;
     [SerializeField] GameObject selectMarker;
     [SerializeField] GameObject targetMarker;
     [SerializeField] float startDragDistance = 50;
     readonly List<Transform> targets = new();
     readonly List<GameObject> markers = new();
-
-    [SerializeField] bool isDragging;
-    Vector3 dragStartMousePos;
-    Vector3 dragEndMousePos;
-
-    Collider[] cols = new Collider[100];
+    readonly Collider[] cols = new Collider[100];
 
     Action gizmo;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        foreach (var marker in markers)
+        mouseInputManager.OnMouseUp += () =>
         {
-            Destroy(marker);
-        }
-
-        UpdateDragState();
-
-        UpdateSelectMarker();
-
-        foreach (var target in targets)
-        {
-            markers.Add(Instantiate(targetMarker, target.position, Quaternion.identity));
-        }
-    }
-
-    void UpdateDragState()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            InitDrag();
-        }
-
-        if (Input.GetMouseButton(0) && !isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
-        {
-            StartDrag();
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (!isDragging)
+            if (!mouseInputManager.IsDragging)
             {
                 TargetSelectAction();
             }
-            else
-            {
-                EndDrag();
-            }
-        }
-
-        if (isDragging)
-        {
-            Drag();
-        }
+        };
     }
 
-    void UpdateSelectMarker()
+    void Update()
     {
-        if (!isDragging && RaycastUnitOnMouse(out var selectHit))
+        mouseInputManager.Update();
+
+        if (mouseInputManager.IsDragging)
+        {
+            mouseDragArea.enabled = true;
+            Drag();
+        }
+        else
+        {
+            mouseDragArea.enabled = false;
+        }
+
+        if (mouseInputManager.IsDragging && RaycastUnitOnMouse(out var selectHit))
         {
             selectMarker.transform.position = selectHit.transform.position;
             selectMarker.SetActive(true);
@@ -78,6 +49,16 @@ public class UnitSelector : MonoBehaviour
         else
         {
             selectMarker.SetActive(false);
+        }
+
+        foreach (var marker in markers)
+        {
+            Destroy(marker);
+        }
+
+        foreach (var target in targets)
+        {
+            markers.Add(Instantiate(targetMarker, target.position, Quaternion.identity));
         }
     }
 
@@ -94,28 +75,12 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
-    void InitDrag()
-    {
-        dragStartMousePos = Input.mousePosition;
-    }
-
-    void StartDrag()
-    {
-        isDragging = true;
-        mouseDragArea.enabled = true;
-    }
-
-    void EndDrag()
-    {
-        isDragging = false;
-        mouseDragArea.enabled = false;
-    }
-
     void Drag()
     {
         targets.Clear();
 
-        dragEndMousePos = Input.mousePosition;
+        var dragStartMousePos = mouseInputManager.dragStartMousePos;
+        var dragEndMousePos = mouseInputManager.dragEndMousePos;
 
         var max = new Vector2(Mathf.Max(dragStartMousePos.x, dragEndMousePos.x), Mathf.Max(dragStartMousePos.y, dragEndMousePos.y));
         var min = new Vector2(Mathf.Min(dragStartMousePos.x, dragEndMousePos.x), Mathf.Min(dragStartMousePos.y, dragEndMousePos.y));
@@ -190,5 +155,43 @@ public class UnitSelector : MonoBehaviour
         gizmo?.Invoke();
 
         gizmo = null;
+    }
+}
+
+[Serializable]
+public class MouseInputManager
+{
+    bool isDragging;
+    public bool IsDragging => isDragging;
+    public event Action OnMouseDown;
+    public event Action OnMouseUp;
+
+    public float startDragDistance = 50;
+    [HideInInspector] public Vector3 dragStartMousePos;
+    [HideInInspector] public Vector3 dragEndMousePos;
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            dragStartMousePos = Input.mousePosition;
+            OnMouseDown.Invoke();
+        }
+
+        if (Input.GetMouseButton(0) && !isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
+        {
+            isDragging = true;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+            OnMouseUp.Invoke();
+        }
+
+        if (isDragging)
+        {
+            dragEndMousePos = Input.mousePosition;
+        }
     }
 }
