@@ -24,6 +24,13 @@ public class UnitSelector : MonoBehaviour
             {
                 TargetSelectAction();
             }
+
+            mouseDragArea.enabled = false;
+        };
+
+        mouseInputManager.OnStartDrag += () =>
+        {
+            mouseDragArea.enabled = true;
         };
     }
 
@@ -33,22 +40,17 @@ public class UnitSelector : MonoBehaviour
 
         if (mouseInputManager.IsDragging)
         {
-            mouseDragArea.enabled = true;
             Drag();
-        }
-        else
-        {
-            mouseDragArea.enabled = false;
-        }
 
-        if (mouseInputManager.IsDragging && RaycastUnitOnMouse(out var selectHit))
-        {
-            selectMarker.transform.position = selectHit.transform.position;
-            selectMarker.SetActive(true);
-        }
-        else
-        {
-            selectMarker.SetActive(false);
+            if (RaycastUnitOnMouse(out var selectHit))
+            {
+                selectMarker.transform.position = selectHit.transform.position;
+                selectMarker.SetActive(true);
+            }
+            else
+            {
+                selectMarker.SetActive(false);
+            }
         }
 
         foreach (var marker in markers)
@@ -165,6 +167,7 @@ public class MouseInputManager
     public bool IsDragging => isDragging;
     public event Action OnMouseDown;
     public event Action OnMouseUp;
+    public event Action OnStartDrag;
 
     public float startDragDistance = 50;
     [HideInInspector] public Vector3 dragStartMousePos;
@@ -181,6 +184,7 @@ public class MouseInputManager
         if (Input.GetMouseButton(0) && !isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
         {
             isDragging = true;
+            OnStartDrag.Invoke();
         }
 
         if (Input.GetMouseButtonUp(0))
