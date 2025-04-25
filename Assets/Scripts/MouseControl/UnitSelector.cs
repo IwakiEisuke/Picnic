@@ -71,7 +71,14 @@ public class UnitSelector : MonoBehaviour
         if (RaycastUnitOnMouse(out var targetHit))
         {
             var transform = targetHit.collider.transform;
-            if (!targets.Contains(transform)) targets.Add(transform);
+            if (targets.Contains(transform))
+            {
+                targets.Remove(transform);
+            }
+            else
+            {
+                targets.Add(transform);
+            }
         }
         else
         {
