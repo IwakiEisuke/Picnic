@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UnitSelector : MonoBehaviour
 {
-    [SerializeField] MouseInputManager mouseInputManager = new();
+    [SerializeField] MouseInputManager mouseInputManager;
     [SerializeField] Image mouseDragArea;
     [SerializeField] GameObject selectMarker;
     [SerializeField] GameObject targetMarker;
