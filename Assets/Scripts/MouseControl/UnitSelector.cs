@@ -167,6 +167,11 @@ public class UnitSelector : MonoBehaviour
 
         gizmo = null;
     }
+
+    private void OnDestroy()
+    {
+        mouseInputManager.OnDestroy();
+    }
 }
 
 [Serializable]
@@ -212,5 +217,13 @@ public class MouseInputManager
                 OnStartDrag?.Invoke();
             }
         };
+    }
+
+    public void OnDestroy()
+    {
+        OnMouseDown = null;
+        OnMouseUp = null;
+        OnStartDrag = null;
+        OnClicked = null;
     }
 }

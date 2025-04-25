@@ -640,8 +640,6 @@ MonoBehaviour:
     startDragDistance: 50
     dragStartMousePos: {x: 0, y: 0, z: 0}
     dragEndMousePos: {x: 0, y: 0, z: 0}
-    press: {fileID: -2537862187678993689, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-    mousePoint: {fileID: -5011445917115243859, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     mouseDrag: {fileID: -140473287319712642, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   mouseDragArea: {fileID: 1735765504}
   selectMarker: {fileID: 1727494471}
@@ -2130,7 +2128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735765503}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
