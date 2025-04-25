@@ -20,17 +20,17 @@ public class UnitSelector : MonoBehaviour
     {
         mouseInputManager.OnMouseUp += () =>
         {
-            if (!mouseInputManager.IsDragging)
-            {
-                SelectClicked();
-            }
-
             mouseDragArea.enabled = false;
         };
 
         mouseInputManager.OnStartDrag += () =>
         {
             mouseDragArea.enabled = true;
+        };
+
+        mouseInputManager.OnClicked += () =>
+        {
+            SelectClicked();
         };
     }
 
@@ -170,6 +170,7 @@ public class MouseInputManager
     public event Action OnMouseDown;
     public event Action OnMouseUp;
     public event Action OnStartDrag;
+    public event Action OnClicked;
 
     public float startDragDistance = 50;
     [HideInInspector] public Vector3 dragStartMousePos;
@@ -192,6 +193,7 @@ public class MouseInputManager
         if (Input.GetMouseButtonUp(0))
         {
             OnMouseUp?.Invoke();
+            if (!isDragging) OnClicked.Invoke();
             isDragging = false;
         }
 
