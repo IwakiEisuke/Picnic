@@ -636,11 +636,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fb873d30625e34b97b2d0a0e88d7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseInputManager:
+    startDragDistance: 50
+    dragStartMousePos: {x: 0, y: 0, z: 0}
+    dragEndMousePos: {x: 0, y: 0, z: 0}
+    press: {fileID: -2537862187678993689, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    mousePoint: {fileID: -5011445917115243859, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   mouseDragArea: {fileID: 1735765504}
   selectMarker: {fileID: 1727494471}
   targetMarker: {fileID: 5019107469011409379, guid: fc723cb0448d3d14994e34e19fca0ae1, type: 3}
-  startDragDistance: 50
-  isDragging: 0
 --- !u!4 &197797849
 Transform:
   m_ObjectHideFlags: 0

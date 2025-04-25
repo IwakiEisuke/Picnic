@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UnitSelector : MonoBehaviour
@@ -9,7 +10,6 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] Image mouseDragArea;
     [SerializeField] GameObject selectMarker;
     [SerializeField] GameObject targetMarker;
-    [SerializeField] float startDragDistance = 50;
     readonly List<Transform> targets = new();
     readonly List<GameObject> markers = new();
     readonly Collider[] cols = new Collider[100];
@@ -32,12 +32,12 @@ public class UnitSelector : MonoBehaviour
         {
             SelectClicked();
         };
+
+        mouseInputManager.Init();
     }
 
     void Update()
     {
-        mouseInputManager.Update();
-
         if (mouseInputManager.IsDragging)
         {
             Drag();
@@ -183,30 +183,43 @@ public class MouseInputManager
     [HideInInspector] public Vector3 dragStartMousePos;
     [HideInInspector] public Vector3 dragEndMousePos;
 
-    public void Update()
+    [SerializeField] InputActionReference press;
+    [SerializeField] InputActionReference mousePoint;
+
+    bool isPressed;
+
+    public void Init()
     {
-        if (Input.GetMouseButtonDown(0))
+        press.action.started += (context) =>
         {
-            dragStartMousePos = Input.mousePosition;
+            Debug.Log("onMouseDown");
+            isPressed = true;
+            dragStartMousePos = mousePoint.action.ReadValue<Vector2>();
             OnMouseDown?.Invoke();
-        }
+        };
 
-        if (Input.GetMouseButton(0) && !isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
+        press.action.canceled += (context) =>
         {
-            isDragging = true;
-            OnStartDrag?.Invoke();
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
+            Debug.Log("onMouseRelease");
             OnMouseUp?.Invoke();
             if (!isDragging) OnClicked.Invoke();
             isDragging = false;
-        }
+            isPressed = false;
+        };
 
-        if (isDragging)
+        mousePoint.action.performed += (context) =>
         {
-            dragEndMousePos = Input.mousePosition;
-        }
+            if (isPressed)
+            {
+                Debug.Log("onMousePress");
+                if (!isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
+                {
+                    isDragging = true;
+                    OnStartDrag?.Invoke();
+                }
+
+                dragEndMousePos = context.ReadValue<Vector2>();
+            }
+        };
     }
 }
