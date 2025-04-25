@@ -22,7 +22,7 @@ public class UnitSelector : MonoBehaviour
         {
             if (!mouseInputManager.IsDragging)
             {
-                TargetSelectAction();
+                SelectClicked();
             }
 
             mouseDragArea.enabled = false;
@@ -66,7 +66,7 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
-    void TargetSelectAction()
+    void SelectClicked()
     {
         if (RaycastUnitOnMouse(out var targetHit))
         {
@@ -77,6 +77,12 @@ public class UnitSelector : MonoBehaviour
         {
             targets.Clear();
         }
+    }
+
+    bool RaycastUnitOnMouse(out RaycastHit hit)
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        return (Physics.Raycast(ray, out hit, float.MaxValue) && (hit.transform.CompareTag("Ally") || hit.transform.CompareTag("Enemy")));
     }
 
     void Drag()
@@ -135,23 +141,17 @@ public class UnitSelector : MonoBehaviour
                 }
             }
         }
-    }
 
-    bool CheckUnitInArea(Collider collider)
-    {
-        if (collider.CompareTag("Ally") || collider.CompareTag("Enemy"))
+        bool CheckUnitInArea(Collider collider)
         {
-            var bounds = collider.bounds;
-            var planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-            return GeometryUtility.TestPlanesAABB(planes, bounds);
+            if (collider.CompareTag("Ally") || collider.CompareTag("Enemy"))
+            {
+                var bounds = collider.bounds;
+                var planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+                return GeometryUtility.TestPlanesAABB(planes, bounds);
+            }
+            return false;
         }
-        return false;
-    }
-
-    bool RaycastUnitOnMouse(out RaycastHit hit)
-    {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        return (Physics.Raycast(ray, out hit, float.MaxValue) && (hit.transform.CompareTag("Ally") || hit.transform.CompareTag("Enemy")));
     }
 
     private void OnDrawGizmos()
