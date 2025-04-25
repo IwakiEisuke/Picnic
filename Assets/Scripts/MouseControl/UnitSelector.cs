@@ -41,7 +41,9 @@ public class UnitSelector : MonoBehaviour
         if (mouseInputManager.IsDragging)
         {
             Drag();
-
+        }
+        else
+        {
             if (RaycastUnitOnMouse(out var selectHit))
             {
                 selectMarker.transform.position = selectHit.transform.position;
@@ -189,8 +191,8 @@ public class MouseInputManager
 
         if (Input.GetMouseButtonUp(0))
         {
-            isDragging = false;
             OnMouseUp?.Invoke();
+            isDragging = false;
         }
 
         if (isDragging)
