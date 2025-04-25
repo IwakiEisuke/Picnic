@@ -178,19 +178,19 @@ public class MouseInputManager
         if (Input.GetMouseButtonDown(0))
         {
             dragStartMousePos = Input.mousePosition;
-            OnMouseDown.Invoke();
+            OnMouseDown?.Invoke();
         }
 
         if (Input.GetMouseButton(0) && !isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
         {
             isDragging = true;
-            OnStartDrag.Invoke();
+            OnStartDrag?.Invoke();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
-            OnMouseUp.Invoke();
+            OnMouseUp?.Invoke();
         }
 
         if (isDragging)
