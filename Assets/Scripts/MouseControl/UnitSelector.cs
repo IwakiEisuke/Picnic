@@ -183,42 +183,33 @@ public class MouseInputManager
     [HideInInspector] public Vector3 dragStartMousePos;
     [HideInInspector] public Vector3 dragEndMousePos;
 
-    [SerializeField] InputActionReference press;
-    [SerializeField] InputActionReference mousePoint;
-
-    bool isPressed;
+    [SerializeField] InputActionReference mouseDrag;
 
     public void Init()
     {
-        press.action.started += (context) =>
+        mouseDrag.action.started += (context) =>
         {
-            Debug.Log("onMouseDown");
-            isPressed = true;
-            dragStartMousePos = mousePoint.action.ReadValue<Vector2>();
+            //Debug.Log("drag start");
+            dragStartMousePos = context.ReadValue<Vector2>();
             OnMouseDown?.Invoke();
         };
 
-        press.action.canceled += (context) =>
+        mouseDrag.action.canceled += (context) =>
         {
-            Debug.Log("onMouseRelease");
+            //Debug.Log("drag complete");
             OnMouseUp?.Invoke();
             if (!isDragging) OnClicked.Invoke();
             isDragging = false;
-            isPressed = false;
         };
 
-        mousePoint.action.performed += (context) =>
+        mouseDrag.action.performed += (context) =>
         {
-            if (isPressed)
+            //Debug.Log("dragging");
+            dragEndMousePos = context.ReadValue<Vector2>();
+            if (!isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
             {
-                Debug.Log("onMousePress");
-                if (!isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
-                {
-                    isDragging = true;
-                    OnStartDrag?.Invoke();
-                }
-
-                dragEndMousePos = context.ReadValue<Vector2>();
+                isDragging = true;
+                OnStartDrag?.Invoke();
             }
         };
     }
