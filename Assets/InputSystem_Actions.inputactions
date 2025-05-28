@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MouseCtrl_Press",
+                    "type": "Button",
+                    "id": "0c4fa6d4-045c-449b-9b39-e6b6ab6ce6da",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -552,6 +561,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "fd1f22bf-83bc-4ddd-ad7a-e281a99aa717",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseCtrl_Press",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "cd096463-5416-47e8-b731-33cf35b5a796",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseCtrl_Press",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "b8b8950b-4d43-4330-8600-9c2d969c5f6d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseCtrl_Press",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

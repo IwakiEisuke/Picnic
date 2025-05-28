@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,6 +18,8 @@ public class UnitSelector : MonoBehaviour
 
     private void Start()
     {
+        mouseDragArea.enabled = false;
+
         mouseInputManager.OnMouseUp += () =>
         {
             mouseDragArea.enabled = false;
@@ -174,6 +176,10 @@ public class UnitSelector : MonoBehaviour
     }
 }
 
+
+/// <summary>
+/// マウス入力の管理
+/// </summary>
 [Serializable]
 public class MouseInputManager
 {
@@ -189,6 +195,7 @@ public class MouseInputManager
     [HideInInspector] public Vector3 dragEndMousePos;
 
     [SerializeField] InputActionReference mouseDrag;
+    [SerializeField] InputActionReference mousePressCtrl;
 
     public void Init()
     {
@@ -217,6 +224,10 @@ public class MouseInputManager
                 OnStartDrag?.Invoke();
             }
         };
+
+        mousePressCtrl.action.started += (context) => Debug.Log("Click + Ctrl started"); 
+        mousePressCtrl.action.performed += (context) => Debug.Log("Click + Ctrl performed");
+        mousePressCtrl.action.canceled += (context) => Debug.Log("Click + Ctrl canceled");
     }
 
     public void OnDestroy()
