@@ -19,19 +19,19 @@ public class MouseInputManager
     [HideInInspector] public Vector3 dragStartMousePos;
     [HideInInspector] public Vector3 dragEndMousePos;
 
-    [SerializeField] InputActionReference mouseDrag;
+    [SerializeField] InputActionReference mousePress;
     [SerializeField] InputActionReference mousePressCtrl;
 
     public void Init()
     {
-        mouseDrag.action.started += (context) =>
+        mousePress.action.started += (context) =>
         {
             //Debug.Log("drag start");
-            dragStartMousePos = context.ReadValue<Vector2>();
+            dragStartMousePos = Mouse.current.position.value;
             OnMouseDown?.Invoke();
         };
 
-        mouseDrag.action.canceled += (context) =>
+        mousePress.action.canceled += (context) =>
         {
             //Debug.Log("drag complete");
             OnMouseUp?.Invoke();
@@ -39,16 +39,20 @@ public class MouseInputManager
             isDragging = false;
         };
 
-        mouseDrag.action.performed += (context) =>
+        mousePress.action.performed += (context) =>
         {
             //Debug.Log("dragging");
-            dragEndMousePos = context.ReadValue<Vector2>();
+            dragEndMousePos = Mouse.current.position.value;
             if (!isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
             {
                 isDragging = true;
                 OnStartDrag?.Invoke();
             }
         };
+
+        mousePress.action.started += (context) => Debug.Log("Click started");
+        mousePress.action.performed += (context) => Debug.Log("Click performed");
+        mousePress.action.canceled += (context) => Debug.Log("Click canceled");
 
         mousePressCtrl.action.started += (context) => Debug.Log("Click + Ctrl started");
         mousePressCtrl.action.performed += (context) => Debug.Log("Click + Ctrl performed");

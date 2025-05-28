@@ -510,15 +510,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "bede7275-170a-4911-802f-4b2becfb53c0",
+                    "name": "Disallow One Modifier",
+                    "id": "b4ccc452-2c42-45b0-a485-ac6ae2fe2153",
+                    "path": "DisallowOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePress",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "6b02e199-0c26-448a-8f4b-ae9a8425d6a2",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePress",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "b9553a6c-1a02-4a49-ad7e-0df586ac2065",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MousePress",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
