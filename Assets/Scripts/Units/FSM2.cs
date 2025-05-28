@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 
 /// <summary>
-/// ‘JˆÚ‚ğŠO•”‚©‚ç‚Ì‚İˆµ‚¤FSM
+/// é·ç§»ã‚’å¤–éƒ¨ã‹ã‚‰ã®ã¿æ‰±ã†FSM
 /// </summary>
 public class FSM2
 {

@@ -1,9 +1,9 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// ‘JˆÚ‚²‚Æ‘g‚İ‚ñ‚¾FSM
+/// é·ç§»ã”ã¨çµ„ã¿è¾¼ã‚“ã FSM
 /// </summary>
 public class FSM
 {
