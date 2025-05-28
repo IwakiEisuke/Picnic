@@ -1,19 +1,25 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class Ally : UnitBase
 {
+    private NavMeshAgent agent;
+
     public FSM movementFSM;
     public FSM attackFSM;
 
     private void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+
         movementFSM =
             new(
                 new()
                 {
-                    { new NearTargetMove(this), new(){ new FSM.Transition(1, () => false) } },
+                    { new NearTargetMove(this), new(){ new FSM.Transition(1, () => Mouse.current.rightButton.IsPressed()) } },
+                    { new GoToClickPos(this), new(){ new FSM.Transition(0, () => !agent.pathPending && agent.remainingDistance < 0.1f) } },
                 }
             );
 
@@ -128,5 +134,39 @@ public class NearTargetAttack : FSM.IState
     private bool CheckAround(LayerMask layerMask)
     {
         return Physics.OverlapSphereNonAlloc(_agent.transform.position, _stats.AttackRadius, _hits, layerMask.value) > 0;
+    }
+}
+
+
+public class GoToClickPos : FSM.IState
+{
+    readonly UnitBase _parent;
+    readonly UnitStats _stats;
+    readonly NavMeshAgent _agent;
+
+    public GoToClickPos(UnitBase parent)
+    {
+        _parent = parent;
+        _stats = parent.Stats;
+        _agent = parent.GetComponent<NavMeshAgent>();
+    }
+
+    public void Enter()
+    {
+        var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out var hit))
+        {
+            _agent.SetDestination(hit.point);
+        }
+    }
+
+    public void Exit()
+    {
+        
+    }
+
+    public void Update()
+    {
+        
     }
 }
