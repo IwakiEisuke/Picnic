@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// ‘JˆÚ‚²‚Æ‘g‚İ‚ñ‚¾FSM
+/// </summary>
 public class FSM
 {
     private Dictionary<IState, List<Transition>> _states = new();
