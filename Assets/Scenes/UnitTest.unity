@@ -488,7 +488,7 @@ MonoBehaviour:
     startDragDistance: 50
     dragStartMousePos: {x: 0, y: 0, z: 0}
     dragEndMousePos: {x: 0, y: 0, z: 0}
-    mouseDrag: {fileID: -140473287319712642, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    mousePress: {fileID: -140473287319712642, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     mousePressCtrl: {fileID: 424391459185595285, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   mouseDragArea: {fileID: 1498922302}
   selectMarker: {fileID: 2099268639}
