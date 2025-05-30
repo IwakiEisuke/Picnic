@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UnitSelector : MonoBehaviour
@@ -13,6 +13,8 @@ public class UnitSelector : MonoBehaviour
     readonly List<Transform> targets = new();
     readonly List<GameObject> markers = new();
     readonly Collider[] cols = new Collider[100];
+
+    public List<Ally> SelectingAllies => targets.Select(x => x.GetComponent<Ally>()).ToList();
 
     Action gizmo;
 
@@ -70,11 +72,14 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// クリックしたユニットを選択する。
+    /// </summary>
     void SelectClicked()
     {
         if (RaycastUnitOnMouse(out var targetHit))
         {
-            var transform = targetHit.collider.transform;
+            var transform = targetHit.rigidbody.transform;
             if (targets.Contains(transform))
             {
                 targets.Remove(transform);
@@ -96,6 +101,7 @@ public class UnitSelector : MonoBehaviour
         return (Physics.Raycast(ray, out hit, float.MaxValue) && (hit.transform.CompareTag("Ally") || hit.transform.CompareTag("Enemy")));
     }
 
+    // ドラッグしている間、選択範囲を表示し、範囲内のユニットを選択する。
     void Drag()
     {
         targets.Clear();
@@ -144,7 +150,7 @@ public class UnitSelector : MonoBehaviour
                 if (CheckUnitInArea(col))
                 {
                     Debug.DrawLine(col.transform.position, col.transform.position + Vector3.up * 10, Color.green);
-                    targets.Add(col.transform);
+                    targets.Add(col.attachedRigidbody.transform);
                 }
                 else
                 {
@@ -153,7 +159,10 @@ public class UnitSelector : MonoBehaviour
             }
         }
 
-        bool CheckUnitInArea(Collider collider)
+        /// <summary>
+        /// 視錐台内に入っているか
+        /// </summary>
+        static bool CheckUnitInArea(Collider collider)
         {
             if (collider.CompareTag("Ally") || collider.CompareTag("Enemy"))
             {

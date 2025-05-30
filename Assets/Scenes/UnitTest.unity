@@ -465,6 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1035509788}
   - component: {fileID: 1035509787}
+  - component: {fileID: 1035509789}
   m_Layer: 0
   m_Name: MouseControls
   m_TagString: Untagged
@@ -494,6 +495,7 @@ MonoBehaviour:
   mouseDragArea: {fileID: 1498922302}
   selectMarker: {fileID: 2099268639}
   targetMarker: {fileID: 5019107469011409379, guid: fc723cb0448d3d14994e34e19fca0ae1, type: 3}
+  selectedAllies: []
 --- !u!4 &1035509788
 Transform:
   m_ObjectHideFlags: 0
@@ -510,6 +512,19 @@ Transform:
   - {fileID: 1080597694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1035509789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035509786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7502f9f35390444fab7e8240e77106c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitMove: {fileID: 4206743191390667268, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &1072336186
 GameObject:
   m_ObjectHideFlags: 0
