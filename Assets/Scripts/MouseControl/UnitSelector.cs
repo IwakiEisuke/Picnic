@@ -40,6 +40,8 @@ public class UnitSelector : MonoBehaviour
 
     void Update()
     {
+        mouseInputManager.Update();
+
         if (mouseInputManager.IsDragging)
         {
             Drag();

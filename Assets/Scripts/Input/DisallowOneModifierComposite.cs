@@ -34,7 +34,7 @@ public class DisallowOneModifierComposite : InputBindingComposite<float>
         if (!context.ReadValueAsButton(modifier))
             return context.ReadValue<float>(button);
 
-        return default;
+        return 0f;
     }
 
     /// <summary>

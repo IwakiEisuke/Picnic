@@ -105,15 +105,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MouseDrag",
-                    "type": "Value",
-                    "id": "7e90aa34-be85-4bd6-8f66-eb0e135d9762",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "MouseCtrl_Press",
                     "type": "Button",
                     "id": "0c4fa6d4-045c-449b-9b39-e6b6ab6ce6da",
@@ -510,39 +501,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Disallow One Modifier",
-                    "id": "b4ccc452-2c42-45b0-a485-ac6ae2fe2153",
-                    "path": "DisallowOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MousePress",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "6b02e199-0c26-448a-8f4b-ae9a8425d6a2",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MousePress",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "b9553a6c-1a02-4a49-ad7e-0df586ac2065",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MousePress",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "802f0e83-e20c-466a-a888-5044aaec9787",
                     "path": "<Mouse>/{Point}",
@@ -555,41 +513,8 @@
                 },
                 {
                     "name": "One Modifier",
-                    "id": "58c80421-387c-4c2c-98c4-86fa528e2493",
+                    "id": "d1437bb9-deb2-4126-96d9-9ded18967833",
                     "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseDrag",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "564a9647-f43d-45c0-820f-1562dd102366",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseDrag",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "e4a70427-5e38-44cf-a792-39c08489ab19",
-                    "path": "<Mouse>/{Point}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseDrag",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Latch Hold",
-                    "id": "d8c5ffad-4ff8-42fe-a55e-34897c745e74",
-                    "path": "LatchHold",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -598,8 +523,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Modifier",
-                    "id": "1fefffec-247a-44cb-827e-e9fb9e6ddda2",
+                    "name": "modifier",
+                    "id": "960bcdf7-6554-48da-bed4-98dfa239ab0e",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
@@ -609,8 +534,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Button",
-                    "id": "ab7a10d5-78d9-4eb9-ae77-289c4dad2aa6",
+                    "name": "binding",
+                    "id": "29404cf2-1368-4d20-b54d-68ce508d83eb",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -618,6 +543,17 @@
                     "action": "MouseCtrl_Press",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "895bdc86-36e0-4e2f-8c7a-f736661ed465",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

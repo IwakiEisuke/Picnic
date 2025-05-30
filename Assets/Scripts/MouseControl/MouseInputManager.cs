@@ -21,13 +21,14 @@ public class MouseInputManager
 
     [SerializeField] InputActionReference mousePress;
     [SerializeField] InputActionReference mousePressCtrl;
+    [SerializeField] InputActionReference mousePoint;
 
     public void Init()
     {
         mousePress.action.started += (context) =>
         {
             //Debug.Log("drag start");
-            dragStartMousePos = Mouse.current.position.value;
+            dragStartMousePos = mousePoint.action.ReadValue<Vector2>();
             OnMouseDown?.Invoke();
         };
 
@@ -39,24 +40,26 @@ public class MouseInputManager
             isDragging = false;
         };
 
-        mousePress.action.performed += (context) =>
+        mousePress.action.started += (context) => Debug.Log("Click started");
+        mousePress.action.performed += (context) => Debug.Log("Click performed");
+        mousePress.action.canceled += (context) => Debug.Log("Click canceled");
+
+        mousePressCtrl.action.started += (context) => Debug.Log("Click + Ctrl started");
+        mousePressCtrl.action.performed += (context) => Debug.Log("Click + Ctrl performed");
+        mousePressCtrl.action.canceled += (context) => Debug.Log("Click + Ctrl canceled");
+    }
+
+    public void Update()
+    {
+        if (mousePress.action.IsPressed())
         {
-            //Debug.Log("dragging");
-            dragEndMousePos = Mouse.current.position.value;
+            dragEndMousePos = mousePoint.action.ReadValue<Vector2>();
             if (!isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
             {
                 isDragging = true;
                 OnStartDrag?.Invoke();
             }
-        };
-
-        //mousePress.action.started += (context) => Debug.Log("Click started");
-        //mousePress.action.performed += (context) => Debug.Log("Click performed");
-        //mousePress.action.canceled += (context) => Debug.Log("Click canceled");
-
-        mousePressCtrl.action.started += (context) => Debug.Log("Click + Ctrl started");
-        mousePressCtrl.action.performed += (context) => Debug.Log("Click + Ctrl performed");
-        mousePressCtrl.action.canceled += (context) => Debug.Log("Click + Ctrl canceled");
+        }
     }
 
     public void OnDestroy()
@@ -65,5 +68,9 @@ public class MouseInputManager
         OnMouseUp = null;
         OnStartDrag = null;
         OnClicked = null;
+
+        mousePress.action.Reset();
+        mousePressCtrl.action.Reset();
+        mousePoint.action.Reset();
     }
 }
