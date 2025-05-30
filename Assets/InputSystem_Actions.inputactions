@@ -587,9 +587,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "One Modifier",
-                    "id": "fd1f22bf-83bc-4ddd-ad7a-e281a99aa717",
-                    "path": "OneModifier",
+                    "name": "Latch Hold",
+                    "id": "d8c5ffad-4ff8-42fe-a55e-34897c745e74",
+                    "path": "LatchHold",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -598,8 +598,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "modifier",
-                    "id": "cd096463-5416-47e8-b731-33cf35b5a796",
+                    "name": "Modifier",
+                    "id": "1fefffec-247a-44cb-827e-e9fb9e6ddda2",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
@@ -609,8 +609,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "binding",
-                    "id": "b8b8950b-4d43-4330-8600-9c2d969c5f6d",
+                    "name": "Button",
+                    "id": "ab7a10d5-78d9-4eb9-ae77-289c4dad2aa6",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",

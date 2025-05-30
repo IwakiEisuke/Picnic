@@ -50,9 +50,9 @@ public class MouseInputManager
             }
         };
 
-        mousePress.action.started += (context) => Debug.Log("Click started");
-        mousePress.action.performed += (context) => Debug.Log("Click performed");
-        mousePress.action.canceled += (context) => Debug.Log("Click canceled");
+        //mousePress.action.started += (context) => Debug.Log("Click started");
+        //mousePress.action.performed += (context) => Debug.Log("Click performed");
+        //mousePress.action.canceled += (context) => Debug.Log("Click canceled");
 
         mousePressCtrl.action.started += (context) => Debug.Log("Click + Ctrl started");
         mousePressCtrl.action.performed += (context) => Debug.Log("Click + Ctrl performed");
