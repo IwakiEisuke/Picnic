@@ -34,7 +34,7 @@ public class Ally : UnitBase
 
     private void Update()
     {
-        //movementFSM.Update();
+        movementFSM.Update();
         attackFSM.Update();
     }
 
