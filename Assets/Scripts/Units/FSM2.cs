@@ -8,9 +8,10 @@ public class FSM2
     private List<FSM.IState> _states = new();
     private FSM.IState _currentState;
 
-    public FSM2(List<FSM.IState> states)
+    public FSM2(List<FSM.IState> states, int initStateIndex = 0)
     {
         _states = states;
+        Next(initStateIndex);
     }
 
     public void Next(int stateIndex)
