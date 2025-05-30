@@ -13,6 +13,7 @@ public class LatchHoldComposite : InputBindingComposite<float>
     [InputControl(layout = "Button")]
     public int button;   // 任意キー
 
+    private bool isButtonOnlyPressed = false;
     private bool wasPressed = false;
 
     /// <summary>
@@ -34,8 +35,18 @@ public class LatchHoldComposite : InputBindingComposite<float>
         bool modPressed = context.ReadValueAsButton(modifier);
         bool btnPressed = context.ReadValueAsButton(button);
 
+        // buttonを押している間に後から modifierを押しても反応しないように
+        if (btnPressed && !modPressed)
+        {
+            isButtonOnlyPressed = true;
+        }
+        if (!btnPressed)
+        {
+            isButtonOnlyPressed = false;
+        }
+
         // 同時押ししたときに判定を開始
-        if (modPressed && modPressed && btnPressed)
+        if (modPressed && btnPressed && !isButtonOnlyPressed)
         {
             wasPressed = true;
             return 1f;
