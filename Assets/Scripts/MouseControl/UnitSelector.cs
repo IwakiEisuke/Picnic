@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder((int)ExecutionOrder.UnitSelector)]
 public class UnitSelector : MonoBehaviour
 {
     [SerializeField] MouseInputManager mouseInputManager;
@@ -16,6 +17,9 @@ public class UnitSelector : MonoBehaviour
 
     public List<Ally> SelectingAllies => targets.Select(x => x.GetComponent<Ally>()).ToList();
     public Transform Hovered { get; private set; }
+    public Transform ControlTarget { get; private set; }
+
+    public event Action OnSelectControlTarget;
 
     Action gizmo;
 
@@ -36,6 +40,12 @@ public class UnitSelector : MonoBehaviour
         mouseInputManager.OnClicked += () =>
         {
             SelectClicked();
+            ControlTarget = null;
+        };
+
+        mouseInputManager.OnRightClicked += () =>
+        {
+            SelectClickedForControl();
         };
 
         mouseInputManager.Init();
@@ -94,6 +104,22 @@ public class UnitSelector : MonoBehaviour
         else
         {
             targets.Clear();
+        }
+    }
+
+    /// <summary>
+    /// クリックしたユニットを選択する。
+    /// </summary>
+    void SelectClickedForControl()
+    {
+        if (RaycastUnitOnMouse(out var targetHit))
+        {
+            ControlTarget = targetHit.rigidbody.transform;
+            OnSelectControlTarget?.Invoke();
+        }
+        else
+        {
+            ControlTarget = null;
         }
     }
 

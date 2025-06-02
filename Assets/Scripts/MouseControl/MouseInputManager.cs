@@ -14,6 +14,7 @@ public class MouseInputManager
     public event Action OnMouseUp;
     public event Action OnStartDrag;
     public event Action OnClicked;
+    public event Action OnRightClicked;
 
     public float startDragDistance = 50;
     [HideInInspector] public Vector3 dragStartMousePos;
@@ -22,6 +23,7 @@ public class MouseInputManager
     [SerializeField] InputActionReference mousePress;
     [SerializeField] InputActionReference mousePressCtrl;
     [SerializeField] InputActionReference mousePoint;
+    [SerializeField] InputActionReference mouseRight;
 
     public void Init()
     {
@@ -38,6 +40,12 @@ public class MouseInputManager
             OnMouseUp?.Invoke();
             if (!isDragging) OnClicked?.Invoke();
             isDragging = false;
+        };
+
+        mouseRight.action.canceled += (context) =>
+        {
+            Debug.Log("right click");
+            OnRightClicked?.Invoke();
         };
 
         mousePress.action.started += (context) => Debug.Log("Click started");
@@ -72,5 +80,6 @@ public class MouseInputManager
         mousePress.action.Reset();
         mousePressCtrl.action.Reset();
         mousePoint.action.Reset();
+        mouseRight.action.Reset();
     }
 }

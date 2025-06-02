@@ -197,7 +197,7 @@ public class FollowTarget : FSM.IState
 
     public void Enter()
     {
-        _target = Object.FindAnyObjectByType<UnitSelector>().Hovered;
+        _target = Object.FindAnyObjectByType<UnitSelector>().ControlTarget;
     }
 
     public void Exit()

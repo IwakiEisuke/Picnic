@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// 選択したユニットの制御を行うクラス
 /// </summary>
+[DefaultExecutionOrder((int)ExecutionOrder.UnitController)]
 public class UnitController : MonoBehaviour
 {
     UnitSelector unitSelector;
@@ -23,10 +24,15 @@ public class UnitController : MonoBehaviour
 
     private void UnitSetState(Ally.State nextState)
     {
-        unitSelector.SelectingAllies.ForEach(ally =>
+        foreach (var ally in unitSelector.SelectingAllies)
         {
             ally.Next(nextState);
-        });
+        };
+    }
+
+    public void UnitSetState(int nextState)
+    {
+        UnitSetState((Ally.State)nextState);
     }
 
     private void OnDestroy()
