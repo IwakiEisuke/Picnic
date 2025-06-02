@@ -22,6 +22,8 @@ public class UnitSelector : MonoBehaviour
 
     public event Action OnSelectControlTarget;
 
+    bool isMouseHoveringUI;
+
     Action gizmo;
 
     private void Start()
@@ -40,7 +42,7 @@ public class UnitSelector : MonoBehaviour
 
         mouseInputManager.OnClicked += () =>
         {
-            if (!IsMouseHoveringUI())
+            if (!isMouseHoveringUI)
             {
                 ControlTarget = null;
 
@@ -73,6 +75,8 @@ public class UnitSelector : MonoBehaviour
     void Update()
     {
         mouseInputManager.Update();
+
+        isMouseHoveringUI = EventSystem.current.IsPointerOverGameObject();
 
         if (mouseInputManager.IsDragging)
         {
@@ -135,11 +139,6 @@ public class UnitSelector : MonoBehaviour
         {
             ControlTarget = null;
         }
-    }
-
-    bool IsMouseHoveringUI()
-    {
-        return EventSystem.current.IsPointerOverGameObject();
     }
 
     bool RaycastUnitOnMouse(out RaycastHit hit)
