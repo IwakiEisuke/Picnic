@@ -22,6 +22,7 @@ public class Ally : UnitBase
                     { State.MoveToClickPos, new GoToClickPos(this) },
                     { State.Follow, new FollowTarget(this) },
                     { State.Stop, new Stop(this) },
+                    { State.MoveToHive, new MoveToHive(this) },
                 }
             );
 
@@ -51,6 +52,7 @@ public class Ally : UnitBase
         MoveToClickPos,
         Follow,
         Stop,
+        MoveToHive,
     }
 }
 
@@ -231,5 +233,38 @@ public class Stop : FSM.IState
     public void Update()
     {
         // No action needed while stopped
+    }
+}
+
+public class MoveToHive : FSM.IState
+{
+    readonly UnitBase _parent;
+    public MoveToHive(UnitBase parent)
+    {
+        _parent = parent;
+    }
+
+    public void Enter()
+    {
+        var hive = GameObject.Find("Hive");
+        if (hive != null)
+        {
+            _parent.Agent.SetDestination(hive.transform.position);
+        }
+        else
+        {
+            Debug.LogWarning("Hive not found, setting destination to zero.");
+            _parent.Agent.SetDestination(Vector3.zero);
+        }
+    }
+
+    public void Exit()
+    {
+        
+    }
+
+    public void Update()
+    {
+        
     }
 }

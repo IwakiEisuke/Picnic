@@ -15,6 +15,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] InputActionReference unitFreeMove;
     [SerializeField] InputActionReference unitFollow;
     [SerializeField] InputActionReference unitStop;
+    [SerializeField] InputActionReference unitMoveToHive;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class UnitController : MonoBehaviour
         unitFreeMove.action.performed += _ => UnitSetState(Ally.State.MoveToClickPos);
         unitFollow.action.performed += _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); };
         unitStop.action.performed += _ => UnitSetState(Ally.State.Stop);
+        unitMoveToHive.action.performed += _ => UnitSetState(Ally.State.MoveToHive);
     }
 
     private void UnitSetState(Ally.State nextState)
