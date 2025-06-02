@@ -7,7 +7,7 @@ public class Ally : UnitBase
 {
     private NavMeshAgent agent;
 
-    public FSM2 movementFSM;
+    public FSM2<State> movementFSM;
     public FSM attackFSM;
 
     private void Start()
@@ -18,8 +18,8 @@ public class Ally : UnitBase
             new(
                 new()
                 {
-                    { new NearTargetMove(this) },
-                    { new GoToClickPos(this) },
+                    { State.MoveToNearestTarget, new NearTargetMove(this) },
+                    { State.MoveToClickPos, new GoToClickPos(this) },
                 }
             );
 
@@ -38,14 +38,16 @@ public class Ally : UnitBase
         attackFSM.Update();
     }
 
-    public void MoveToNearestTarget()
+    public void Next(State type)
     {
-        movementFSM.Next(0); // NearTargetMove state
+        movementFSM.Next(type);
     }
 
-    public void MoveToClickPos()
+    public enum State
     {
-        movementFSM.Next(1); // GoToClickPos state
+        MoveToNearestTarget,
+        MoveToClickPos,
+        Follow,
     }
 }
 
@@ -172,11 +174,11 @@ public class GoToClickPos : FSM.IState
 
     public void Exit()
     {
-        
+
     }
 
     public void Update()
     {
-        
+
     }
 }

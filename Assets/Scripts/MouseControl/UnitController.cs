@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -11,35 +10,29 @@ public class UnitController : MonoBehaviour
 
     [SerializeField] InputActionReference unitMove;
     [SerializeField] InputActionReference unitFreeMove;
+    [SerializeField] InputActionReference unitFollow;
 
     private void Start()
     {
         unitSelector = FindAnyObjectByType<UnitSelector>();
 
-        unitMove.action.performed += UnitMove;
-        unitFreeMove.action.performed += UnitFreeMove;
+        unitMove.action.performed += _ => UnitSetState(Ally.State.MoveToNearestTarget);
+        unitFreeMove.action.performed += _ => UnitSetState(Ally.State.MoveToClickPos);
+        unitFollow.action.performed += _ => UnitSetState(Ally.State.Follow);
     }
 
-    private void UnitFreeMove(InputAction.CallbackContext context)
+    private void UnitSetState(Ally.State nextState)
     {
         unitSelector.SelectingAllies.ForEach(ally =>
         {
-            ally.MoveToNearestTarget();
+            ally.Next(nextState);
         });
     }
-
-    private void UnitMove(InputAction.CallbackContext context)
-    {
-        unitSelector.SelectingAllies.ForEach(ally =>
-        {
-            ally.MoveToClickPos();
-        });
-    }
-
-    
 
     private void OnDestroy()
     {
-        unitMove.action.performed -= UnitMove;
+        unitMove.action.Reset();
+        unitFreeMove.action.Reset();
+        unitFollow.action.Reset();
     }
 }

@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UnitFollow",
+                    "type": "Button",
+                    "id": "5e50146e-6e24-489b-9742-00bcb124c27b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -110,7 +119,7 @@
                 {
                     "name": "",
                     "id": "c46de6b3-524f-40c5-8957-5200032a6631",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -121,11 +130,22 @@
                 {
                     "name": "",
                     "id": "d6fdfebf-243e-40ac-b57b-c4bfaeddb6a9",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "UnitFreeMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b8ec56e-e8d6-4952-965b-49df080d72e7",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UnitFollow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
