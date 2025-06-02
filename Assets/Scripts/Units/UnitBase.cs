@@ -18,6 +18,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     public UnitStats Stats { get { return stats; } }
 
     public Health Health => health;
+    public NavMeshAgent Agent => _agent;
 
     public event Action Destroyed;
 

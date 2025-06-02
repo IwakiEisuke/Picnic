@@ -15,6 +15,7 @@ public class UnitSelector : MonoBehaviour
     readonly Collider[] cols = new Collider[100];
 
     public List<Ally> SelectingAllies => targets.Select(x => x.GetComponent<Ally>()).ToList();
+    public Transform Hovered { get; private set; }
 
     Action gizmo;
 
@@ -54,6 +55,7 @@ public class UnitSelector : MonoBehaviour
             {
                 selectMarker.transform.position = selectHit.transform.position;
                 selectMarker.SetActive(true);
+                Hovered = selectHit.transform;
             }
             else
             {

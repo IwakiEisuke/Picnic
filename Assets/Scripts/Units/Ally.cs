@@ -20,6 +20,7 @@ public class Ally : UnitBase
                 {
                     { State.MoveToNearestTarget, new NearTargetMove(this) },
                     { State.MoveToClickPos, new GoToClickPos(this) },
+                    { State.Follow, new FollowTarget(this) },
                 }
             );
 
@@ -66,7 +67,7 @@ public class NearTargetMove : FSM.IState
     {
         _parent = parent;
         _stats = parent.Stats;
-        _agent = parent.GetComponent<NavMeshAgent>();
+        _agent = parent.Agent;
     }
 
     public void Enter()
@@ -116,7 +117,7 @@ public class NearTargetAttack : FSM.IState
     {
         _parent = parent;
         _stats = parent.Stats;
-        _agent = parent.GetComponent<NavMeshAgent>();
+        _agent = parent.Agent;
     }
 
     public void Enter() { }
@@ -180,5 +181,32 @@ public class GoToClickPos : FSM.IState
     public void Update()
     {
 
+    }
+}
+
+public class FollowTarget : FSM.IState
+{
+    readonly UnitBase _parent;
+    Transform _target;
+
+    public FollowTarget(UnitBase parent)
+    {
+        // Initialize any required fields or references here
+        _parent = parent;
+    }
+
+    public void Enter()
+    {
+        _target = Object.FindAnyObjectByType<UnitSelector>().Hovered;
+    }
+
+    public void Exit()
+    {
+        
+    }
+
+    public void Update()
+    {
+        _parent.Agent.SetDestination(_target.position);
     }
 }
