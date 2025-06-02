@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DefaultExecutionOrder((int)ExecutionOrder.UnitSelector)]
@@ -39,8 +40,26 @@ public class UnitSelector : MonoBehaviour
 
         mouseInputManager.OnClicked += () =>
         {
-            SelectClicked();
-            ControlTarget = null;
+            if (!IsMouseHoveringUI())
+            {
+                ControlTarget = null;
+
+                if (TryGetClickedEntity(out var entity))
+                {
+                    if (!targets.Contains(entity))
+                    {
+                        targets.Add(entity);
+                    }
+                    else
+                    {
+                        targets.Remove(entity);
+                    }
+                }
+                else
+                {
+                    targets.Clear();
+                }
+            }
         };
 
         mouseInputManager.OnRightClicked += () =>
@@ -87,23 +106,17 @@ public class UnitSelector : MonoBehaviour
     /// <summary>
     /// クリックしたユニットを選択する。
     /// </summary>
-    void SelectClicked()
+    bool TryGetClickedEntity(out Transform entity)
     {
         if (RaycastUnitOnMouse(out var targetHit))
         {
-            var transform = targetHit.rigidbody.transform;
-            if (targets.Contains(transform))
-            {
-                targets.Remove(transform);
-            }
-            else
-            {
-                targets.Add(transform);
-            }
+            entity = targetHit.rigidbody.transform;
+            return true;
         }
         else
         {
-            targets.Clear();
+            entity = null;
+            return false;
         }
     }
 
@@ -112,6 +125,7 @@ public class UnitSelector : MonoBehaviour
     /// </summary>
     void SelectClickedForControl()
     {
+
         if (RaycastUnitOnMouse(out var targetHit))
         {
             ControlTarget = targetHit.rigidbody.transform;
@@ -121,6 +135,11 @@ public class UnitSelector : MonoBehaviour
         {
             ControlTarget = null;
         }
+    }
+
+    bool IsMouseHoveringUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
     bool RaycastUnitOnMouse(out RaycastHit hit)
