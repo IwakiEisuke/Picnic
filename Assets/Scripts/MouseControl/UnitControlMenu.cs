@@ -1,34 +1,27 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class UnitControlMenu : MonoBehaviour
 {
     [SerializeField] UnitSelector unitSelector;
     [SerializeField] RectTransform menuPanel;
+    [SerializeField] Vector3 menuOffset;
+    [SerializeField] InputActionReference openMenuAction;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         menuPanel.gameObject.SetActive(false);
-        unitSelector.OnSelectControlTarget += OpenMenu;
+        openMenuAction.action.canceled += _ => OpenMenu(Mouse.current.position.value);
     }
 
-    public void OpenMenu()
+    public void OpenMenu(Vector3 screenPos)
     {
         menuPanel.gameObject.SetActive(true);
-        menuPanel.position = Camera.main.WorldToScreenPoint(unitSelector.ControlTarget.position);
+        menuPanel.position = screenPos + menuOffset;
     }
 
     public void CloseMenu()
     {
         menuPanel.gameObject.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (unitSelector.ControlTarget == null)
-        {
-            menuPanel.gameObject.SetActive(false);
-        }
     }
 }

@@ -6,14 +6,15 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// ƒ}ƒEƒX“ü—Í‚ÌŠÇ—
 /// </summary>
-[Serializable]
-public class MouseInputManager
+[CreateAssetMenu(menuName = "InputManager/MouseInput")]
+public class MouseInputManager : ScriptableObject
 {
     public event Action OnMouseDown;
     public event Action OnMouseUp;
     public event Action OnStartDrag;
     public event Action OnClicked;
-    public event Action OnRightClicked;
+    public event Action OnOpenMenu;
+    public event Action OnMouseClickedWithoutUI;
 
     public float startDragDistance = 50;
     [HideInInspector] public Vector3 dragStartMousePos;
@@ -22,7 +23,7 @@ public class MouseInputManager
     [SerializeField] InputActionReference mousePress;
     [SerializeField] InputActionReference mousePressCtrl;
     [SerializeField] InputActionReference mousePoint;
-    [SerializeField] InputActionReference mouseRight;
+    [SerializeField] InputActionReference openMenu;
 
     public bool IsDragging => _isDragging;
     public bool IsMouseHoveringUI => _isMouseHoveringUI;
@@ -47,12 +48,14 @@ public class MouseInputManager
             OnMouseUp?.Invoke();
             if (!IsDragging) OnClicked?.Invoke();
             _isDragging = false;
+
+            if (_canDrag) OnMouseClickedWithoutUI?.Invoke();
         };
 
-        mouseRight.action.canceled += (context) =>
+        openMenu.action.canceled += (context) =>
         {
             Debug.Log("right click");
-            OnRightClicked?.Invoke();
+            OnOpenMenu?.Invoke();
         };
 
         mousePress.action.started += (context) => Debug.Log("Click started");
@@ -79,7 +82,7 @@ public class MouseInputManager
         }
     }
 
-    public void OnDestroy()
+    public void ResetActions()
     {
         OnMouseDown = null;
         OnMouseUp = null;
@@ -89,6 +92,6 @@ public class MouseInputManager
         mousePress.action.Reset();
         mousePressCtrl.action.Reset();
         mousePoint.action.Reset();
-        mouseRight.action.Reset();
+        openMenu.action.Reset();
     }
 }

@@ -61,7 +61,7 @@ public class UnitSelector : MonoBehaviour
             }
         };
 
-        mouseInputManager.OnRightClicked += () =>
+        mouseInputManager.OnOpenMenu += () =>
         {
             SelectClickedForControl();
         };
@@ -71,8 +71,6 @@ public class UnitSelector : MonoBehaviour
 
     void Update()
     {
-        mouseInputManager.Update();
-
         if (mouseInputManager.IsDragging)
         {
             Drag();
@@ -220,11 +218,6 @@ public class UnitSelector : MonoBehaviour
         gizmo?.Invoke();
 
         gizmo = null;
-    }
-
-    private void OnDestroy()
-    {
-        mouseInputManager.OnDestroy();
     }
 
     public void Deselect(Transform element)
