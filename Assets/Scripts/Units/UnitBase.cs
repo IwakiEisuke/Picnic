@@ -31,7 +31,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     {
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = Stats.Speed; 
+        _agent.speed = Stats.Speed;
         health.Init(transform);
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);

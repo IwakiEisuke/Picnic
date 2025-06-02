@@ -27,7 +27,7 @@ public class UnitController : MonoBehaviour
         foreach (var ally in unitSelector.SelectingAllies)
         {
             ally.Next(nextState);
-        };
+        }
     }
 
     public void UnitSetState(int nextState)

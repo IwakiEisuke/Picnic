@@ -5,8 +5,6 @@ public class UnitControlMenu : MonoBehaviour
     [SerializeField] UnitSelector unitSelector;
     [SerializeField] RectTransform menuPanel;
 
-    bool isOpen = false;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,7 +14,6 @@ public class UnitControlMenu : MonoBehaviour
 
     void OpenMenu()
     {
-        isOpen = true;
         menuPanel.gameObject.SetActive(true);
         menuPanel.position = Camera.main.WorldToScreenPoint(unitSelector.ControlTarget.position);
     }
