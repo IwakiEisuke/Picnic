@@ -226,4 +226,9 @@ public class UnitSelector : MonoBehaviour
     {
         mouseInputManager.OnDestroy();
     }
+
+    public void Deselect(Transform element)
+    {
+        targets.Remove(element);
+    }
 }
