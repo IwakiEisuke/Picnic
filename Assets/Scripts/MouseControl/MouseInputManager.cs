@@ -1,6 +1,7 @@
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// ƒ}ƒEƒX“ü—Í‚ÌŠÇ—
@@ -8,8 +9,6 @@ using UnityEngine;
 [Serializable]
 public class MouseInputManager
 {
-    bool isDragging;
-    public bool IsDragging => isDragging;
     public event Action OnMouseDown;
     public event Action OnMouseUp;
     public event Action OnStartDrag;
@@ -25,6 +24,13 @@ public class MouseInputManager
     [SerializeField] InputActionReference mousePoint;
     [SerializeField] InputActionReference mouseRight;
 
+    public bool IsDragging => _isDragging;
+    public bool IsMouseHoveringUI => _isMouseHoveringUI;
+
+    bool _isDragging;
+    bool _canDrag;
+    bool _isMouseHoveringUI;
+
     public void Init()
     {
         mousePress.action.started += (context) =>
@@ -32,14 +38,15 @@ public class MouseInputManager
             //Debug.Log("drag start");
             dragStartMousePos = mousePoint.action.ReadValue<Vector2>();
             OnMouseDown?.Invoke();
+            _canDrag = !_isMouseHoveringUI;
         };
 
         mousePress.action.canceled += (context) =>
         {
             //Debug.Log("drag complete");
             OnMouseUp?.Invoke();
-            if (!isDragging) OnClicked?.Invoke();
-            isDragging = false;
+            if (!IsDragging) OnClicked?.Invoke();
+            _isDragging = false;
         };
 
         mouseRight.action.canceled += (context) =>
@@ -59,12 +66,14 @@ public class MouseInputManager
 
     public void Update()
     {
-        if (mousePress.action.IsPressed())
+        _isMouseHoveringUI = EventSystem.current.IsPointerOverGameObject();
+
+        if (mousePress.action.IsPressed() && _canDrag)
         {
             dragEndMousePos = mousePoint.action.ReadValue<Vector2>();
-            if (!isDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
+            if (!IsDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
             {
-                isDragging = true;
+                _isDragging = true;
                 OnStartDrag?.Invoke();
             }
         }

@@ -22,8 +22,6 @@ public class UnitSelector : MonoBehaviour
 
     public event Action OnSelectControlTarget;
 
-    bool isMouseHoveringUI;
-
     Action gizmo;
 
     private void Start()
@@ -42,7 +40,7 @@ public class UnitSelector : MonoBehaviour
 
         mouseInputManager.OnClicked += () =>
         {
-            if (!isMouseHoveringUI)
+            if (!mouseInputManager.IsMouseHoveringUI)
             {
                 ControlTarget = null;
 
@@ -75,8 +73,6 @@ public class UnitSelector : MonoBehaviour
     void Update()
     {
         mouseInputManager.Update();
-
-        isMouseHoveringUI = EventSystem.current.IsPointerOverGameObject();
 
         if (mouseInputManager.IsDragging)
         {
