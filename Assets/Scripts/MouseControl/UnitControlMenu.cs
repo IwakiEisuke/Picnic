@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UnitControlMenu : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class UnitControlMenu : MonoBehaviour
     [SerializeField] RectTransform menuPanel;
     [SerializeField] Vector3 menuOffset;
     [SerializeField] MouseInputManager mouseInput;
+    [SerializeField] GameObject canvasScaler;
 
     void Start()
     {
@@ -18,7 +20,15 @@ public class UnitControlMenu : MonoBehaviour
     public void ToggleMenu(Vector3 screenPos)
     {
         menuPanel.gameObject.SetActive(!menuPanel.gameObject.activeSelf);
-        menuPanel.position = screenPos + menuOffset;
+        
+        var scaler = canvasScaler.GetComponent<CanvasScaler>();
+        var scaleX = Screen.width / scaler.referenceResolution.x;
+        var scaleY = Screen.height / scaler.referenceResolution.y;
+
+        var scaledOffset = new Vector3(menuOffset.x * scaleX, menuOffset.y * scaleY);
+
+        menuPanel.position = screenPos + scaledOffset;
+        Debug.Log(screenPos);
     }
 
     public void CloseMenu()
