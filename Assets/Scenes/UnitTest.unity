@@ -926,6 +926,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitSelector: {fileID: 1212929906}
   menuPanel: {fileID: 1690863349}
+  buttons:
+  - {fileID: 823941001}
 --- !u!1 &1411198226
 GameObject:
   m_ObjectHideFlags: 0
