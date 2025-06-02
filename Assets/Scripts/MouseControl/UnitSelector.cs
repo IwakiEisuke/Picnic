@@ -61,7 +61,7 @@ public class UnitSelector : MonoBehaviour
             }
         };
 
-        mouseInputManager.OnOpenMenu += () =>
+        mouseInputManager.OpenMenu += () =>
         {
             SelectClickedForControl();
         };
@@ -145,8 +145,8 @@ public class UnitSelector : MonoBehaviour
     {
         targets.Clear();
 
-        var dragStartMousePos = mouseInputManager.dragStartMousePos;
-        var dragEndMousePos = mouseInputManager.dragEndMousePos;
+        var dragStartMousePos = mouseInputManager.DragStartMousePos;
+        var dragEndMousePos = mouseInputManager.DragEndMousePos;
 
         var max = new Vector2(Mathf.Max(dragStartMousePos.x, dragEndMousePos.x), Mathf.Max(dragStartMousePos.y, dragEndMousePos.y));
         var min = new Vector2(Mathf.Min(dragStartMousePos.x, dragEndMousePos.x), Mathf.Min(dragStartMousePos.y, dragEndMousePos.y));

@@ -1343,7 +1343,7 @@ MonoBehaviour:
   unitSelector: {fileID: 1212929906}
   menuPanel: {fileID: 1690863349}
   menuOffset: {x: 0, y: -100, z: 0}
-  openMenuAction: {fileID: 3333751604950110231, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  mouseInput: {fileID: 11400000, guid: caf86156ead025e4db6b1e45d6001337, type: 2}
 --- !u!114 &1212929909
 MonoBehaviour:
   m_ObjectHideFlags: 0

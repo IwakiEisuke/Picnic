@@ -9,24 +9,28 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(menuName = "InputManager/MouseInput")]
 public class MouseInputManager : ScriptableObject
 {
+    public bool IsDragging => _isDragging;
+    public bool IsMouseHoveringUI => _isMouseHoveringUI;
+    public Vector3 DragStartMousePos => _dragStartMousePos;
+    public Vector3 DragEndMousePos => _dragEndMousePos;
+
     public event Action OnMouseDown;
     public event Action OnMouseUp;
     public event Action OnStartDrag;
     public event Action OnClicked;
-    public event Action OnOpenMenu;
+    public event Action OpenMenu;
+    public event Action CloseMenu;
     public event Action OnMouseClickedWithoutUI;
 
     public float startDragDistance = 50;
-    [HideInInspector] public Vector3 dragStartMousePos;
-    [HideInInspector] public Vector3 dragEndMousePos;
 
     [SerializeField] InputActionReference mousePress;
     [SerializeField] InputActionReference mousePressCtrl;
     [SerializeField] InputActionReference mousePoint;
     [SerializeField] InputActionReference openMenu;
 
-    public bool IsDragging => _isDragging;
-    public bool IsMouseHoveringUI => _isMouseHoveringUI;
+    Vector3 _dragStartMousePos;
+    Vector3 _dragEndMousePos;
 
     bool _isDragging;
     bool _canDrag;
@@ -37,7 +41,7 @@ public class MouseInputManager : ScriptableObject
         mousePress.action.started += (context) =>
         {
             //Debug.Log("drag start");
-            dragStartMousePos = mousePoint.action.ReadValue<Vector2>();
+            _dragStartMousePos = mousePoint.action.ReadValue<Vector2>();
             OnMouseDown?.Invoke();
             _canDrag = !_isMouseHoveringUI;
         };
@@ -49,13 +53,17 @@ public class MouseInputManager : ScriptableObject
             if (!IsDragging) OnClicked?.Invoke();
             _isDragging = false;
 
-            if (_canDrag) OnMouseClickedWithoutUI?.Invoke();
+            if (_canDrag)
+            {
+                OnMouseClickedWithoutUI?.Invoke();
+                CloseMenu?.Invoke();
+            }
         };
 
-        openMenu.action.canceled += (context) =>
+        openMenu.action.performed += (context) =>
         {
             Debug.Log("right click");
-            OnOpenMenu?.Invoke();
+            OpenMenu?.Invoke();
         };
 
         mousePress.action.started += (context) => Debug.Log("Click started");
@@ -73,11 +81,12 @@ public class MouseInputManager : ScriptableObject
 
         if (mousePress.action.IsPressed() && _canDrag)
         {
-            dragEndMousePos = mousePoint.action.ReadValue<Vector2>();
-            if (!IsDragging && Vector3.Distance(dragStartMousePos, Input.mousePosition) > startDragDistance)
+            _dragEndMousePos = mousePoint.action.ReadValue<Vector2>();
+            if (!IsDragging && Vector3.Distance(_dragStartMousePos, Input.mousePosition) > startDragDistance)
             {
                 _isDragging = true;
                 OnStartDrag?.Invoke();
+                CloseMenu?.Invoke();
             }
         }
     }

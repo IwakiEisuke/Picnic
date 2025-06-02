@@ -6,17 +6,18 @@ public class UnitControlMenu : MonoBehaviour
     [SerializeField] UnitSelector unitSelector;
     [SerializeField] RectTransform menuPanel;
     [SerializeField] Vector3 menuOffset;
-    [SerializeField] InputActionReference openMenuAction;
+    [SerializeField] MouseInputManager mouseInput;
 
     void Start()
     {
         menuPanel.gameObject.SetActive(false);
-        openMenuAction.action.canceled += _ => OpenMenu(Mouse.current.position.value);
+        mouseInput.OpenMenu += () => ToggleMenu(Mouse.current.position.value);
+        mouseInput.CloseMenu += CloseMenu;
     }
 
-    public void OpenMenu(Vector3 screenPos)
+    public void ToggleMenu(Vector3 screenPos)
     {
-        menuPanel.gameObject.SetActive(true);
+        menuPanel.gameObject.SetActive(!menuPanel.gameObject.activeSelf);
         menuPanel.position = screenPos + menuOffset;
     }
 

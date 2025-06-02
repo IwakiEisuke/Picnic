@@ -162,7 +162,7 @@
                     "name": "",
                     "id": "380fe57c-2b1e-4ec2-97f7-fb24392eb6e4",
                     "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "ControlMenu",
