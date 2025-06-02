@@ -97,6 +97,9 @@ public class MouseInputManager : ScriptableObject
         OnMouseUp = null;
         OnStartDrag = null;
         OnClicked = null;
+        OpenMenu = null;
+        CloseMenu = null;
+        OnMouseClickedWithoutUI = null;
 
         mousePress.action.Reset();
         mousePressCtrl.action.Reset();

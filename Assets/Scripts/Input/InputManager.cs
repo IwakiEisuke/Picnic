@@ -6,6 +6,11 @@ public class InputManager : MonoBehaviour
 
     public MouseInputManager MouseInput => mouseInputManager;
 
+    private void Start()
+    {
+        mouseInputManager.Init();
+    }
+
     private void Update()
     {
         mouseInputManager.Update();

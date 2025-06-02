@@ -65,8 +65,6 @@ public class UnitSelector : MonoBehaviour
         {
             SelectClickedForControl();
         };
-
-        mouseInputManager.Init();
     }
 
     void Update()
