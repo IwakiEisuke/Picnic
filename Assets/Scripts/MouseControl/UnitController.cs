@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -7,7 +8,8 @@ using UnityEngine.InputSystem;
 [DefaultExecutionOrder((int)ExecutionOrder.UnitController)]
 public class UnitController : MonoBehaviour
 {
-    UnitSelector unitSelector;
+    [SerializeField] UnitSelector unitSelector;
+    [SerializeField] UnitControlMenu unitControlMenu;
 
     [SerializeField] InputActionReference unitMove;
     [SerializeField] InputActionReference unitFreeMove;
@@ -15,11 +17,9 @@ public class UnitController : MonoBehaviour
 
     private void Start()
     {
-        unitSelector = FindAnyObjectByType<UnitSelector>();
-
         unitMove.action.performed += _ => UnitSetState(Ally.State.MoveToNearestTarget);
         unitFreeMove.action.performed += _ => UnitSetState(Ally.State.MoveToClickPos);
-        unitFollow.action.performed += _ => UnitSetState(Ally.State.Follow);
+        unitFollow.action.performed += _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); };
     }
 
     private void UnitSetState(Ally.State nextState)
@@ -29,6 +29,8 @@ public class UnitController : MonoBehaviour
             ally.Next(nextState);
             unitSelector.Deselect(ally.transform);
         }
+
+        unitControlMenu.CloseMenu();
     }
 
     public void UnitSetState(int nextState)
