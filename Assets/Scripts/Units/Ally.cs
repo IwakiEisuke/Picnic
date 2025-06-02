@@ -21,6 +21,7 @@ public class Ally : UnitBase
                     { State.MoveToNearestTarget, new NearTargetMove(this) },
                     { State.MoveToClickPos, new GoToClickPos(this) },
                     { State.Follow, new FollowTarget(this) },
+                    { State.Stop, new Stop(this) },
                 }
             );
 
@@ -49,6 +50,7 @@ public class Ally : UnitBase
         MoveToNearestTarget,
         MoveToClickPos,
         Follow,
+        Stop,
     }
 }
 
@@ -208,5 +210,26 @@ public class FollowTarget : FSM.IState
     public void Update()
     {
         _parent.Agent.SetDestination(_target.position);
+    }
+}
+
+public class Stop : FSM.IState
+{
+    readonly UnitBase _parent;
+    public Stop(UnitBase parent)
+    {
+        _parent = parent;
+    }
+    public void Enter()
+    {
+        _parent.Agent.isStopped = true;
+    }
+    public void Exit()
+    {
+        _parent.Agent.isStopped = false;
+    }
+    public void Update()
+    {
+        // No action needed while stopped
     }
 }

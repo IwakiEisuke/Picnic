@@ -14,12 +14,14 @@ public class UnitController : MonoBehaviour
     [SerializeField] InputActionReference unitMove;
     [SerializeField] InputActionReference unitFreeMove;
     [SerializeField] InputActionReference unitFollow;
+    [SerializeField] InputActionReference unitStop;
 
     private void Start()
     {
         unitMove.action.performed += _ => UnitSetState(Ally.State.MoveToNearestTarget);
         unitFreeMove.action.performed += _ => UnitSetState(Ally.State.MoveToClickPos);
         unitFollow.action.performed += _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); };
+        unitStop.action.performed += _ => UnitSetState(Ally.State.Stop);
     }
 
     private void UnitSetState(Ally.State nextState)

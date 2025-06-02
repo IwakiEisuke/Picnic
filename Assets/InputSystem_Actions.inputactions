@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "UnitStop",
+                    "type": "Button",
+                    "id": "5ec812b0-5709-4040-87bf-1534fb90cca6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ControlMenu",
                     "type": "Button",
                     "id": "286e8fce-b311-4cf8-ae42-d28952b96ede",
@@ -155,6 +164,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UnitFollow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9cf0dedf-4f2e-4e4f-b781-8a1a25ec5a1d",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UnitStop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
