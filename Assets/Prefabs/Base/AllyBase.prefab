@@ -89,7 +89,7 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7528319036318301096, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 4b7750cd7137b744cb7039886513dce0, type: 2}
     m_RemovedComponents:
@@ -101,17 +101,6 @@ PrefabInstance:
       insertIndex: 2
       addedObject: {fileID: 2085086610286189054}
   m_SourcePrefab: {fileID: 100100000, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
---- !u!114 &2142131121711891363 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 202787359112742274, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-  m_PrefabInstance: {fileID: 2263642518189540897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3359176124749843262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c964f678a67d64ea430a26a5f08273, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3359176124749843262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3599539401788001567, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
@@ -130,9 +119,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 1451bebf9b8f9f745b94b83ef0684d1e, type: 2}
+  health:
+    stats: {fileID: 0}
+    dieObj: {fileID: 0}
+    OnDied:
+      m_PersistentCalls:
+        m_Calls: []
   opponentLayer:
     serializedVersion: 2
     m_Bits: 128
   destinationTag: Enemy
-  dead: {fileID: 0}
-  health: {fileID: 2142131121711891363}
