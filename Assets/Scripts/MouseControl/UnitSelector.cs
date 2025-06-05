@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [DefaultExecutionOrder((int)ExecutionOrder.UnitSelector)]
 public class UnitSelector : MonoBehaviour
@@ -10,12 +11,10 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] MouseInputManager mouseInputManager;
     [SerializeField] Image mouseDragArea;
     [SerializeField] GameObject selectMarker;
-    [SerializeField] GameObject targetMarker;
-    readonly List<Transform> targets = new();
-    readonly List<GameObject> markers = new();
+    readonly List<Transform> selecting = new();
     readonly Collider[] cols = new Collider[100];
 
-    public List<Ally> SelectingAllies => targets.Select(x => x.GetComponent<Ally>()).ToList();
+    public List<Ally> SelectingAllies => selecting.Select(x => x.GetComponent<Ally>()).ToList();
     public Transform Hovered { get; private set; }
     public Transform ControlTarget { get; private set; }
 
@@ -45,18 +44,18 @@ public class UnitSelector : MonoBehaviour
 
                 if (TryGetClickedEntity(out var entity))
                 {
-                    if (!targets.Contains(entity))
+                    if (!selecting.Contains(entity))
                     {
-                        targets.Add(entity);
+                        Select(entity);
                     }
                     else
                     {
-                        targets.Remove(entity);
+                        Deselect(entity);
                     }
                 }
                 else
                 {
-                    targets.Clear();
+                    ClearSelecting();
                 }
             }
         };
@@ -65,6 +64,27 @@ public class UnitSelector : MonoBehaviour
         {
             SelectClickedForControl();
         };
+    }
+
+    void Select(Transform target)
+    {
+        selecting.Add(target);
+        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 1f);
+    }
+
+    public void Deselect(Transform target)
+    {
+        selecting.Remove(target);
+        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 0f);
+    }
+
+    void ClearSelecting()
+    {
+        foreach (var s in selecting)
+        {
+            s.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 0f);
+        }
+        selecting.Clear();
     }
 
     void Update()
@@ -85,16 +105,6 @@ public class UnitSelector : MonoBehaviour
             {
                 selectMarker.SetActive(false);
             }
-        }
-
-        foreach (var marker in markers)
-        {
-            Destroy(marker);
-        }
-
-        foreach (var target in targets)
-        {
-            markers.Add(Instantiate(targetMarker, target.position, Quaternion.identity));
         }
     }
 
@@ -141,7 +151,7 @@ public class UnitSelector : MonoBehaviour
     // ドラッグしている間、選択範囲を表示し、範囲内のユニットを選択する。
     void Drag()
     {
-        targets.Clear();
+        ClearSelecting();
 
         var dragStartMousePos = mouseInputManager.DragStartMousePos;
         var dragEndMousePos = mouseInputManager.DragEndMousePos;
@@ -187,7 +197,7 @@ public class UnitSelector : MonoBehaviour
                 if (CheckUnitInArea(col))
                 {
                     Debug.DrawLine(col.transform.position, col.transform.position + Vector3.up * 10, Color.green);
-                    targets.Add(col.attachedRigidbody.transform);
+                    Select(col.attachedRigidbody.transform);
                 }
                 else
                 {
@@ -216,10 +226,5 @@ public class UnitSelector : MonoBehaviour
         gizmo?.Invoke();
 
         gizmo = null;
-    }
-
-    public void Deselect(Transform element)
-    {
-        targets.Remove(element);
     }
 }

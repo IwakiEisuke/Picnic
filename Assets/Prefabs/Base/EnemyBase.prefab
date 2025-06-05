@@ -89,7 +89,7 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7528319036318301096, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 31a5e5cbc0c914a4dba2baeb66571ac8, type: 2}
     m_RemovedComponents:
@@ -119,14 +119,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 9c393134285ebe04db8db37db9ecd926, type: 2}
-  opponentLayer:
-    serializedVersion: 2
-    m_Bits: 576
-  destinationTag: Base
-  deadObj: {fileID: 0}
   health:
     stats: {fileID: 11400000, guid: 9c393134285ebe04db8db37db9ecd926, type: 2}
     dieObj: {fileID: 0}
     OnDied:
       m_PersistentCalls:
         m_Calls: []
+  opponentLayer:
+    serializedVersion: 2
+    m_Bits: 576
+  destinationTag: Base
