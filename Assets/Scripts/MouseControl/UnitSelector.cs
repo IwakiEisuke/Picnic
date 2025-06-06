@@ -1,9 +1,10 @@
-﻿using System;
+﻿// Todo: 選択中と行動対象の制御を明確に
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [DefaultExecutionOrder((int)ExecutionOrder.UnitSelector)]
 public class UnitSelector : MonoBehaviour
@@ -40,7 +41,7 @@ public class UnitSelector : MonoBehaviour
         {
             if (!mouseInputManager.IsMouseHoveringUI)
             {
-                SetEffectHovered(ControlTarget, false);
+                SetEffectControlTarget(ControlTarget, false);
                 ControlTarget = null;
 
                 if (TryGetClickedEntity(out var entity))
@@ -94,7 +95,7 @@ public class UnitSelector : MonoBehaviour
         target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", enable ? 1f : 0f);
     }
 
-    void SetEffectHovered(Transform target, bool enable)
+    void SetEffectControlTarget(Transform target, bool enable)
     {
         if (target == null) return;
         var isSelect = enable || (!enable && selecting.Contains(target));
@@ -102,7 +103,18 @@ public class UnitSelector : MonoBehaviour
         var material = target.GetComponentInChildren<Renderer>().material;
         material.SetFloat("_Alpha", isSelect ? 1f : 0f);
         material.SetFloat("_IsHover", enable ? 1f : 0f);
+    }
 
+    void SetControlTarget(Transform target)
+    {
+        if (unitControlMenu.IsMenuOpened) return;
+
+        if (ControlTarget != null)
+        {
+            SetEffectControlTarget(ControlTarget, false);
+        }
+        ControlTarget = target;
+        SetEffectControlTarget(ControlTarget, true);
     }
 
     void Update()
@@ -117,19 +129,11 @@ public class UnitSelector : MonoBehaviour
             {
                 selectMarker.transform.position = selectHit.transform.position;
                 selectMarker.SetActive(true);
-                if (!unitControlMenu.IsMenuOpened)
-                {
-                    if (ControlTarget != null) SetEffectHovered(ControlTarget, false);
-                    ControlTarget = selectHit.transform;
-                    SetEffectHovered(ControlTarget, true);
-                }
+                SetControlTarget(selectHit.transform);
             }
             else
             {
-                if (ControlTarget != null && !unitControlMenu.IsMenuOpened)
-                {
-                    SetEffectHovered(ControlTarget, false);
-                }
+                SetControlTarget(selectHit.transform);
                 selectMarker.SetActive(false);
             }
         }
@@ -160,14 +164,14 @@ public class UnitSelector : MonoBehaviour
 
         if (RaycastUnitOnMouse(out var targetHit))
         {
-            SetEffectHovered(ControlTarget, false);
+            SetEffectControlTarget(ControlTarget, false);
             ControlTarget = targetHit.rigidbody.transform;
-            SetEffectHovered(ControlTarget, true);
+            SetEffectControlTarget(ControlTarget, true);
             OnSelectControlTarget?.Invoke();
         }
         else
         {
-            SetEffectHovered(ControlTarget, false);
+            SetEffectControlTarget(ControlTarget, false);
             ControlTarget = null;
         }
     }
