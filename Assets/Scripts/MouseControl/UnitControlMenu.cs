@@ -10,6 +10,8 @@ public class UnitControlMenu : MonoBehaviour
     [SerializeField] MouseInputManager mouseInput;
     [SerializeField] GameObject canvasScaler;
 
+    public bool IsMenuOpened => menuPanel.gameObject.activeSelf;
+
     void Start()
     {
         menuPanel.gameObject.SetActive(false);

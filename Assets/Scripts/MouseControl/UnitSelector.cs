@@ -11,11 +11,11 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] MouseInputManager mouseInputManager;
     [SerializeField] Image mouseDragArea;
     [SerializeField] GameObject selectMarker;
+    [SerializeField] UnitControlMenu unitControlMenu;
     readonly List<Transform> selecting = new();
     readonly Collider[] cols = new Collider[100];
 
     public List<Ally> SelectingAllies => selecting.Select(x => x.GetComponent<Ally>()).ToList();
-    public Transform Hovered { get; private set; }
     public Transform ControlTarget { get; private set; }
 
     public event Action OnSelectControlTarget;
@@ -40,6 +40,7 @@ public class UnitSelector : MonoBehaviour
         {
             if (!mouseInputManager.IsMouseHoveringUI)
             {
+                SetEffectHovered(ControlTarget, false);
                 ControlTarget = null;
 
                 if (TryGetClickedEntity(out var entity))
@@ -89,11 +90,13 @@ public class UnitSelector : MonoBehaviour
 
     void SetEffectSelecting(Transform target, bool enable)
     {
+        if (target == null) return;
         target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", enable ? 1f : 0f);
     }
 
     void SetEffectHovered(Transform target, bool enable)
     {
+        if (target == null) return;
         var isSelect = enable || (!enable && selecting.Contains(target));
 
         var material = target.GetComponentInChildren<Renderer>().material;
@@ -114,13 +117,19 @@ public class UnitSelector : MonoBehaviour
             {
                 selectMarker.transform.position = selectHit.transform.position;
                 selectMarker.SetActive(true);
-                if (Hovered != null) SetEffectHovered(Hovered, false);
-                Hovered = selectHit.transform;
-                SetEffectHovered(Hovered, true);
+                if (!unitControlMenu.IsMenuOpened)
+                {
+                    if (ControlTarget != null) SetEffectHovered(ControlTarget, false);
+                    ControlTarget = selectHit.transform;
+                    SetEffectHovered(ControlTarget, true);
+                }
             }
             else
             {
-                if (Hovered != null) SetEffectHovered(Hovered, false);
+                if (ControlTarget != null && !unitControlMenu.IsMenuOpened)
+                {
+                    SetEffectHovered(ControlTarget, false);
+                }
                 selectMarker.SetActive(false);
             }
         }
@@ -151,11 +160,14 @@ public class UnitSelector : MonoBehaviour
 
         if (RaycastUnitOnMouse(out var targetHit))
         {
+            SetEffectHovered(ControlTarget, false);
             ControlTarget = targetHit.rigidbody.transform;
+            SetEffectHovered(ControlTarget, true);
             OnSelectControlTarget?.Invoke();
         }
         else
         {
+            SetEffectHovered(ControlTarget, false);
             ControlTarget = null;
         }
     }
