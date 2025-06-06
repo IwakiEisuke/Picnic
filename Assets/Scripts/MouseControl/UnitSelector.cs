@@ -1,9 +1,10 @@
-﻿using System;
+﻿// Todo: 選択中と行動対象の制御を明確に
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [DefaultExecutionOrder((int)ExecutionOrder.UnitSelector)]
 public class UnitSelector : MonoBehaviour
@@ -11,11 +12,11 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] MouseInputManager mouseInputManager;
     [SerializeField] Image mouseDragArea;
     [SerializeField] GameObject selectMarker;
+    [SerializeField] UnitControlMenu unitControlMenu;
     readonly List<Transform> selecting = new();
     readonly Collider[] cols = new Collider[100];
 
     public List<Ally> SelectingAllies => selecting.Select(x => x.GetComponent<Ally>()).ToList();
-    public Transform Hovered { get; private set; }
     public Transform ControlTarget { get; private set; }
 
     public event Action OnSelectControlTarget;
@@ -40,7 +41,7 @@ public class UnitSelector : MonoBehaviour
         {
             if (!mouseInputManager.IsMouseHoveringUI)
             {
-                ControlTarget = null;
+                SetControlTarget(null);
 
                 if (TryGetClickedEntity(out var entity))
                 {
@@ -69,22 +70,51 @@ public class UnitSelector : MonoBehaviour
     void Select(Transform target)
     {
         selecting.Add(target);
-        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 1f);
+        SetEffectSelecting(target, true);
     }
 
     public void Deselect(Transform target)
     {
         selecting.Remove(target);
-        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 0f);
+        SetEffectSelecting(target, false);
     }
 
     void ClearSelecting()
     {
         foreach (var s in selecting)
         {
-            s.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 0f);
+            SetEffectSelecting(s, false);
         }
         selecting.Clear();
+    }
+
+    void SetEffectSelecting(Transform target, bool enable)
+    {
+        if (target == null) return;
+        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", enable ? 1f : 0f);
+    }
+
+    void SetEffectControlTarget(Transform target, bool enable)
+    {
+        if (target == null) return;
+        var isSelect = enable || (!enable && selecting.Contains(target));
+
+        var material = target.GetComponentInChildren<Renderer>().material;
+        material.SetFloat("_Alpha", isSelect ? 1f : 0f);
+        material.SetFloat("_IsHover", enable ? 1f : 0f);
+    }
+
+    void SetControlTarget(Transform target)
+    {
+        if (unitControlMenu.IsMenuOpened) return;
+
+        if (ControlTarget != null)
+        {
+            SetEffectControlTarget(ControlTarget, false);
+        }
+
+        ControlTarget = target;
+        if (target != null) SetEffectControlTarget(ControlTarget, true);
     }
 
     void Update()
@@ -97,13 +127,17 @@ public class UnitSelector : MonoBehaviour
         {
             if (RaycastUnitOnMouse(out var selectHit))
             {
+                // ホバー表示
                 selectMarker.transform.position = selectHit.transform.position;
                 selectMarker.SetActive(true);
-                Hovered = selectHit.transform;
+
+                // ホバー中のユニットを選択中のターゲットに設定
+                SetControlTarget(selectHit.transform);
             }
             else
             {
                 selectMarker.SetActive(false);
+                SetControlTarget(selectHit.transform);
             }
         }
     }
@@ -133,11 +167,14 @@ public class UnitSelector : MonoBehaviour
 
         if (RaycastUnitOnMouse(out var targetHit))
         {
+            SetEffectControlTarget(ControlTarget, false);
             ControlTarget = targetHit.rigidbody.transform;
+            SetEffectControlTarget(ControlTarget, true);
             OnSelectControlTarget?.Invoke();
         }
         else
         {
+            SetEffectControlTarget(ControlTarget, false);
             ControlTarget = null;
         }
     }
