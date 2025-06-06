@@ -41,8 +41,7 @@ public class UnitSelector : MonoBehaviour
         {
             if (!mouseInputManager.IsMouseHoveringUI)
             {
-                SetEffectControlTarget(ControlTarget, false);
-                ControlTarget = null;
+                SetControlTarget(null);
 
                 if (TryGetClickedEntity(out var entity))
                 {
@@ -71,20 +70,20 @@ public class UnitSelector : MonoBehaviour
     void Select(Transform target)
     {
         selecting.Add(target);
-        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 1f);
+        SetEffectSelecting(target, true);
     }
 
     public void Deselect(Transform target)
     {
         selecting.Remove(target);
-        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 0f);
+        SetEffectSelecting(target, false);
     }
 
     void ClearSelecting()
     {
         foreach (var s in selecting)
         {
-            s.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", 0f);
+            SetEffectSelecting(s, false);
         }
         selecting.Clear();
     }
@@ -113,8 +112,9 @@ public class UnitSelector : MonoBehaviour
         {
             SetEffectControlTarget(ControlTarget, false);
         }
+
         ControlTarget = target;
-        SetEffectControlTarget(ControlTarget, true);
+        if (target != null) SetEffectControlTarget(ControlTarget, true);
     }
 
     void Update()
@@ -127,14 +127,17 @@ public class UnitSelector : MonoBehaviour
         {
             if (RaycastUnitOnMouse(out var selectHit))
             {
+                // ホバー表示
                 selectMarker.transform.position = selectHit.transform.position;
                 selectMarker.SetActive(true);
+
+                // ホバー中のユニットを選択中のターゲットに設定
                 SetControlTarget(selectHit.transform);
             }
             else
             {
-                SetControlTarget(selectHit.transform);
                 selectMarker.SetActive(false);
+                SetControlTarget(selectHit.transform);
             }
         }
     }
