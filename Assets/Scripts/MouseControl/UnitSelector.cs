@@ -87,6 +87,21 @@ public class UnitSelector : MonoBehaviour
         selecting.Clear();
     }
 
+    void SetEffectSelecting(Transform target, bool enable)
+    {
+        target.GetComponentInChildren<Renderer>().material.SetFloat("_Alpha", enable ? 1f : 0f);
+    }
+
+    void SetEffectHovered(Transform target, bool enable)
+    {
+        var isSelect = enable || (!enable && selecting.Contains(target));
+
+        var material = target.GetComponentInChildren<Renderer>().material;
+        material.SetFloat("_Alpha", isSelect ? 1f : 0f);
+        material.SetFloat("_IsHover", enable ? 1f : 0f);
+
+    }
+
     void Update()
     {
         if (mouseInputManager.IsDragging)
@@ -99,10 +114,13 @@ public class UnitSelector : MonoBehaviour
             {
                 selectMarker.transform.position = selectHit.transform.position;
                 selectMarker.SetActive(true);
+                if (Hovered != null) SetEffectHovered(Hovered, false);
                 Hovered = selectHit.transform;
+                SetEffectHovered(Hovered, true);
             }
             else
             {
+                if (Hovered != null) SetEffectHovered(Hovered, false);
                 selectMarker.SetActive(false);
             }
         }
