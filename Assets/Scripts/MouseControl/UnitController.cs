@@ -1,5 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -47,5 +46,7 @@ public class UnitController : MonoBehaviour
         unitMove.action.Reset();
         unitFreeMove.action.Reset();
         unitFollow.action.Reset();
+        unitStop.action.Reset();
+        unitMoveToHive.action.Reset();
     }
 }
