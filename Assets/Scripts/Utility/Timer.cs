@@ -13,7 +13,7 @@ public class Timer : IUtilityUpdate
     public bool IsActive { get; private set; }
     public float ProgressRatio { get; private set; }
 
-    public void Set(float t, bool repeat = false, int count = -1)
+    public Timer Set(float t, bool repeat = false, int count = -1)
     {
         targetTime = t;
         IsActive = true;
@@ -21,11 +21,12 @@ public class Timer : IUtilityUpdate
         repeatCount = count;
         elapsedTime = 0;
         UtilityManager.Subscribe(this);
+        return this;
     }
 
     public void Start() => IsActive = true;
     public void Pause() => IsActive = false;
-    public void Stop() { IsActive = false; elapsedTime = 0; UtilityManager.UnSubscribe(this); }
+    public void Cancel() { IsActive = false; elapsedTime = 0; UtilityManager.UnSubscribe(this); }
 
     public void Update()
     {

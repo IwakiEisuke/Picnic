@@ -275,6 +275,9 @@ public class InteractTarget : FSM.IState
 {
     readonly UnitBase _parent;
     Transform _target;
+    IInteractable _interactable;
+    readonly Timer _timer = new();
+
     public InteractTarget(UnitBase parent)
     {
         _parent = parent;
@@ -283,8 +286,10 @@ public class InteractTarget : FSM.IState
     public void Enter()
     {
         _target = Object.FindAnyObjectByType<UnitSelector>().ControlTarget;
-        if (_target != null)
+        _interactable = _target.GetComponent<IInteractable>();
+        if (_interactable != null)
         {
+            _timer.TimeUp += _interactable.Interact;
             _parent.Agent.SetDestination(_target.position);
         }
         else
@@ -296,14 +301,16 @@ public class InteractTarget : FSM.IState
 
     public void Exit()
     {
-        
+        _timer.Cancel();
     }
 
     public void Update()
     {
+        if (_interactable == null) return;
+
         if (Vector3.Distance(_target.position, _parent.transform.position) < _parent.Stats.AttackRadius)
         {
-            _target.GetComponent<IInteractable>()?.Interact();
+            if (!_timer.IsActive) _timer.Set(_interactable.Duration);
         }
     }
 }
