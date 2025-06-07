@@ -13,6 +13,7 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] Image mouseDragArea;
     [SerializeField] GameObject selectMarker;
     [SerializeField] UnitControlMenu unitControlMenu;
+    [SerializeField] LayerMask selectableLayers;
     readonly List<Transform> selecting = new();
     readonly Collider[] cols = new Collider[100];
 
@@ -182,7 +183,7 @@ public class UnitSelector : MonoBehaviour
     bool RaycastUnitOnMouse(out RaycastHit hit)
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        return (Physics.Raycast(ray, out hit, float.MaxValue) && (hit.transform.CompareTag("Ally") || hit.transform.CompareTag("Enemy")));
+        return (Physics.Raycast(ray, out hit, float.MaxValue, selectableLayers.value));
     }
 
     // ドラッグしている間、選択範囲を表示し、範囲内のユニットを選択する。
@@ -227,7 +228,7 @@ public class UnitSelector : MonoBehaviour
                 Gizmos.DrawCube(rotatedCenter, rotatedHalf * 2);
             };
 
-            for (int i = 0; i < Physics.OverlapBoxNonAlloc(center, rotatedHalf, cols, cameraRot); i++)
+            for (int i = 0; i < Physics.OverlapBoxNonAlloc(center, rotatedHalf, cols, cameraRot, selectableLayers.value); i++)
             {
                 var col = cols[i];
 
@@ -248,13 +249,9 @@ public class UnitSelector : MonoBehaviour
         /// </summary>
         static bool CheckUnitInArea(Collider collider)
         {
-            if (collider.CompareTag("Ally") || collider.CompareTag("Enemy"))
-            {
-                var bounds = collider.bounds;
-                var planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-                return GeometryUtility.TestPlanesAABB(planes, bounds);
-            }
-            return false;
+            var bounds = collider.bounds;
+            var planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+            return GeometryUtility.TestPlanesAABB(planes, bounds);
         }
     }
 

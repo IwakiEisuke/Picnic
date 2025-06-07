@@ -2336,6 +2336,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: caf86156ead025e4db6b1e45d6001337, type: 2}
     - target: {fileID: 8402006989315559142, guid: 2b00d7b2610f6d24d9d9e206f416e785, type: 3}
+      propertyPath: selectableLayers.m_Bits
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402006989315559142, guid: 2b00d7b2610f6d24d9d9e206f416e785, type: 3}
       propertyPath: mouseInputManager.mouseRight
       value: 
       objectReference: {fileID: 3333751604950110231, guid: 052faaac586de48259a63d0c4782560b, type: 3}
