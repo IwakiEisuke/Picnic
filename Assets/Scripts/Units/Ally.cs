@@ -23,6 +23,7 @@ public class Ally : UnitBase
                     { State.Follow, new FollowTarget(this) },
                     { State.Stop, new Stop(this) },
                     { State.MoveToHive, new MoveToHive(this) },
+                    { State.InteractTarget, new InteractTarget(this) },
                 }
             );
 
@@ -53,6 +54,7 @@ public class Ally : UnitBase
         Follow,
         Stop,
         MoveToHive,
+        InteractTarget
     }
 }
 
@@ -266,5 +268,50 @@ public class MoveToHive : FSM.IState
     public void Update()
     {
         
+    }
+}
+
+public class InteractTarget : FSM.IState
+{
+    readonly UnitBase _parent;
+    Transform _target;
+    IInteractable _interactable;
+    readonly Timer _timer = new();
+
+    public InteractTarget(UnitBase parent)
+    {
+        _parent = parent;
+    }
+
+    public void Enter()
+    {
+        _target = Object.FindAnyObjectByType<UnitSelector>().ControlTarget;
+        _interactable = _target.GetComponent<IInteractable>();
+        if (_interactable != null)
+        {
+            _timer.TimeUp += _interactable.Interact;
+            _parent.Agent.SetDestination(_target.position);
+        }
+        else
+        {
+            Debug.LogWarning("No target to interact with");
+            _parent.Agent.isStopped = true;
+        }
+    }
+
+    public void Exit()
+    {
+        _timer.Cancel();
+        _timer.TimeUp -= _interactable.Interact;
+    }
+
+    public void Update()
+    {
+        if (_interactable == null) return;
+
+        if (Vector3.Distance(_target.position, _parent.transform.position) < _parent.Stats.AttackRadius)
+        {
+            if (!_timer.IsActive) _timer.Set(_interactable.Duration);
+        }
     }
 }
