@@ -150,7 +150,12 @@ public class UnitSelector : MonoBehaviour
     {
         if (RaycastUnitOnMouse(out var targetHit))
         {
-            entity = targetHit.rigidbody.transform;
+            if (targetHit.rigidbody != null)
+            {
+                entity = targetHit.rigidbody.transform;
+                return true;
+            }
+            entity = targetHit.transform;
             return true;
         }
         else
@@ -169,7 +174,14 @@ public class UnitSelector : MonoBehaviour
         if (RaycastUnitOnMouse(out var targetHit))
         {
             SetEffectControlTarget(ControlTarget, false);
-            ControlTarget = targetHit.rigidbody.transform;
+            if (targetHit.rigidbody != null)
+            {
+                ControlTarget = targetHit.rigidbody.transform;
+            }
+            else
+            {
+                ControlTarget = targetHit.transform;
+            }
             SetEffectControlTarget(ControlTarget, true);
             OnSelectControlTarget?.Invoke();
         }
@@ -235,7 +247,14 @@ public class UnitSelector : MonoBehaviour
                 if (CheckUnitInArea(col))
                 {
                     Debug.DrawLine(col.transform.position, col.transform.position + Vector3.up * 10, Color.green);
-                    Select(col.attachedRigidbody.transform);
+                    if (col.attachedRigidbody != null)
+                    {
+                        Select(col.attachedRigidbody.transform);
+                    }
+                    else
+                    {
+                        Select(col.transform);
+                    }
                 }
                 else
                 {
