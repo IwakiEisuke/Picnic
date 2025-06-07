@@ -302,6 +302,7 @@ public class InteractTarget : FSM.IState
     public void Exit()
     {
         _timer.Cancel();
+        _timer.TimeUp -= _interactable.Interact;
     }
 
     public void Update()
