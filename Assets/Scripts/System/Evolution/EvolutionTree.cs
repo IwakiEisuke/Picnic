@@ -9,12 +9,28 @@ public class EvolutionTree : MonoBehaviour
 
     EvolutionTreeNode currentNode;
 
+    bool initialized;
+
     public EvolutionTreeNode[] TreeNodes => treeNodes;
 
     private void Start()
     {
+        Close();
+        if (initialized) return;
+        GeneratePanel();
         currentNode = treeNodes[0]; // 初期ノードを設定
+    }
 
+    public void Copy(EvolutionTree tree)
+    {
+        treeNodes = tree.treeNodes;
+        currentNode = tree.currentNode;
+        GeneratePanel();
+        initialized = true;
+    }
+
+    public void GeneratePanel()
+    {
         views = new EvolutionTreeNodeView[treeNodes.Length];
 
         for (int i = 0; i < views.Length; i++)
@@ -27,11 +43,24 @@ public class EvolutionTree : MonoBehaviour
         }
     }
 
+    [ContextMenu("Open")]
+    public void Open()
+    {
+        gameObject.SetActive(true);
+    }
+
+    [ContextMenu("Close")]
+    public void Close()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void TryEvolve(int to)
     {
         if (currentNode.TryEvolve(to))
         {
             currentNode = treeNodes[to]; // 進化に成功したら現在のノードを更新
+            GetComponentInParent<UnitBase>().Evolve(currentNode.SpeciePrefab);
         }
     }
 }
@@ -42,7 +71,7 @@ public class EvolutionTreeNode
     [SerializeField] string specieName;
     [SerializeField] string description;
     [SerializeField] EvolutionTreeEdge[] edges;
-    [SerializeField] GameObject speciePrefab;
+    [SerializeField] UnitBase speciePrefab;
     [SerializeField] Vector2 pos;
     [SerializeField] Sprite icon;
     [SerializeField] bool isUnlocked;
@@ -50,6 +79,7 @@ public class EvolutionTreeNode
     public string SpecieName => specieName;
     public string Description => description;
     public EvolutionTreeEdge[] Edges => edges;
+    public UnitBase SpeciePrefab => speciePrefab;
     public Vector2 Position => pos;
     public Sprite Icon => icon;
     public bool IsUnlocked => isUnlocked;
