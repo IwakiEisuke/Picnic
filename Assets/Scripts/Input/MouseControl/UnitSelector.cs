@@ -14,6 +14,7 @@ public class UnitSelector : MonoBehaviour
     [SerializeField] GameObject selectMarker;
     [SerializeField] UnitControlMenu unitControlMenu;
     [SerializeField] LayerMask selectableLayers;
+    [SerializeField] LayerMask controlTargetLayers;
     readonly List<Transform> selecting = new();
     readonly Collider[] cols = new Collider[100];
 
@@ -126,7 +127,7 @@ public class UnitSelector : MonoBehaviour
         }
         else
         {
-            if (RaycastUnitOnMouse(out var selectHit))
+            if (RaycastUnitOnMouse(out var selectHit, controlTargetLayers))
             {
                 // ホバー表示
                 selectMarker.transform.position = selectHit.transform.position;
@@ -148,7 +149,7 @@ public class UnitSelector : MonoBehaviour
     /// </summary>
     bool TryGetClickedEntity(out Transform entity)
     {
-        if (RaycastUnitOnMouse(out var targetHit))
+        if (RaycastUnitOnMouse(out var targetHit, selectableLayers))
         {
             if (targetHit.rigidbody != null)
             {
@@ -166,12 +167,12 @@ public class UnitSelector : MonoBehaviour
     }
 
     /// <summary>
-    /// クリックしたユニットを選択する。
+    /// クリックしたオブジェクトを行動対象にする。
     /// </summary>
     void SelectClickedForControl()
     {
 
-        if (RaycastUnitOnMouse(out var targetHit))
+        if (RaycastUnitOnMouse(out var targetHit, controlTargetLayers))
         {
             SetEffectControlTarget(ControlTarget, false);
             if (targetHit.rigidbody != null)
@@ -192,10 +193,10 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
-    bool RaycastUnitOnMouse(out RaycastHit hit)
+    bool RaycastUnitOnMouse(out RaycastHit hit, LayerMask layer)
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        return (Physics.Raycast(ray, out hit, float.MaxValue, selectableLayers.value));
+        return (Physics.Raycast(ray, out hit, float.MaxValue, layer.value));
     }
 
     // ドラッグしている間、選択範囲を表示し、範囲内のユニットを選択する。
