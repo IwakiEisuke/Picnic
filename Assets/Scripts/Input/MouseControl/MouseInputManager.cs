@@ -40,7 +40,6 @@ public class MouseInputManager : ScriptableObject
     {
         mousePress.action.started += (context) =>
         {
-            //Debug.Log("drag start");
             _dragStartMousePos = mousePoint.action.ReadValue<Vector2>();
             OnMouseDown?.Invoke();
             _canDrag = !_isMouseHoveringUI;
@@ -48,7 +47,6 @@ public class MouseInputManager : ScriptableObject
 
         mousePress.action.canceled += (context) =>
         {
-            //Debug.Log("drag complete");
             OnMouseUp?.Invoke();
             if (!IsDragging) OnClicked?.Invoke();
             _isDragging = false;
@@ -62,7 +60,6 @@ public class MouseInputManager : ScriptableObject
 
         openMenu.action.performed += (context) =>
         {
-            Debug.Log("right click");
             OpenMenu?.Invoke();
         };
 

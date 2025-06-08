@@ -30,7 +30,6 @@ public class UnitControlMenu : MonoBehaviour
         var scaledOffset = new Vector3(menuOffset.x * scaleX, menuOffset.y * scaleY);
 
         menuPanel.position = screenPos + scaledOffset;
-        Debug.Log(screenPos);
     }
 
     public void CloseMenu()
