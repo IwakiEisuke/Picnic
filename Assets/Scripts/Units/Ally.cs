@@ -1,19 +1,14 @@
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class Ally : UnitBase
 {
-    private NavMeshAgent agent;
-
     public FSM2<State> movementFSM;
     public FSM attackFSM;
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-
         movementFSM =
             new(
                 new()
@@ -61,29 +56,20 @@ public class Ally : UnitBase
 /// <summary>
 /// ç≈Ç‡ãﬂÇ¢ñ⁄ïWÇ…å¸Ç©Ç¡Çƒà⁄ìÆÇ∑ÇÈ
 /// </summary>
-public class NearTargetMove : FSM.IState
+public class NearTargetMove : FSMState
 {
-    readonly UnitBase _parent;
-    readonly UnitStats _stats;
-    readonly NavMeshAgent _agent;
-
     Vector3 _initPos;
 
-    public NearTargetMove(UnitBase parent)
+    public NearTargetMove(UnitBase parent) : base(parent)
     {
-        _parent = parent;
-        _stats = parent.Stats;
-        _agent = parent.Agent;
     }
 
-    public void Enter()
+    public override void Enter()
     {
         _initPos = Quaternion.AngleAxis(90, Vector3.right) * Random.insideUnitCircle;
     }
 
-    public void Exit() { }
-
-    public void Update()
+    public override void Update()
     {
         if (_stats.isSortie)
         {
@@ -110,27 +96,17 @@ public class NearTargetMove : FSM.IState
 /// <summary>
 /// ç≈Ç‡ãﬂÇ¢ñ⁄ïWÇçUåÇÇ∑ÇÈ
 /// </summary>
-public class NearTargetAttack : FSM.IState
+public class NearTargetAttack : FSMState
 {
-    readonly UnitBase _parent;
-    readonly UnitStats _stats;
-    readonly NavMeshAgent _agent;
     readonly Collider[] _hits = new Collider[1];
 
     float t;
 
-    public NearTargetAttack(UnitBase parent)
+    public NearTargetAttack(UnitBase parent) : base(parent)
     {
-        _parent = parent;
-        _stats = parent.Stats;
-        _agent = parent.Agent;
     }
 
-    public void Enter() { }
-
-    public void Exit() { }
-
-    public void Update()
+    public override void Update()
     {
         t -= Time.deltaTime;
 
@@ -143,7 +119,7 @@ public class NearTargetAttack : FSM.IState
 
     private void Attack()
     {
-        Debug.Log($"{_agent.name}: Attack");
+        Log("Attack");
         foreach (var damageable in _hits[0].GetComponentsInParent<IDamageable>())
         {
             damageable.TakeDamage(_stats);
@@ -157,20 +133,13 @@ public class NearTargetAttack : FSM.IState
 }
 
 
-public class GoToClickPos : FSM.IState
+public class GoToClickPos : FSMState
 {
-    readonly UnitBase _parent;
-    readonly UnitStats _stats;
-    readonly NavMeshAgent _agent;
-
-    public GoToClickPos(UnitBase parent)
+    public GoToClickPos(UnitBase parent) : base(parent)
     {
-        _parent = parent;
-        _stats = parent.Stats;
-        _agent = parent.GetComponent<NavMeshAgent>();
     }
 
-    public void Enter()
+    public override void Enter()
     {
         var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out var hit))
@@ -178,75 +147,46 @@ public class GoToClickPos : FSM.IState
             _agent.SetDestination(hit.point);
         }
     }
-
-    public void Exit()
-    {
-
-    }
-
-    public void Update()
-    {
-
-    }
 }
 
-public class FollowTarget : FSM.IState
+public class FollowTarget : FSMState
 {
-    readonly UnitBase _parent;
     Transform _target;
 
-    public FollowTarget(UnitBase parent)
+    public FollowTarget(UnitBase parent) : base(parent)
     {
-        // Initialize any required fields or references here
-        _parent = parent;
     }
 
-    public void Enter()
+    public override void Enter()
     {
         _target = Object.FindAnyObjectByType<UnitSelector>().ControlTarget;
     }
 
-    public void Exit()
-    {
-
-    }
-
-    public void Update()
+    public override void Update()
     {
         _parent.Agent.SetDestination(_target.position);
     }
 }
 
-public class Stop : FSM.IState
+public class Stop : FSMState
 {
-    readonly UnitBase _parent;
-    public Stop(UnitBase parent)
+    public Stop(UnitBase parent) : base(parent)
     {
-        _parent = parent;
     }
-    public void Enter()
+
+    public override void Enter()
     {
         _parent.Agent.isStopped = true;
     }
-    public void Exit()
-    {
-        _parent.Agent.isStopped = false;
-    }
-    public void Update()
-    {
-        // No action needed while stopped
-    }
 }
 
-public class MoveToHive : FSM.IState
+public class MoveToHive : FSMState
 {
-    readonly UnitBase _parent;
-    public MoveToHive(UnitBase parent)
+    public MoveToHive(UnitBase parent) : base(parent)
     {
-        _parent = parent;
     }
 
-    public void Enter()
+    public override void Enter()
     {
         var hive = GameObject.Find("Hive");
         if (hive != null)
@@ -255,63 +195,61 @@ public class MoveToHive : FSM.IState
         }
         else
         {
-            Debug.LogWarning("Hive not found, setting destination to zero.");
+            Log("Hive not found, setting destination to zero.");
             _parent.Agent.SetDestination(Vector3.zero);
         }
     }
-
-    public void Exit()
-    {
-        
-    }
-
-    public void Update()
-    {
-        
-    }
 }
 
-public class InteractTarget : FSM.IState
+public class InteractTarget : FSMState
 {
-    readonly UnitBase _parent;
     Transform _target;
     IInteractable _interactable;
     readonly Timer _timer = new();
 
-    public InteractTarget(UnitBase parent)
+    public InteractTarget(UnitBase parent) : base(parent)
     {
-        _parent = parent;
     }
 
-    public void Enter()
+    public override void Enter()
     {
         _target = Object.FindAnyObjectByType<UnitSelector>().ControlTarget;
         _interactable = _target.GetComponent<IInteractable>();
         if (_interactable != null)
         {
             _timer.TimeUp += _interactable.Interact;
+            _interactable.CancelInteract += Cancel;
             _parent.Agent.SetDestination(_target.position);
         }
         else
         {
-            Debug.LogWarning("No target to interact with");
+            Log("No target to interact with");
             _parent.Agent.isStopped = true;
         }
     }
 
-    public void Exit()
+    public override void Exit()
     {
         _timer.Cancel();
         _timer.TimeUp -= _interactable.Interact;
+        _interactable.CancelInteract -= Cancel;
     }
 
-    public void Update()
+    public override void Update()
     {
         if (_interactable == null) return;
 
         if (Vector3.Distance(_target.position, _parent.transform.position) < _parent.Stats.AttackRadius)
         {
             if (!_timer.IsActive) _timer.Set(_interactable.Duration);
+        }
+    }
+
+    private void Cancel()
+    {
+        if (_parent is Ally ally)
+        {
+            ally.movementFSM.Next(Ally.State.MoveToNearestTarget);
         }
     }
 }
