@@ -8,6 +8,7 @@ public class EvolutionTreeNodeView : MonoBehaviour
     [SerializeField] RectTransform rectTransform;
     [SerializeField] Image icon;
     [SerializeField] Image edgeArrowPref;
+    [SerializeField] Button iconButton;
 
     public void Set(EvolutionTree tree, int index)
     {
@@ -22,8 +23,10 @@ public class EvolutionTreeNodeView : MonoBehaviour
 
             var arrow = Instantiate(edgeArrowPref, transform);
 
-            arrow.rectTransform.anchoredPosition = mid;
+            arrow.rectTransform.anchoredPosition = mid - rectTransform.anchoredPosition;
             arrow.rectTransform.rotation = Quaternion.Euler(0, 0, angleY);
         }
+
+        iconButton.onClick.AddListener(() => tree.TryEvolve(index));
     }
 }
