@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// 遷移ごと組み込んだFSM
 /// </summary>
 public class FSM
 {
-    private Dictionary<IState, List<Transition>> _states = new();
+    private Dictionary<FSMState, List<Transition>> _states = new();
 
-    private IState currentState;
+    private FSMState currentState;
 
-    public FSM(Dictionary<IState, List<Transition>> states, int initStateIndex = 0)
+    public FSM(Dictionary<FSMState, List<Transition>> states, int initStateIndex = 0)
     {
         _states = states;
         Next(initStateIndex);
@@ -37,13 +39,6 @@ public class FSM
         currentState.Update();
     }
 
-    public interface IState
-    {
-        void Enter();
-        void Update();
-        void Exit();
-    }
-
     public class Transition
     {
         public int to;
@@ -54,5 +49,28 @@ public class FSM
             this.to = to;
             this.condition = condition;
         }
+    }
+}
+
+public class FSMState
+{
+    protected readonly UnitBase _parent;
+    protected readonly UnitStats _stats;
+    protected readonly NavMeshAgent _agent;
+
+    public FSMState(UnitBase parent)
+    {
+        _parent = parent;
+        _stats = parent.Stats;
+        _agent = parent.Agent;
+    }
+
+    public virtual void Enter() { }
+    public virtual void Update() { }
+    public virtual void Exit() { }
+
+    protected void Log(string message)
+    {
+        Debug.Log($"<{_parent.name}>: {message}");
     }
 }
