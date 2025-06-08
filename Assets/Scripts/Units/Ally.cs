@@ -262,12 +262,12 @@ public class MoveToHive : FSM.IState
 
     public void Exit()
     {
-        
+
     }
 
     public void Update()
     {
-        
+
     }
 }
 
@@ -290,6 +290,7 @@ public class InteractTarget : FSM.IState
         if (_interactable != null)
         {
             _timer.TimeUp += _interactable.Interact;
+            _interactable.CancelInteract += Cancel;
             _parent.Agent.SetDestination(_target.position);
         }
         else
@@ -303,6 +304,7 @@ public class InteractTarget : FSM.IState
     {
         _timer.Cancel();
         _timer.TimeUp -= _interactable.Interact;
+        _interactable.CancelInteract -= Cancel;
     }
 
     public void Update()
@@ -312,6 +314,14 @@ public class InteractTarget : FSM.IState
         if (Vector3.Distance(_target.position, _parent.transform.position) < _parent.Stats.AttackRadius)
         {
             if (!_timer.IsActive) _timer.Set(_interactable.Duration);
+        }
+    }
+
+    private void Cancel()
+    {
+        if (_parent is Ally ally)
+        {
+            ally.movementFSM.Next(Ally.State.MoveToNearestTarget);
         }
     }
 }
