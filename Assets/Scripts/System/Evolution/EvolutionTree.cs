@@ -1,35 +1,32 @@
 ﻿using System;
 using UnityEngine;
 
-public class EvolutionTree : MonoBehaviour
+[CreateAssetMenu(fileName = "EvolutionTree", menuName = "EvolutionTree", order = 1)]
+public class EvolutionTree : ScriptableObject
 {
     [SerializeField] EvolutionTreeNode[] treeNodes;
     [SerializeField] EvolutionTreeNodeView viewPrefab;
-    [SerializeField] EvolutionTreeNodeView[] views;
 
     EvolutionTreeNode currentNode;
+    EvolutionTreeNodeView[] views;
 
-    bool initialized;
+    public UnitBase owner;
 
     public EvolutionTreeNode[] TreeNodes => treeNodes;
-
-    private void Start()
-    {
-        Close();
-        if (initialized) return;
-        GeneratePanel();
-        currentNode = treeNodes[0]; // 初期ノードを設定
-    }
+    public EvolutionTreeNode CurrentNode => currentNode;
 
     public void Copy(EvolutionTree tree)
     {
         treeNodes = tree.treeNodes;
-        currentNode = tree.currentNode;
-        GeneratePanel();
-        initialized = true;
+        viewPrefab = tree.viewPrefab;
+        if (tree.currentNode != null)
+        {
+            currentNode = tree.currentNode;
+        }
+        else currentNode = treeNodes[0];
     }
 
-    public void GeneratePanel()
+    public void GeneratePanel(Transform parent)
     {
         views = new EvolutionTreeNodeView[treeNodes.Length];
 
@@ -37,31 +34,25 @@ public class EvolutionTree : MonoBehaviour
         {
             if (views[i] == null)
             {
-                views[i] = Instantiate(viewPrefab, transform);
+                views[i] = Instantiate(viewPrefab, parent);
             }
             views[i].Set(this, i);
         }
     }
 
-    [ContextMenu("Open")]
-    public void Open()
-    {
-        gameObject.SetActive(true);
-    }
-
-    [ContextMenu("Close")]
-    public void Close()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void TryEvolve(int to)
     {
-        if (currentNode.TryEvolve(to))
+        if (currentNode.CanEvolve(to))
         {
             currentNode = treeNodes[to]; // 進化に成功したら現在のノードを更新
-            GetComponentInParent<UnitBase>().Evolve(currentNode.SpeciePrefab);
+            owner.Evolve(currentNode.SpeciePrefab);
         }
+    }
+
+    [ContextMenu(nameof(ResetInnerValue))]
+    private void ResetInnerValue()
+    {
+        currentNode = treeNodes[0];
     }
 }
 
@@ -84,7 +75,7 @@ public class EvolutionTreeNode
     public Sprite Icon => icon;
     public bool IsUnlocked => isUnlocked;
 
-    public bool TryEvolve(int nodeIndex)
+    public bool CanEvolve(int nodeIndex)
     {
         for (int i = 0; i < edges.Length; i++)
         {

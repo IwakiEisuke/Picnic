@@ -10,7 +10,8 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     [SerializeField] public LayerMask opponentLayer;
     [SerializeField] public string destinationTag;
 
-    [SerializeField] protected EvolutionTree evolutionTree;
+    [SerializeField] protected EvolutionTree evolutionTreeAsset;
+    [SerializeField] protected Transform evolutionTreeViewParent;
 
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
@@ -22,6 +23,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     public Health Health => health;
     public NavMeshAgent Agent => _agent;
 
+    [SerializeField] protected EvolutionTree evolutionTree;
     public EvolutionTree EvolutionTree => evolutionTree;
 
     public event Action Destroyed;
@@ -40,6 +42,15 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);
         observer.Register();
+
+        if (evolutionTree == null && evolutionTreeAsset != null)
+        {
+            evolutionTree = ScriptableObject.CreateInstance<EvolutionTree>();
+            evolutionTree.owner = this;
+            evolutionTree.Copy(evolutionTreeAsset);
+            evolutionTree.GeneratePanel(evolutionTreeViewParent);
+            PanelClose();
+        }
     }
 
     public void Die()
@@ -52,6 +63,16 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     {
         _agent.velocity = transform.position.normalized * other.KnockBack;
         health.TakeDamage(other);
+    }
+
+    public void PanelOpen()
+    {
+        evolutionTreeViewParent.gameObject.SetActive(true);
+    }
+
+    public void PanelClose()
+    {
+        evolutionTreeViewParent.gameObject.SetActive(false);
     }
 
     public void Evolve(UnitBase prefab)

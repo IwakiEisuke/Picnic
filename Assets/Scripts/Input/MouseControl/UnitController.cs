@@ -51,10 +51,9 @@ public class UnitController : MonoBehaviour
             return;
         }
 
-        var tree = unitSelector.ControlTarget.GetComponentInChildren<EvolutionTree>(true);
-        if (tree != null)
+        if (unitSelector.ControlTarget.TryGetComponent<UnitBase>(out var unit))
         {
-            tree.Open();
+            unit.PanelOpen();
         }
         else
         {
