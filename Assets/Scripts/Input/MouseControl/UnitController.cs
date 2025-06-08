@@ -15,6 +15,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] InputActionReference unitFollow;
     [SerializeField] InputActionReference unitStop;
     [SerializeField] InputActionReference unitMoveToHive;
+    [SerializeField] InputActionReference openUnitPanel;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class UnitController : MonoBehaviour
         unitFollow.action.performed += _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); };
         unitStop.action.performed += _ => UnitSetState(Ally.State.Stop);
         unitMoveToHive.action.performed += _ => UnitSetState(Ally.State.MoveToHive);
+        openUnitPanel.action.performed += _ => OpenUnitPanel();
     }
 
     private void UnitSetState(Ally.State nextState)
@@ -41,6 +43,15 @@ public class UnitController : MonoBehaviour
         UnitSetState((Ally.State)nextState);
     }
 
+    public void OpenUnitPanel()
+    {
+        var tree = unitSelector.ControlTarget.GetComponentInChildren<EvolutionTree>(true);
+        if (tree != null)
+        {
+            tree.Open();
+        }
+    }
+
     private void OnDestroy()
     {
         unitMove.action.Reset();
@@ -48,5 +59,6 @@ public class UnitController : MonoBehaviour
         unitFollow.action.Reset();
         unitStop.action.Reset();
         unitMoveToHive.action.Reset();
+        openUnitPanel.action.Reset();
     }
 }
