@@ -5,10 +5,23 @@ public class EvolutionTree : MonoBehaviour
 {
     [SerializeField] EvolutionTreeNode[] treeNodes;
     [SerializeField] EvolutionTreeNodeView viewPrefab;
-    [SerializeField] Sprite edgeArrow;
     [SerializeField] EvolutionTreeNodeView[] views;
 
     public EvolutionTreeNode[] TreeNodes => treeNodes;
+
+    private void Start()
+    {
+        views = new EvolutionTreeNodeView[treeNodes.Length];
+
+        for (int i = 0; i < views.Length; i++)
+        {
+            if (views[i] == null)
+            {
+                views[i] = Instantiate(viewPrefab, transform);
+            }
+            views[i].Set(this, i);
+        }
+    }
 }
 
 [Serializable]
