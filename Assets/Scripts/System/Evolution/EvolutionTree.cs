@@ -9,12 +9,28 @@ public class EvolutionTree : MonoBehaviour
 
     EvolutionTreeNode currentNode;
 
+    bool initialized;
+
     public EvolutionTreeNode[] TreeNodes => treeNodes;
 
     private void Start()
     {
+        Close();
+        if (initialized) return;
+        GeneratePanel();
         currentNode = treeNodes[0]; // 初期ノードを設定
+    }
 
+    public void Copy(EvolutionTree tree)
+    {
+        treeNodes = tree.treeNodes;
+        currentNode = tree.currentNode;
+        GeneratePanel();
+        initialized = true;
+    }
+
+    public void GeneratePanel()
+    {
         views = new EvolutionTreeNodeView[treeNodes.Length];
 
         for (int i = 0; i < views.Length; i++)
@@ -25,8 +41,6 @@ public class EvolutionTree : MonoBehaviour
             }
             views[i].Set(this, i);
         }
-
-        Close();
     }
 
     [ContextMenu("Open")]

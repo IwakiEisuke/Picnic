@@ -10,6 +10,8 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     [SerializeField] public LayerMask opponentLayer;
     [SerializeField] public string destinationTag;
 
+    [SerializeField] protected EvolutionTree evolutionTree;
+
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
@@ -19,6 +21,8 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
 
     public Health Health => health;
     public NavMeshAgent Agent => _agent;
+
+    public EvolutionTree EvolutionTree => evolutionTree;
 
     public event Action Destroyed;
 
@@ -57,6 +61,10 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
         // 状態異常の引き継ぎ
 
         // 進化状態の引き継ぎ
+        if (evolutionTree != null)
+        {
+            evolved.evolutionTree.Copy(evolutionTree);
+        }
 
 
         Destroy(gameObject);

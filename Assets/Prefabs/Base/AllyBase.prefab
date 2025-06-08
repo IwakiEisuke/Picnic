@@ -132,6 +132,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   destinationTag: Enemy
+  evolutionTree: {fileID: 6290046964271215860}
 --- !u!4 &4543852607026005770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2334293146028736811, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
@@ -239,3 +240,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3502557707645108437, guid: 8027084dd32d41d409d2d9c4a935d21e, type: 3}
   m_PrefabInstance: {fileID: 7066418623465629377}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6290046964271215860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3844466798178554421, guid: 8027084dd32d41d409d2d9c4a935d21e, type: 3}
+  m_PrefabInstance: {fileID: 7066418623465629377}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e058d9d7c9c66e748b8536f0069d7c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
