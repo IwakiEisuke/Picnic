@@ -46,6 +46,7 @@ public class EvolutionTree : MonoBehaviour
         if (currentNode.TryEvolve(to))
         {
             currentNode = treeNodes[to]; // 進化に成功したら現在のノードを更新
+            GetComponentInParent<UnitBase>().Evolve(currentNode.SpeciePrefab);
         }
     }
 }
@@ -56,7 +57,7 @@ public class EvolutionTreeNode
     [SerializeField] string specieName;
     [SerializeField] string description;
     [SerializeField] EvolutionTreeEdge[] edges;
-    [SerializeField] GameObject speciePrefab;
+    [SerializeField] UnitBase speciePrefab;
     [SerializeField] Vector2 pos;
     [SerializeField] Sprite icon;
     [SerializeField] bool isUnlocked;
@@ -64,6 +65,7 @@ public class EvolutionTreeNode
     public string SpecieName => specieName;
     public string Description => description;
     public EvolutionTreeEdge[] Edges => edges;
+    public UnitBase SpeciePrefab => speciePrefab;
     public Vector2 Position => pos;
     public Sprite Icon => icon;
     public bool IsUnlocked => isUnlocked;

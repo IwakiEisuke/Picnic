@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -48,6 +48,18 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     {
         _agent.velocity = transform.position.normalized * other.KnockBack;
         health.TakeDamage(other);
+    }
+
+    public void Evolve(UnitBase prefab)
+    {
+        var evolved = Instantiate(prefab, transform.position, transform.rotation);
+        
+        // 状態異常の引き継ぎ
+
+        // 進化状態の引き継ぎ
+
+
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()
