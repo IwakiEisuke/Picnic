@@ -60,6 +60,8 @@ public class UnitController : MonoBehaviour
         {
             Debug.LogWarning("No EvolutionTree found on the control target.");
         }
+
+        unitControlMenu.CloseMenu();
     }
 
     private void OnDestroy()
