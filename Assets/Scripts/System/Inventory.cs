@@ -7,6 +7,8 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] private int _honeyCount = 0; // –I–¨‚Ì”
 
+    public int HoneyCount => _honeyCount;
+
     public void AddHoney(int amount)
     {
         if (amount < 0)
