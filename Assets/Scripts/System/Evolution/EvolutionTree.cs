@@ -25,6 +25,20 @@ public class EvolutionTree : MonoBehaviour
             }
             views[i].Set(this, i);
         }
+
+        Close();
+    }
+
+    [ContextMenu("Open")]
+    public void Open()
+    {
+        gameObject.SetActive(true);
+    }
+
+    [ContextMenu("Close")]
+    public void Close()
+    {
+        gameObject.SetActive(false);
     }
 
     public void TryEvolve(int to)
