@@ -224,15 +224,18 @@ public class InteractTarget : FSMState
         else
         {
             Log("No target to interact with");
-            _parent.Agent.isStopped = true;
+            Cancel();
         }
     }
 
     public override void Exit()
     {
         _timer.Cancel();
-        _timer.TimeUp -= _interactable.Interact;
-        _interactable.CancelInteract -= Cancel;
+        if (_interactable != null)
+        {
+            _timer.TimeUp -= _interactable.Interact;
+            _interactable.CancelInteract -= Cancel;
+        }
     }
 
     public override void Update()
