@@ -45,10 +45,20 @@ public class UnitController : MonoBehaviour
 
     public void OpenUnitPanel()
     {
+        if (unitSelector.ControlTarget == null)
+        {
+            Debug.LogWarning("No control target selected.");
+            return;
+        }
+
         var tree = unitSelector.ControlTarget.GetComponentInChildren<EvolutionTree>(true);
         if (tree != null)
         {
             tree.Open();
+        }
+        else
+        {
+            Debug.LogWarning("No EvolutionTree found on the control target.");
         }
     }
 
