@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// É}ÉEÉXì¸óÕÇÃä«óù
 /// </summary>
 [CreateAssetMenu(menuName = "InputManager/MouseInput")]
-public class MouseInputManager : ScriptableObject
+public class MouseInputManager : InputManagerBase
 {
     public bool IsDragging => _isDragging;
     public bool IsMouseHoveringUI => _isMouseHoveringUI;
@@ -36,7 +36,7 @@ public class MouseInputManager : ScriptableObject
     bool _canDrag;
     bool _isMouseHoveringUI;
 
-    public void Init()
+    public override void Init()
     {
         mousePress.action.started += (context) =>
         {
@@ -72,7 +72,7 @@ public class MouseInputManager : ScriptableObject
         //mousePressCtrl.action.canceled += (context) => Debug.Log("Click + Ctrl canceled");
     }
 
-    public void Update()
+    public override void Update()
     {
         _isMouseHoveringUI = EventSystem.current.IsPointerOverGameObject();
 
@@ -88,7 +88,7 @@ public class MouseInputManager : ScriptableObject
         }
     }
 
-    public void ResetActions()
+    public override void ResetActions()
     {
         OnMouseDown = null;
         OnMouseUp = null;
@@ -97,10 +97,5 @@ public class MouseInputManager : ScriptableObject
         OpenMenu = null;
         CloseMenu = null;
         OnMouseClickedWithoutUI = null;
-
-        mousePress.action.Reset();
-        mousePressCtrl.action.Reset();
-        mousePoint.action.Reset();
-        openMenu.action.Reset();
     }
 }
