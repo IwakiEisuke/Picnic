@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
+public abstract class UnitBase : MonoBehaviour, IUnit
 {
     [SerializeField] protected UnitStats stats;
     [SerializeField] protected Health health;

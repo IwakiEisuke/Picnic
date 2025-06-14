@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [Serializable]
-public class Health : IDamageable
+public class Health : MonoBehaviour
 {
     [SerializeField] UnitStats stats;
     [SerializeField] GameObject dieObj;
@@ -41,9 +41,4 @@ public class Health : IDamageable
             GameObject.Instantiate(dieObj, _parent.position, _parent.rotation);
         }
     }
-}
-
-public interface IHealth
-{
-    public Health Health { get; }
 }

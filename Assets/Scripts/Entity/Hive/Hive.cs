@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Hive : MonoBehaviour, IDamageable, IHealth
+public class Hive : MonoBehaviour
 {
     [SerializeField] Health health;
 

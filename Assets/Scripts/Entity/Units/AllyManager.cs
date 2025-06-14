@@ -70,7 +70,7 @@ public class UnitFactory
     {
         var newUnitObj = Object.Instantiate(generateStats.Prefab, transform.position, transform.rotation);
 
-        newUnitObj.GetComponent<IHealth>().Health.OnDied.AddListener(() => generateStats.exists -= 1);
+        newUnitObj.GetComponent<Health>().OnDied.AddListener(() => generateStats.exists -= 1);
         newUnitObj.GetComponent<IUnit>().Destroyed += () => generateStats.outside -= 1;
 
         generateStats.outside += 1;

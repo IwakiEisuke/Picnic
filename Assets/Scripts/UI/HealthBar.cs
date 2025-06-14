@@ -11,7 +11,7 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        health = target.GetComponent<IHealth>().Health;
+        health = target.GetComponent<Health>();
     }
 
     private void Update()
