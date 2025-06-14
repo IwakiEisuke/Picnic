@@ -282,6 +282,7 @@ MonoBehaviour:
   OnDied:
     m_PersistentCalls:
       m_Calls: []
+  _currentHealth: 0
 --- !u!114 &4321336669386230148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +355,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bb6d30a22e80b4ebef36b83c255c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
+  data:
+    id: 0
+    damage: 0
+    invincibleTime: 0
 --- !u!135 &6794841316208805712
 SphereCollider:
   m_ObjectHideFlags: 0
