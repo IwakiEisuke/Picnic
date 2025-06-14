@@ -120,7 +120,7 @@ public class NearTargetAttack : FSMState
     private void Attack()
     {
         Log("Attack");
-        _collisionController.SetColliderActive(0);
+        _attackController.AttackNearTarget(_agent.transform.position, 1f, new AttackData(_stats.Atk));
     }
 
     private bool CheckAround(LayerMask layerMask)
