@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [Serializable]
-public class Health : IDamageable
+public class Health : MonoBehaviour
 {
     [SerializeField] UnitStats stats;
     [SerializeField] GameObject dieObj;
@@ -11,19 +11,17 @@ public class Health : IDamageable
     public UnityEvent OnDied;
 
     int _currentHealth;
-    Transform _parent;
 
     public float HealthRatio => 1f * _currentHealth / stats.MaxHealth;
 
-    public void Init(Transform parent)
+    public void Start()
     {
-        _parent = parent;
         _currentHealth = stats.MaxHealth;
     }
 
-    public void TakeDamage(UnitStats other)
+    public void TakeDamage(AttackReceiveInfo info)
     {
-        _currentHealth -= other.Atk;
+        _currentHealth -= info.damage;
 
         if (_currentHealth <= 0)
         {
@@ -34,16 +32,11 @@ public class Health : IDamageable
     public void Die()
     {
         OnDied?.Invoke();
-        GameObject.Destroy(_parent.gameObject);
+        Destroy(gameObject);
 
         if (dieObj != null)
         {
-            GameObject.Instantiate(dieObj, _parent.position, _parent.rotation);
+            Instantiate(dieObj, transform.position, transform.rotation);
         }
     }
-}
-
-public interface IHealth
-{
-    public Health Health { get; }
 }

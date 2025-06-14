@@ -2,7 +2,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
+[DefaultExecutionOrder((int)ExecutionOrder.UnitBase)]
+public abstract class UnitBase : MonoBehaviour, IUnit
 {
     [SerializeField] protected UnitStats stats;
     [SerializeField] protected Health health;
@@ -12,6 +13,8 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
 
     [SerializeField] protected EvolutionTree evolutionTreeAsset;
     [SerializeField] protected Transform evolutionTreeViewParent;
+
+    [SerializeField] protected AttackController attackController;
 
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
@@ -25,6 +28,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
 
     [SerializeField] protected EvolutionTree evolutionTree;
     public EvolutionTree EvolutionTree => evolutionTree;
+    public AttackController AttackController => attackController;
 
     public event Action Destroyed;
 
@@ -38,7 +42,6 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = Stats.Speed;
-        health.Init(transform);
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);
         observer.Register();
@@ -59,12 +62,6 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
         StopAllCoroutines();
     }
 
-    public void TakeDamage(UnitStats other)
-    {
-        _agent.velocity = transform.position.normalized * other.KnockBack;
-        health.TakeDamage(other);
-    }
-
     public void PanelOpen()
     {
         evolutionTreeViewParent.gameObject.SetActive(true);
@@ -78,7 +75,7 @@ public abstract class UnitBase : MonoBehaviour, IDamageable, IHealth, IUnit
     public void Evolve(UnitBase prefab)
     {
         var evolved = Instantiate(prefab, transform.position, transform.rotation);
-        
+
         // 状態異常の引き継ぎ
 
         // 進化状態の引き継ぎ

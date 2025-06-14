@@ -120,10 +120,7 @@ public class NearTargetAttack : FSMState
     private void Attack()
     {
         Log("Attack");
-        foreach (var damageable in _hits[0].GetComponentsInParent<IDamageable>())
-        {
-            damageable.TakeDamage(_stats);
-        }
+        _attackController.AttackNearTarget(_agent.transform.position, 1f, new AttackData(_stats.Atk));
     }
 
     private bool CheckAround(LayerMask layerMask)
