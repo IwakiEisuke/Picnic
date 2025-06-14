@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HitManager : MonoBehaviour
 {
     [SerializeField] Health health;
+    
+    readonly DamageHistoryManager damageHistoryManager = new();
 
     public void ReceiveHit(AttackReceiveInfo info)
     {
@@ -11,11 +14,85 @@ public class HitManager : MonoBehaviour
             Debug.LogWarning("Health component is not assigned in HitManager.");
             return;
         }
-        health.TakeDamage(info);
+
+        if (damageHistoryManager.CanHit(info))
+        {
+            health.TakeDamage(info);
+        }
+    }
+
+    private void Update()
+    {
+        damageHistoryManager.Update();
     }
 }
 
 public class  AttackReceiveInfo
 {
     public int damage;
+    public int id;
+    public float invincibleTime;
+    public Transform attacker;
+
+    public AttackReceiveInfo(AttackData attackData, Transform attacker)
+    {
+        damage = attackData.damage;
+        id = attackData.id;
+        invincibleTime = attackData.invincibleTime;
+        this.attacker = attacker;
+    }
+}
+
+public class DamageHistoryManager
+{
+    List<DamageHistory> damageHistories = new();
+
+    public class DamageHistory
+    {
+        public int id;
+        public float duration;
+        public Transform attacker;
+
+        public DamageHistory(AttackReceiveInfo info)
+        {
+            id = info.id;
+            duration = info.invincibleTime;
+            attacker = info.attacker;
+        }
+    }
+
+    private void AddHistory(AttackReceiveInfo info)
+    {
+        if (info.invincibleTime > 0)
+        {
+            damageHistories.Add(new DamageHistory(info));
+        }
+    }
+
+    public bool CanHit(AttackReceiveInfo info)
+    {
+        for (int i = 0; i < damageHistories.Count; i++)
+        {
+            if (damageHistories[i].id == info.id && damageHistories[i].attacker == info.attacker)
+            {
+                return false;
+            }
+        }
+
+        AddHistory(info);
+        return true;
+    }
+
+    public void Update()
+    {
+        var dt = Time.deltaTime;
+        for (int i = 0; i < damageHistories.Count; i++)
+        {
+            damageHistories[i].duration -= dt;
+            if (damageHistories[i].duration <= 0)
+            {
+                damageHistories.RemoveAt(i);
+            }
+        }
+    }
 }

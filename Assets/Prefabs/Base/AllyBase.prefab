@@ -441,7 +441,7 @@ MonoBehaviour:
   destinationTag: Enemy
   evolutionTreeAsset: {fileID: 11400000, guid: 67537e70c2f7f82488fdc299570f0832, type: 2}
   evolutionTreeViewParent: {fileID: 5947957554861696532}
-  collisionController: {fileID: 2635285480694501285}
+  attackController: {fileID: 2635285480694501285}
   evolutionTree: {fileID: 0}
 --- !u!4 &4543852607026005770 stripped
 Transform:

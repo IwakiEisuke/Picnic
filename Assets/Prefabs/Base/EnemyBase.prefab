@@ -141,7 +141,7 @@ MonoBehaviour:
   destinationTag: Base
   evolutionTreeAsset: {fileID: 0}
   evolutionTreeViewParent: {fileID: 0}
-  collisionController: {fileID: 9198432522562431736}
+  attackController: {fileID: 9198432522562431736}
   evolutionTree: {fileID: 0}
 --- !u!114 &9198432522562431736 stripped
 MonoBehaviour:
