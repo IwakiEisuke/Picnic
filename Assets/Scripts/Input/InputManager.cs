@@ -1,13 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] InputManagerBase[] InputManagers;
+    [SerializeField] InputActionAsset inputActionAsset;
+    [SerializeField] InputManagerBase[] inputManagers;
+
+    bool isFirstFrame = true;
 
     private void Start()
     {
-        foreach (var manager in InputManagers)
+        foreach (var manager in inputManagers)
         {
             manager.Init();
         }
@@ -15,15 +19,20 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (var manager in InputManagers)
+        foreach (var manager in inputManagers)
         {
             manager.Update();
         }
+
+        if (isFirstFrame)
+            isFirstFrame = false;
+        else
+            inputActionAsset.FindActionMap("UI").Disable();
     }
 
     private void OnDestroy()
     {
-        foreach (var manager in InputManagers)
+        foreach (var manager in inputManagers)
         {
             manager.ResetActions();
         }
