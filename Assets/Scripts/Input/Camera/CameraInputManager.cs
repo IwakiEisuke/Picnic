@@ -24,7 +24,7 @@ public class CameraInputManager : InputManagerBase
         void Move(InputAction.CallbackContext context)
         {
             Vector2 moveInput = context.ReadValue<Vector2>();
-            OnCameraMove?.Invoke(moveSpeed * Time.deltaTime * moveInput);
+            OnCameraMove?.Invoke(moveSpeed * moveInput);
             if (debugMode) Debug.Log($"Camera Move Action Performed: {moveInput}");
         }
 
