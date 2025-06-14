@@ -4,7 +4,7 @@ public class DamageReceiver : MonoBehaviour
 {
     [SerializeField] HitManager hitManager;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent<AttackCollider>(out var attackCollider))
         {
