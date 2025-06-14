@@ -11,13 +11,11 @@ public class Health : MonoBehaviour
     public UnityEvent OnDied;
 
     int _currentHealth;
-    Transform _parent;
 
     public float HealthRatio => 1f * _currentHealth / stats.MaxHealth;
 
-    public void Init(Transform parent)
+    public void Start()
     {
-        _parent = parent;
         _currentHealth = stats.MaxHealth;
     }
 
@@ -34,11 +32,11 @@ public class Health : MonoBehaviour
     public void Die()
     {
         OnDied?.Invoke();
-        GameObject.Destroy(_parent.gameObject);
+        Destroy(gameObject);
 
         if (dieObj != null)
         {
-            GameObject.Instantiate(dieObj, _parent.position, _parent.rotation);
+            Instantiate(dieObj, transform.position, transform.rotation);
         }
     }
 }

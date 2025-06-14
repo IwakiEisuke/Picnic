@@ -42,7 +42,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = Stats.Speed;
-        health.Init(transform);
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);
         observer.Register();
