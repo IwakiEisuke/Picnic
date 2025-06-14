@@ -1,24 +1,32 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] MouseInputManager mouseInputManager;
-
-    public MouseInputManager MouseInput => mouseInputManager;
+    [SerializeField] InputManagerBase[] InputManagers;
 
     private void Start()
     {
-        mouseInputManager.Init();
+        foreach (var manager in InputManagers)
+        {
+            manager.Init();
+        }
     }
 
     private void Update()
     {
-        mouseInputManager.Update();
+        foreach (var manager in InputManagers)
+        {
+            manager.Update();
+        }
     }
 
     private void OnDestroy()
     {
-        mouseInputManager.ResetActions();
+        foreach (var manager in InputManagers)
+        {
+            manager.ResetActions();
+        }
     }
 }
 
