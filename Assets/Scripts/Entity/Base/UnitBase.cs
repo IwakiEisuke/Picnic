@@ -14,7 +14,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     [SerializeField] protected EvolutionTree evolutionTreeAsset;
     [SerializeField] protected Transform evolutionTreeViewParent;
 
-    [SerializeField] protected AttackCollisionController collisionController;
+    [SerializeField] protected AttackController attackController;
 
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
@@ -28,7 +28,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     [SerializeField] protected EvolutionTree evolutionTree;
     public EvolutionTree EvolutionTree => evolutionTree;
-    public AttackCollisionController CollisionController => collisionController;
+    public AttackController AttackController => attackController;
 
     public event Action Destroyed;
 
@@ -75,7 +75,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     public void Evolve(UnitBase prefab)
     {
         var evolved = Instantiate(prefab, transform.position, transform.rotation);
-        
+
         // 状態異常の引き継ぎ
 
         // 進化状態の引き継ぎ

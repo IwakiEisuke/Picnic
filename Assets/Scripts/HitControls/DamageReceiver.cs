@@ -6,11 +6,11 @@ public class DamageReceiver : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<AttackData>(out var attackData))
+        if (other.TryGetComponent<AttackCollider>(out var attackCollider))
         {
             var attackInfo = new AttackReceiveInfo
             {
-                damage = attackData.damage
+                damage = attackCollider.data.damage
             };
             hitManager.ReceiveHit(attackInfo);
         }
