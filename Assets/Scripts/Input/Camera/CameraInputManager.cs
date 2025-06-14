@@ -21,19 +21,25 @@ public class CameraInputManager : InputManagerBase
 
     public override void Init()
     {
-        cameraMoveAction.action.performed += context =>
+        void Move(InputAction.CallbackContext context)
         {
             Vector2 moveInput = context.ReadValue<Vector2>();
             OnCameraMove?.Invoke(moveSpeed * Time.deltaTime * moveInput);
             if (debugMode) Debug.Log($"Camera Move Action Performed: {moveInput}");
-        };
+        }
 
-        cameraZoomAction.action.performed += context =>
+        void Zoom(InputAction.CallbackContext context)
         {
             float zoomInput = context.ReadValue<Vector2>().y;
-            OnCameraZoom?.Invoke(zoomSpeed * Time.deltaTime * zoomInput);
+            OnCameraZoom?.Invoke(zoomSpeed * zoomInput);
             if (debugMode) Debug.Log($"Camera Zoom Action Performed: {zoomInput}");
-        };
+        }
+
+        cameraMoveAction.action.performed += Move;
+        cameraMoveAction.action.canceled += Move;
+
+        cameraZoomAction.action.performed += Zoom;
+        cameraZoomAction.action.canceled += Zoom;
     }
 
     public override void ResetActions()
