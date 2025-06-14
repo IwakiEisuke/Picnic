@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d852458e91d8d9a4893770816ebd5854, type: 3}
   m_Name: CameraInputManager
   m_EditorClassIdentifier: 
-  debugMode: 1
+  debugMode: 0
   moveSpeed: 5
   zoomSpeed: 5
   cameraMoveAction: {fileID: 1212788301019183331, guid: 052faaac586de48259a63d0c4782560b, type: 3}
