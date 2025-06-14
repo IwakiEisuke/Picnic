@@ -141,4 +141,16 @@ MonoBehaviour:
   destinationTag: Base
   evolutionTreeAsset: {fileID: 0}
   evolutionTreeViewParent: {fileID: 0}
+  collisionController: {fileID: 9198432522562431736}
   evolutionTree: {fileID: 0}
+--- !u!114 &9198432522562431736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4321336669386230148, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+  m_PrefabInstance: {fileID: 4926688862632747900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8478940444707892835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691cbbc492582e54594dc1176fd86801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
