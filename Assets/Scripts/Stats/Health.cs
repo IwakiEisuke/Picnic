@@ -21,9 +21,9 @@ public class Health : MonoBehaviour
         _currentHealth = stats.MaxHealth;
     }
 
-    public void TakeDamage(UnitStats other)
+    public void TakeDamage(AttackReceiveInfo info)
     {
-        _currentHealth -= other.Atk;
+        _currentHealth -= info.damage;
 
         if (_currentHealth <= 0)
         {
