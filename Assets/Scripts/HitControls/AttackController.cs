@@ -27,19 +27,16 @@ public class AttackController : MonoBehaviour
         attackColliders[i].enabled = true;
     }
 
-    public void AttackNearTarget(Vector3 pos, float radius, AttackData data)
+    public void AttackNearTarget(Vector3 pos, float radius, AttackData data, Transform attacker, LayerMask layer)
     {
-        Physics.OverlapSphereNonAlloc(pos, radius, overlapColliders, LayerMask.GetMask("Enemy"), QueryTriggerInteraction.Collide);
+        Physics.OverlapSphereNonAlloc(pos, radius, overlapColliders, layer.value, QueryTriggerInteraction.Collide);
         var target = overlapColliders.Where(x => x != null).OrderBy(x => Vector3.Distance(pos, x.transform.position)).FirstOrDefault();
 
         if (target != null)
         {
             if (target.attachedRigidbody != null && target.attachedRigidbody.TryGetComponent(out HitManager hitManager) || target.TryGetComponent(out hitManager))
             {
-                var attackInfo = new AttackReceiveInfo
-                {
-                    damage = data.damage
-                };
+                var attackInfo = new AttackReceiveInfo(data, attacker);
                 hitManager.ReceiveHit(attackInfo);
             }
         }

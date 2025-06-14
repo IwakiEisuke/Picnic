@@ -8,10 +8,7 @@ public class DamageReceiver : MonoBehaviour
     {
         if (other.TryGetComponent<AttackCollider>(out var attackCollider))
         {
-            var attackInfo = new AttackReceiveInfo
-            {
-                damage = attackCollider.data.damage
-            };
+            var attackInfo = new AttackReceiveInfo(attackCollider.data, other.transform);
             hitManager.ReceiveHit(attackInfo);
         }
     }
