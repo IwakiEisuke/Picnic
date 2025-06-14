@@ -56,6 +56,7 @@ public class FSMState
 {
     protected readonly UnitBase _parent;
     protected readonly UnitStats _stats;
+    protected readonly AttackCollisionController _collisionController;
     protected readonly NavMeshAgent _agent;
 
     public FSMState(UnitBase parent)
@@ -63,6 +64,7 @@ public class FSMState
         _parent = parent;
         _stats = parent.Stats;
         _agent = parent.Agent;
+        _collisionController = parent.CollisionController;
     }
 
     public virtual void Enter() { }

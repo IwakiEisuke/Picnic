@@ -10,9 +10,4 @@ public class Hive : MonoBehaviour
     {
         health.Init(transform);
     }
-
-    public void TakeDamage(UnitStats other)
-    {
-        health.TakeDamage(other);
-    }
 }

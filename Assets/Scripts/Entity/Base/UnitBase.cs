@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[DefaultExecutionOrder((int)ExecutionOrder.UnitBase)]
 public abstract class UnitBase : MonoBehaviour, IUnit
 {
     [SerializeField] protected UnitStats stats;
@@ -12,6 +13,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     [SerializeField] protected EvolutionTree evolutionTreeAsset;
     [SerializeField] protected Transform evolutionTreeViewParent;
+
+    [SerializeField] protected AttackCollisionController collisionController;
 
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
@@ -25,6 +28,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     [SerializeField] protected EvolutionTree evolutionTree;
     public EvolutionTree EvolutionTree => evolutionTree;
+    public AttackCollisionController CollisionController => collisionController;
 
     public event Action Destroyed;
 
@@ -57,12 +61,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     {
         observer.Remove();
         StopAllCoroutines();
-    }
-
-    public void TakeDamage(UnitStats other)
-    {
-        _agent.velocity = transform.position.normalized * other.KnockBack;
-        health.TakeDamage(other);
     }
 
     public void PanelOpen()
