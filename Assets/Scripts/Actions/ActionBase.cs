@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public abstract class ActionBase : ScriptableObject
 {
-    [SerializeField] protected float interval; // アクションの実行間隔
+    [SerializeField] protected float interval; // アクション後の待機時間
 
     protected UnitBase _parent;
     protected NavMeshAgent _agent;
@@ -26,6 +26,7 @@ public abstract class ActionBase : ScriptableObject
 
     public abstract float Evaluate();
     public abstract ActionExecuteInfo Execute();
+    public virtual void Update() { }
 
     protected Transform[] CheckAround(Vector3 position, float radius, LayerMask layerMask)
     {
