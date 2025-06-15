@@ -15,7 +15,9 @@ MonoBehaviour:
   interval: 3
   level: 1
   baseAttackRange: 10
-  laserRadius: 3
+  laserAdditionalRange: 2
+  laserRadius: 1
+  laserDuration: 1
   baseAttackData:
     id: 4
     damage: 1
