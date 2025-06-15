@@ -15,40 +15,33 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     [SerializeField] protected Transform evolutionTreeViewParent;
 
     [SerializeField] protected AttackController attackController;
-    [SerializeField] protected EvolutionTree evolutionTree;
 
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
     protected EntityObserver observer;
 
-    // あまりよろしくないが置き換える前提でPublicにしている
-    public UnitGameStatus status;
-
-    public event Action Destroyed;
-
     public UnitStats Stats { get { return stats; } }
+
+    public Health Health => health;
     public NavMeshAgent Agent => _agent;
+
+    [SerializeField] protected EvolutionTree evolutionTree;
     public EvolutionTree EvolutionTree => evolutionTree;
     public AttackController AttackController => attackController;
+
+    public event Action Destroyed;
 
     protected void Awake()
     {
         InitializeUnitBase();
     }
 
-    private void Update()
-    {
-        _agent.speed = status.speed;
-    }
-
     protected void InitializeUnitBase()
     {
-        status = new UnitGameStatus(stats);
-
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = status.speed;
+        _agent.speed = Stats.Speed;
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);
         observer.Register();
@@ -97,10 +90,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     private void OnDrawGizmos()
     {
-        if (status != null)
+        if (stats)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, status.attackRadius);
+            Gizmos.DrawWireSphere(transform.position, stats.AttackRadius);
         }
     }
 
@@ -109,6 +102,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
         Destroyed?.Invoke();
     }
 }
+
 
 public interface IUnit
 {

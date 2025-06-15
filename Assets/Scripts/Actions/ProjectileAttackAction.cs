@@ -6,6 +6,7 @@
 [CreateAssetMenu(fileName = "ProjectileAttackAction", menuName = "Actions/ProjectileAttackAction")]
 public class ProjectileAttackAction : ActionBase
 {
+    [SerializeField, Range(1, 3)] int level = 1;
     [SerializeField] float baseAttackRange = 3;
     [SerializeField] Vector3 projectileOffset;
     [SerializeField] GameObject projectilePref;
@@ -17,7 +18,7 @@ public class ProjectileAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var targets = GetOverlapSphere(transform.position, baseAttackRange + _stats.AttackRadius, _parent.opponentLayer);
+        var targets = CheckAround(transform.position, baseAttackRange + _stats.AttackRadius, _parent.opponentLayer);
 
         if (targets.Length == 0)
         {

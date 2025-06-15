@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MoveAction", menuName = "Actions/MoveAction")]
 public class MoveAction : ActionBase
 {
+    [Range(1, 3)] public int level = 1;
+
     Transform _target;
 
     public override float Evaluate()

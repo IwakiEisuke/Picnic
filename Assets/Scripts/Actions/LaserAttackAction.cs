@@ -6,6 +6,8 @@
 [CreateAssetMenu(fileName = "LaserAttackAction", menuName = "Actions/LaserAttackAction")]
 public class LaserAttackAction : ActionBase
 {
+    [SerializeField, Range(1, 3)] int level = 1;
+
     [SerializeField] float baseAttackRange = 20;
     [SerializeField] float laserAdditionalRange = 5;
     [SerializeField] float laserRadius = 3;
@@ -24,7 +26,7 @@ public class LaserAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var around = GetOverlapSphere(transform.position, AttackRange, _parent.opponentLayer);
+        var around = CheckAround(transform.position, AttackRange, _parent.opponentLayer);
 
         if (around.Length != 0)
         {
