@@ -7,6 +7,7 @@ using UnityEngine;
 public class StatusEffectManager : MonoBehaviour
 {
     [SerializeField] UnitBase unitBase;
+    [SerializeField] StatusEffectAssetBase effectTest;
 
     readonly List<StatusEffector> effects = new();
 
@@ -19,6 +20,7 @@ public class StatusEffectManager : MonoBehaviour
     {
         var status = new UnitGameStatus(unitBase.Stats);
 
+        var consumed = new List<StatusEffector>();
         var dt = Time.deltaTime;
         foreach (var effect in effects)
         {
@@ -28,11 +30,24 @@ public class StatusEffectManager : MonoBehaviour
             }
             else
             {
-                effects.Remove(effect);
+                consumed.Add(effect);
             }
         }
 
+        foreach (var cons in consumed)
+        {
+            effects.Remove(cons);
+        }
+
         unitBase.status = status;
+    }
+
+    private void Start()
+    {
+        if (effectTest != null)
+        {
+            AddEffect(effectTest);
+        }
     }
 }
 
