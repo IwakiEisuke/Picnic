@@ -32,3 +32,22 @@ public abstract class ActionBase : ScriptableObject
         return array;
     }
 }
+
+/// <summary>
+/// アクションの実行結果を表す構造体
+/// </summary>
+public readonly struct ActionExecuteInfo
+{
+    public readonly bool success;
+    public readonly ActionBase action;
+    public readonly float interval;
+
+    public ActionExecuteInfo(bool success, ActionBase action = null, float interval = 0f)
+    {
+        this.success = success;
+        this.action = action;
+        this.interval = interval;
+    }
+
+    public override readonly string ToString() => $"{action.name} (Interval: {interval})";
+}
