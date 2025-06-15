@@ -10,6 +10,7 @@ public class LaserAttackAction : ActionBase
 
     [SerializeField] float baseAttackRange = 20;
     [SerializeField] float laserRadius = 3;
+    [SerializeField] float laserDuration = 1;
 
     [SerializeField] AttackData baseAttackData;
 
@@ -19,17 +20,17 @@ public class LaserAttackAction : ActionBase
     Transform[] targets;
     Vector3 laserDirection;
 
+    float laserEmittedTime;
+
     public override float Evaluate()
     {
-        targets = CheckAround(transform.position, AttackRange, _parent.opponentLayer);
+        var around = CheckAround(transform.position, AttackRange, _parent.opponentLayer);
 
-        if (targets.Length != 0)
+        if (around.Length != 0)
         {
-            laserDirection = (targets[0].position - transform.position).normalized;
-
-            var hitCount = LaserCast(transform.position, laserDirection, AttackRange, laserRadius, _parent.opponentLayer);
-
-            return Damage * hitCount / interval;
+            laserDirection = (around[0].position - transform.position).normalized;
+            targets = LaserCast(transform.position, laserDirection, AttackRange, laserRadius, _parent.opponentLayer);
+            return Damage * targets.Length / interval;
         }
         else
         {
@@ -48,6 +49,12 @@ public class LaserAttackAction : ActionBase
 
     public override void Update()
     {
-        Debug.Log("Update Laser Action");
+        if (laserEmittedTime < laserDuration)
+        {
+            laserEmittedTime += Time.deltaTime;
+            targets = LaserCast(transform.position, laserDirection, AttackRange, laserRadius, _parent.opponentLayer);
+
+            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+        }
     }
 }
