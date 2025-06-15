@@ -24,7 +24,7 @@ public class LaserAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var around = CheckAround(transform.position, AttackRange, _parent.opponentLayer);
+        var around = GetOverlapSphere(transform.position, AttackRange, _parent.opponentLayer);
 
         if (around.Length != 0)
         {

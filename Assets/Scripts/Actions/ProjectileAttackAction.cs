@@ -17,7 +17,7 @@ public class ProjectileAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var targets = CheckAround(transform.position, baseAttackRange + _stats.AttackRadius, _parent.opponentLayer);
+        var targets = GetOverlapSphere(transform.position, baseAttackRange + _stats.AttackRadius, _parent.opponentLayer);
 
         if (targets.Length == 0)
         {

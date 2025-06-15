@@ -25,7 +25,7 @@ public class DamageAreaAction : ActionBase
     {
         if (TryGetNearestAround(transform.position, AttackRange, _parent.opponentLayer, out target))
         {
-            var targets = CheckAround(target.position, damageAreaRadius, _parent.opponentLayer);
+            var targets = GetOverlapSphere(target.position, damageAreaRadius, _parent.opponentLayer);
             return Damage * targets.Length / interval;
         }
 

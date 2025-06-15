@@ -28,10 +28,16 @@ public abstract class ActionBase : ScriptableObject
     public abstract ActionExecuteInfo Execute();
     public virtual void Update() { }
 
-    protected Transform[] CheckAround(Vector3 position, float radius, LayerMask layerMask)
+    protected Transform[] GetSortedOverlapSphere(Vector3 position, float radius, LayerMask layerMask)
     {
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
         return GetRootTransformsOrder(_hits, position, hitCount);
+    }
+
+    protected Transform[] GetOverlapSphere(Vector3 position, float radius, LayerMask layerMask)
+    {
+        var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
+        return GetRootTransforms(_hits, position, hitCount);
     }
 
     protected bool TryGetNearestAround(Vector3 position, float radius, LayerMask layerMask, out Transform target)
@@ -66,6 +72,13 @@ public abstract class ActionBase : ScriptableObject
         var hitCount = Physics.OverlapBoxNonAlloc(center, halfExtents, _hits, rot, layerMask.value);
         DebugUtility.DrawWireBoxOriented(center, halfExtents, rot, Color.cyan);
         return GetRootTransformsOrder(_hits, center, hitCount);
+    }
+
+    Transform[] GetRootTransforms(Collider[] components, Vector3 position, int hitCount)
+    {
+        return components.Take(hitCount)
+            // 主要コンポーネントのアタッチされているTransformを取得するためRigidbodyが存在する場合はRigidbodyのTransformを、そうでない場合はColliderのTransformを使用
+            .Select(c => c.attachedRigidbody != null ? c.attachedRigidbody.transform : c.transform).ToArray();
     }
 
     Transform[] GetRootTransformsOrder(Collider[] components, Vector3 position, int hitCount)

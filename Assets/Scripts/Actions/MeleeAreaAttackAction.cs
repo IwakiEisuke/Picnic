@@ -12,7 +12,7 @@ public class MeleeAreaAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        _targets = CheckAround(_parent.transform.position, _stats.AttackRadius, _parent.opponentLayer);
+        _targets = GetOverlapSphere(_parent.transform.position, _stats.AttackRadius, _parent.opponentLayer);
 
         if (_targets.Length == 0)
         {
