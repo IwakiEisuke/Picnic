@@ -456,6 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df69a4aa6e339b4f80f0bf0aa60fa89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugMode: 1
   _unitBase: {fileID: 610472136}
   _actions:
   - {fileID: 11400000, guid: 4adc3edc9b40a4348afe5f79ee42c8ae, type: 2}

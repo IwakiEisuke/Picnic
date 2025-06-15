@@ -5,6 +5,7 @@
 /// </summary>
 public class ActionManager : MonoBehaviour
 {
+    [SerializeField] bool _debugMode = false;
     [SerializeField] UnitBase _unitBase;
     [SerializeField] ActionBase[] _actions;
 
@@ -39,6 +40,7 @@ public class ActionManager : MonoBehaviour
         if (actionIndex >= 0)
         {
             _actions[actionIndex].Execute();
+            if (_debugMode) Debug.Log($"Execute {_actions[actionIndex].name}");
         }
     }
 }
