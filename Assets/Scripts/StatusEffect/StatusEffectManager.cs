@@ -8,11 +8,11 @@ public class StatusEffectManager : MonoBehaviour
 {
     [SerializeField] UnitBase unitBase;
 
-    readonly List<StatusEffectBase> effects = new();
+    readonly List<StatusEffector> effects = new();
 
-    public void AddEffect(StatusEffectBase effect)
+    public void AddEffect(StatusEffectAssetBase effect)
     {
-        effects.Add(effect);
+        effects.Add(new(effect));
     }
 
     private void Update()
@@ -36,13 +36,45 @@ public class StatusEffectManager : MonoBehaviour
     }
 }
 
-public abstract class StatusEffectBase : ScriptableObject
+/// <summary>
+/// 実行時ステータスエフェクト
+/// </summary>
+public class StatusEffector
 {
-    public float duration;
-    public abstract void Apply(UnitGameStatus status);
+    readonly StatusEffectAssetBase effect;
+    float duration;
+
+    public StatusEffector(StatusEffectAssetBase effect)
+    {
+        this.effect = effect;
+        duration = effect.Duration;
+    }
+
     public bool Consume(float dt)
     {
         duration -= dt;
-        return duration > 0;
+        if (duration <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
+
+    public void Apply(UnitGameStatus status)
+    {
+        effect.Apply(status);
+    }
+}
+
+/// <summary>
+/// ステータスエフェクトのテンプレート
+/// </summary>
+public abstract class StatusEffectAssetBase : ScriptableObject
+{
+    protected float duration;
+    public float Duration;
+    public abstract void Apply(UnitGameStatus status);
 }
