@@ -24,8 +24,8 @@ public class ActionBase : ScriptableObject
 
     protected Span<Collider> CheckAround(Vector3 position, float radius, LayerMask layerMask)
     {
-        Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
+        var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
         Array.Sort(_hits);
-        return _hits.AsSpan();
+        return _hits.AsSpan(0, hitCount);
     }
 }
