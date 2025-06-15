@@ -34,6 +34,30 @@ public abstract class ActionBase : ScriptableObject
         return GetRootTransformsOrder(_hits, position, hitCount);
     }
 
+    protected bool TryGetNearestAround(Vector3 position, float radius, LayerMask layerMask, out Transform target)
+    {
+        target = null;
+        var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
+        if (hitCount > 0)
+        {
+            var minDist = float.MaxValue;
+            foreach (var hit in _hits.Where(c => c != null))
+            {
+                var sqrDist = (hit.transform.position - position).sqrMagnitude;
+                if (sqrDist < minDist)
+                {
+                    target = hit.transform;
+                    minDist = sqrDist;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     protected Transform[] LaserCast(Vector3 origin, Vector3 direction, float distance, float boxSize, LayerMask layerMask)
     {
         var center = origin + direction * (distance / 2);
