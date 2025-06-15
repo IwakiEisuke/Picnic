@@ -35,6 +35,16 @@ public abstract class ActionBase : ScriptableObject
         var array = rootTransforms.Take(hitCount).OrderBy(c => (c.transform.position - position).sqrMagnitude).ToArray();
         return array;
     }
+
+    protected int LaserCast(Vector3 origin, Vector3 direction, float distance, float boxSize, LayerMask layerMask)
+    {
+        var center = origin + direction * (distance / 2);
+        var halfExtents = new Vector3(boxSize, boxSize, distance / 2);
+        var rot = Quaternion.LookRotation(direction);
+        var hitCount = Physics.OverlapBoxNonAlloc(center, halfExtents, _hits, rot, layerMask.value);
+        DebugUtility.DrawWireBoxOriented(center, halfExtents, rot, Color.cyan);
+        return hitCount;
+    }
 }
 
 /// <summary>
