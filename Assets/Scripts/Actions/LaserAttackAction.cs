@@ -42,8 +42,10 @@ public class LaserAttackAction : ActionBase
     {
         for (int i = 0; i < targets.Length; i++)
         {
-            _attackController.AttackDirectly(targets[i], new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
         }
+        // その場に留める
+        _agent.SetDestination(transform.position);
         return new ActionExecuteInfo(true, this, interval);
     }
 
