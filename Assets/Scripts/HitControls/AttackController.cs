@@ -53,4 +53,15 @@ public class AttackController : MonoBehaviour
             hitManager.ReceiveHit(new AttackReceiveInfo(data, transform));
         }
     }
+
+    public void AttackDirectly(Transform[] targets, AttackData data)
+    {
+        for (int i = 0; i < targets.Length; i++)
+        {
+            if (targets[i].TryGetComponent(out HitManager hitManager))
+            {
+                hitManager.ReceiveHit(new AttackReceiveInfo(data, transform));
+            }
+        }
+    }
 }
