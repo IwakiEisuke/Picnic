@@ -9,6 +9,8 @@ public class ActionManager : MonoBehaviour
     [SerializeField] UnitBase _unitBase;
     [SerializeField] ActionBase[] _actions;
 
+    float remainInterval;
+
     private void Start()
     {
         foreach (var action in _actions)
@@ -22,6 +24,12 @@ public class ActionManager : MonoBehaviour
 
     private void Update()
     {
+        if (remainInterval > 0)
+        {
+            remainInterval -= Time.deltaTime;
+            return;
+        }
+
         var maxScore = 0f;
         var actionIndex = -1;
 
@@ -39,7 +47,8 @@ public class ActionManager : MonoBehaviour
 
         if (actionIndex >= 0)
         {
-            _actions[actionIndex].Execute();
+            var result = _actions[actionIndex].Execute();
+            remainInterval = result.interval;
             if (_debugMode) Debug.Log($"Execute {_actions[actionIndex].name}");
         }
     }

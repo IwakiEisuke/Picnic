@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e631c36b45324a45807d17c74b528a4, type: 3}
   m_Name: MeleeAreaAttackAction
   m_EditorClassIdentifier: 
+  interval: 0.5
   level: 1
   baseAttackData:
     id: 2

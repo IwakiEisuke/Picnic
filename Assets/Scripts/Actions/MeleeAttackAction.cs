@@ -20,7 +20,7 @@ public class MeleeAttackAction : ActionBase
         }
     }
 
-    public override void Execute()
+    public override ActionExecuteInfo Execute()
     {
         var targets = CheckAround(_parent.transform.position, _stats.AttackRadius, _parent.opponentLayer);
         if (targets.Length > 0)
@@ -31,7 +31,10 @@ public class MeleeAttackAction : ActionBase
             {
                 // 攻撃を実行
                 _attackController.AttackDirectly(closestTarget, attackData);
+                return new ActionExecuteInfo(true, this, interval);
             }
         }
+
+        return new ActionExecuteInfo(false);
     }
 }

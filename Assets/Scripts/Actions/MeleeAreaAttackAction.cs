@@ -25,7 +25,7 @@ public class MeleeAreaAttackAction : ActionBase
         }
     }
 
-    public override void Execute()
+    public override ActionExecuteInfo Execute()
     {
         for (int i = 0; i < _targets.Length; i++)
         {
@@ -33,7 +33,10 @@ public class MeleeAreaAttackAction : ActionBase
             if (target != null)
             {
                 _attackController.AttackDirectly(target, new AttackData(baseAttackData.id, baseAttackData.damage * _stats.Atk * level, baseAttackData.invincibleTime));
+                return new ActionExecuteInfo(true, this, interval);
             }
         }
+
+        return new ActionExecuteInfo(false);
     }
 }

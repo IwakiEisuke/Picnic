@@ -19,7 +19,7 @@ public class MoveAction : ActionBase
         return level * _stats.Speed * Time.deltaTime;
     }
 
-    public override void Execute()
+    public override ActionExecuteInfo Execute()
     {
         var layerMask = _parent.opponentLayer.value;
         var target = FindObjectsByType<UnitBase>(FindObjectsSortMode.None).Where(x => (layerMask & 1u << x.gameObject.layer) != 0).OrderBy(x => Vector3.Distance(x.transform.position, _agent.transform.position)).FirstOrDefault();
@@ -27,10 +27,12 @@ public class MoveAction : ActionBase
         if (target != null)
         {
             _agent.SetDestination(target.transform.position);
+            return new ActionExecuteInfo(true, this, interval);
         }
         else
         {
             Debug.LogWarning("No target found for MoveAction.");
+            return new ActionExecuteInfo(false);
         }
     }
 }
