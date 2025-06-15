@@ -19,7 +19,7 @@ public class MoveAction : ActionBase
             return (distance - _stats.AttackRadius) * level * _stats.Speed;
         }
 
-        return level * _stats.Speed * Time.deltaTime;
+        return -1;
     }
 
     public override ActionExecuteInfo Execute()
