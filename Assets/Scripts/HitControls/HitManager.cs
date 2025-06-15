@@ -1,11 +1,16 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HitManager : MonoBehaviour
 {
+    [SerializeField] bool debugMode;
     [SerializeField] Health health;
-    
+
     readonly DamageHistoryManager damageHistoryManager = new();
+
+    public event Action<AttackReceiveInfo> OnDamaged;
+    public event Action<AttackReceiveInfo> OnAttacked;
 
     public void ReceiveHit(AttackReceiveInfo info)
     {
@@ -18,6 +23,8 @@ public class HitManager : MonoBehaviour
         if (damageHistoryManager.CanHit(info))
         {
             health.TakeDamage(info);
+            OnDamaged?.Invoke(info);
+            info.attacker.GetComponent<HitManager>()?.OnAttacked?.Invoke(info);
         }
     }
 
@@ -25,9 +32,21 @@ public class HitManager : MonoBehaviour
     {
         damageHistoryManager.Update();
     }
+
+    private void Start()
+    {
+        OnDamaged += info =>
+        {
+            if (debugMode) Debug.Log($"Received damage: {info.damage} from {info.attacker.name} with ID {info.id}");
+        };
+        OnAttacked += info =>
+        {
+            if (debugMode) Debug.Log($"Attacked: {info.damage} damage to {gameObject.name} from {info.attacker.name} with ID {info.id}");
+        };
+    }
 }
 
-public class  AttackReceiveInfo
+public class AttackReceiveInfo
 {
     public int damage;
     public int id;
