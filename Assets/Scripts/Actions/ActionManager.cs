@@ -9,6 +9,8 @@ public class ActionManager : MonoBehaviour
     [SerializeField] UnitBase _unitBase;
     [SerializeField] ActionBase[] _actions;
 
+    ActionBase _currentAction;
+
     float remainInterval;
 
     private void Start()
@@ -27,6 +29,7 @@ public class ActionManager : MonoBehaviour
         if (remainInterval > 0)
         {
             remainInterval -= Time.deltaTime;
+            _currentAction.Update();
             return;
         }
 
@@ -49,6 +52,7 @@ public class ActionManager : MonoBehaviour
         {
             var result = _actions[actionIndex].Execute();
             remainInterval = result.interval;
+            _currentAction = _actions[actionIndex];
             if (_debugMode) Debug.Log($"Execute {_actions[actionIndex].name}");
         }
     }
