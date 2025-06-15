@@ -45,4 +45,9 @@ public class LaserAttackAction : ActionBase
         }
         return new ActionExecuteInfo(true, this, interval);
     }
+
+    public override void Update()
+    {
+        Debug.Log("Update Laser Action");
+    }
 }
