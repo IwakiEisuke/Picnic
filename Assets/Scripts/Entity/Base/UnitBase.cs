@@ -15,33 +15,38 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     [SerializeField] protected Transform evolutionTreeViewParent;
 
     [SerializeField] protected AttackController attackController;
+    [SerializeField] protected EvolutionTree evolutionTree;
 
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
     protected EntityObserver observer;
-
-    public UnitStats Stats { get { return stats; } }
-
-    public Health Health => health;
-    public NavMeshAgent Agent => _agent;
-
-    [SerializeField] protected EvolutionTree evolutionTree;
-    public EvolutionTree EvolutionTree => evolutionTree;
-    public AttackController AttackController => attackController;
+    public UnitGameStatus status;
 
     public event Action Destroyed;
+
+    public UnitStats Stats { get { return stats; } }
+    public NavMeshAgent Agent => _agent;
+    public EvolutionTree EvolutionTree => evolutionTree;
+    public AttackController AttackController => attackController;
 
     protected void Awake()
     {
         InitializeUnitBase();
     }
 
+    private void Update()
+    {
+        _agent.speed = status.speed;
+    }
+
     protected void InitializeUnitBase()
     {
+        status = new UnitGameStatus(stats);
+
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = Stats.Speed;
+        _agent.speed = status.speed;
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);
         observer.Register();
@@ -90,10 +95,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     private void OnDrawGizmos()
     {
-        if (stats)
+        if (status != null)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, stats.AttackRadius);
+            Gizmos.DrawWireSphere(transform.position, status.attackRadius);
         }
     }
 
@@ -102,7 +107,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit
         Destroyed?.Invoke();
     }
 }
-
 
 public interface IUnit
 {
