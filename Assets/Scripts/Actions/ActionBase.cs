@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ActionBase : ScriptableObject
+public abstract class ActionBase : ScriptableObject
 {
     protected UnitBase _parent;
     protected NavMeshAgent _agent;
@@ -20,8 +20,8 @@ public class ActionBase : ScriptableObject
         _attackController = parent.GetComponent<AttackController>();
     }
 
-    public virtual float Evaluate() => 0f;
-    public virtual void Execute() { }
+    public abstract float Evaluate();
+    public abstract void Execute();
 
     protected Span<Transform> CheckAround(Vector3 position, float radius, LayerMask layerMask)
     {
