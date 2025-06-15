@@ -6,7 +6,6 @@
 [CreateAssetMenu(fileName = "ProjectileAttackAction", menuName = "Actions/ProjectileAttackAction")]
 public class ProjectileAttackAction : ActionBase
 {
-    [SerializeField, Range(1, 3)] int level = 1;
     [SerializeField] float baseAttackRange = 3;
     [SerializeField] Vector3 projectileOffset;
     [SerializeField] GameObject projectilePref;

@@ -3,7 +3,6 @@
 [CreateAssetMenu(fileName = "MeleeAttack", menuName = "Actions/MeleeAttack")]
 public class MeleeAttackAction : ActionBase
 {
-    [Range(1, 3)] public int level = 1;
     public AttackData attackData;
 
     Transform _target;

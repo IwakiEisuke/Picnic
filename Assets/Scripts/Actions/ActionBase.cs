@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public abstract class ActionBase : ScriptableObject
 {
+    [SerializeField, Range(1, 3)] protected int level = 1;
     [SerializeField] protected float interval; // アクション後の待機時間
 
     protected UnitBase _parent;
