@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -13,12 +14,25 @@ public class StatusEffectManager : MonoBehaviour
 
     public void AddEffect(StatusEffectAssetBase effect)
     {
-        effects.Add(new(effect));
+        if (effect == null)
+        {
+            Debug.LogWarning($"{name}| StatusEffectManagerのAddEffectにNullが渡されました");
+            return;
+        }
+
+        var effector = new StatusEffector(effect);
+        effector.SetCancelCondition(unitBase.status, () => RemoveEffect(effector));
+        effects.Add(effector);
+    }
+
+    public void RemoveEffect(StatusEffector effect)
+    {
+        effects.Remove(effect);
     }
 
     private void Update()
     {
-        var status = new UnitGameStatus(unitBase.Stats);
+        var status = new UnitGameStatus(unitBase.Stats, unitBase);
 
         var consumed = new List<StatusEffector>();
         var dt = Time.deltaTime;
@@ -58,6 +72,7 @@ public class StatusEffector
 {
     readonly StatusEffectAssetBase effect;
     float duration;
+    event Action CancelAction;
 
     public StatusEffector(StatusEffectAssetBase effect)
     {
@@ -82,6 +97,17 @@ public class StatusEffector
     {
         effect.Apply(status);
     }
+
+    public void Cancel()
+    {
+        CancelAction?.Invoke();
+    }
+
+    public void SetCancelCondition(UnitGameStatus status, Action cancelAction)
+    {
+        CancelAction += cancelAction;
+        effect.SetCancelCondition(status, this);
+    }
 }
 
 /// <summary>
@@ -92,4 +118,12 @@ public abstract class StatusEffectAssetBase : ScriptableObject
     protected float duration;
     public float Duration;
     public abstract void Apply(UnitGameStatus status);
+
+    /// <summary>
+    /// コールバックからキャンセルできるようにしたいときに使用する。
+    /// </summary>
+    public virtual void SetCancelCondition(UnitGameStatus status, StatusEffector effector)
+    {
+        
+    }
 }
