@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +10,7 @@ public class ActionBase : ScriptableObject
     protected UnitStats _stats;
     protected AttackController _attackController;
 
-    readonly Collider[] _hits = new Collider[10]; // OverlapSphere�̌��ʂ��i�[����z��
+    readonly Collider[] _hits = new Collider[10]; // OverlapSphereの結果を格納する配列
 
     public void Initialize(UnitBase parent)
     {
@@ -22,10 +23,12 @@ public class ActionBase : ScriptableObject
     public virtual float Evaluate() => 0f;
     public virtual void Execute() { }
 
-    protected Span<Collider> CheckAround(Vector3 position, float radius, LayerMask layerMask)
+    protected Span<Transform> CheckAround(Vector3 position, float radius, LayerMask layerMask)
     {
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
-        Array.Sort(_hits);
-        return _hits.AsSpan(0, hitCount);
+        // 主要コンポーネントのアタッチされているTransformを取得するためRigidbodyが存在する場合はRigidbodyのTransformを、そうでない場合はColliderのTransformを使用
+        var rootTransforms = _hits.Select(c => c.attachedRigidbody != null ? c.attachedRigidbody.transform : c.transform);
+        var span = rootTransforms.Take(hitCount).OrderBy(c => (c.transform.position - position).sqrMagnitude).ToArray().AsSpan();
+        return span;
     }
 }

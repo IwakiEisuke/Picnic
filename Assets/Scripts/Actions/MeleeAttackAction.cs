@@ -30,7 +30,7 @@ public class MeleeAttackAction : ActionBase
             if (closestTarget != null)
             {
                 // 攻撃を実行
-                _attackController.AttackDirectly(closestTarget.transform, attackData);
+                _attackController.AttackDirectly(closestTarget, attackData);
             }
         }
     }
