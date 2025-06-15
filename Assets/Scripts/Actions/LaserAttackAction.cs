@@ -40,12 +40,11 @@ public class LaserAttackAction : ActionBase
 
     public override ActionExecuteInfo Execute()
     {
-        for (int i = 0; i < targets.Length; i++)
-        {
-            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
-        }
+        _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
         // その場に留める
         _agent.SetDestination(transform.position);
+        // レーザー照射時間をリセット
+        laserEmittedTime = 0;
         return new ActionExecuteInfo(true, this, interval);
     }
 
@@ -55,7 +54,6 @@ public class LaserAttackAction : ActionBase
         {
             laserEmittedTime += Time.deltaTime;
             targets = LaserCast(transform.position, laserDirection, AttackRange, laserRadius, _parent.opponentLayer);
-
             _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
         }
     }
