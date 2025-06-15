@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,20 +30,26 @@ public abstract class ActionBase : ScriptableObject
     protected Transform[] CheckAround(Vector3 position, float radius, LayerMask layerMask)
     {
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
-        // 主要コンポーネントのアタッチされているTransformを取得するためRigidbodyが存在する場合はRigidbodyのTransformを、そうでない場合はColliderのTransformを使用
-        var rootTransforms = _hits.Select(c => c.attachedRigidbody != null ? c.attachedRigidbody.transform : c.transform);
-        var array = rootTransforms.Take(hitCount).OrderBy(c => (c.transform.position - position).sqrMagnitude).ToArray();
-        return array;
+        return GetRootTransformsOrder(_hits, position, hitCount);
     }
 
-    protected int LaserCast(Vector3 origin, Vector3 direction, float distance, float boxSize, LayerMask layerMask)
+    protected Transform[] LaserCast(Vector3 origin, Vector3 direction, float distance, float boxSize, LayerMask layerMask)
     {
         var center = origin + direction * (distance / 2);
         var halfExtents = new Vector3(boxSize, boxSize, distance / 2);
         var rot = Quaternion.LookRotation(direction);
         var hitCount = Physics.OverlapBoxNonAlloc(center, halfExtents, _hits, rot, layerMask.value);
         DebugUtility.DrawWireBoxOriented(center, halfExtents, rot, Color.cyan);
-        return hitCount;
+        return GetRootTransformsOrder(_hits, center, hitCount);
+    }
+
+    Transform[] GetRootTransformsOrder(Collider[] components, Vector3 position, int hitCount)
+    {
+        return components.Take(hitCount)
+            // 主要コンポーネントのアタッチされているTransformを取得するためRigidbodyが存在する場合はRigidbodyのTransformを、そうでない場合はColliderのTransformを使用
+            .Select(c => c.attachedRigidbody != null ? c.attachedRigidbody.transform : c.transform)
+            // 近い順にソート
+            .OrderBy(c => (c.transform.position - position).sqrMagnitude).ToArray();
     }
 }
 
