@@ -11,10 +11,12 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     [SerializeField] public LayerMask opponentLayer;
     [SerializeField] public string destinationTag;
 
+    [SerializeField] protected AttackController attackController;
+    [SerializeField] protected HitManager hitManager;
+    [SerializeField] protected StatusEffectManager statusEffectManager;
+
     [SerializeField] protected EvolutionTree evolutionTreeAsset;
     [SerializeField] protected Transform evolutionTreeViewParent;
-
-    [SerializeField] protected AttackController attackController;
     [SerializeField] protected EvolutionTree evolutionTree;
 
     protected Rigidbody _rb;
@@ -29,8 +31,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     public UnitStats Stats { get { return stats; } }
     public NavMeshAgent Agent => _agent;
-    public EvolutionTree EvolutionTree => evolutionTree;
+    public HitManager HitManager => hitManager;
+    public StatusEffectManager StatusEffectManager => statusEffectManager;
     public AttackController AttackController => attackController;
+    public EvolutionTree EvolutionTree => evolutionTree;
 
     protected void Awake()
     {
