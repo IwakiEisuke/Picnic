@@ -13,6 +13,9 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        if (other.gameObject.layer != gameObject.layer)
+        {
+            Destroy(gameObject);
+        }
     }
 }
