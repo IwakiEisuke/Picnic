@@ -7,7 +7,7 @@ using UnityEngine;
 public class StatusEffectManager : MonoBehaviour
 {
     [SerializeField] UnitBase unitBase;
-    [SerializeField] StatusEffectAssetBase effectTest;
+    [SerializeField] StatusEffectAssetBase[] initialStatusEffects;
 
     readonly List<StatusEffector> effects = new();
 
@@ -44,9 +44,9 @@ public class StatusEffectManager : MonoBehaviour
 
     private void Start()
     {
-        if (effectTest != null)
+        for (int i = 0; i < initialStatusEffects.Length; i++)
         {
-            AddEffect(effectTest);
+            AddEffect(initialStatusEffects[i]);
         }
     }
 }
