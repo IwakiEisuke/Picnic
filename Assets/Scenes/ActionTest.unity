@@ -516,7 +516,7 @@ MonoBehaviour:
   _debugMode: 1
   _unitBase: {fileID: 610472136}
   _actions:
-  - {fileID: 11400000, guid: 1f349ded0a2981148abc0f3e3d2ac81b, type: 2}
+  - {fileID: 11400000, guid: 202c981600565084191bedc4f2abf800, type: 2}
   - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
 --- !u!1001 &619325279
 PrefabInstance:
@@ -901,9 +901,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3435914118055585160, guid: fda75db7f854e0d4cb078a138b52b817, type: 3}
+      propertyPath: effectTest
+      value: 
+      objectReference: {fileID: 11400000, guid: a62fb371672d7164a9b9487ddfc25495, type: 2}
     - target: {fileID: 7222100712064623191, guid: fda75db7f854e0d4cb078a138b52b817, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.88
+      value: -6.2
       objectReference: {fileID: 0}
     - target: {fileID: 7222100712064623191, guid: fda75db7f854e0d4cb078a138b52b817, type: 3}
       propertyPath: m_LocalPosition.y
@@ -911,7 +915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7222100712064623191, guid: fda75db7f854e0d4cb078a138b52b817, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.21
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 7222100712064623191, guid: fda75db7f854e0d4cb078a138b52b817, type: 3}
       propertyPath: m_LocalRotation.w
