@@ -45,4 +45,12 @@ public class AttackController : MonoBehaviour
             Debug.LogWarning($"{name}| AttackNearTarget: No valid target found within range.");
         }
     }
+
+    public void AttackDirectly(Transform target, AttackData data)
+    {
+        if (target.TryGetComponent(out HitManager hitManager))
+        {
+            hitManager.ReceiveHit(new AttackReceiveInfo(data, transform));
+        }
+    }
 }

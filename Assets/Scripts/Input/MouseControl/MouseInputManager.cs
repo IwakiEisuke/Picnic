@@ -74,6 +74,11 @@ public class MouseInputManager : InputManagerBase
 
     public override void Update()
     {
+        if (EventSystem.current == null)
+        {
+            Debug.LogWarning("EventSystemコンポーネントが存在しません。マウス操作は正常に動作しません");
+            return;
+        }
         _isMouseHoveringUI = EventSystem.current.IsPointerOverGameObject();
 
         if (mousePress.action.IsPressed() && _canDrag)

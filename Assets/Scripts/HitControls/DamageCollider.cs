@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageReceiver : MonoBehaviour
+public class DamageCollider : MonoBehaviour
 {
     [SerializeField] HitManager hitManager;
 
