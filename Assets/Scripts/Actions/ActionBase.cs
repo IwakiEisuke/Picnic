@@ -14,6 +14,8 @@ public class ActionBase : ScriptableObject
     public void Initialize(UnitBase parent)
     {
         _parent = parent;
+        _agent = parent.Agent;
+        _stats = parent.Stats;
         _attackController = parent.GetComponent<AttackController>();
     }
 
