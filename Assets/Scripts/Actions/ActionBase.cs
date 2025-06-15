@@ -11,6 +11,7 @@ public abstract class ActionBase : ScriptableObject
     protected NavMeshAgent _agent;
     protected UnitStats _stats;
     protected AttackController _attackController;
+    protected Transform transform;
 
     readonly Collider[] _hits = new Collider[10]; // OverlapSphereの結果を格納する配列
 
@@ -20,6 +21,7 @@ public abstract class ActionBase : ScriptableObject
         _agent = parent.Agent;
         _stats = parent.Stats;
         _attackController = parent.GetComponent<AttackController>();
+        transform = parent.transform;
     }
 
     public abstract float Evaluate();

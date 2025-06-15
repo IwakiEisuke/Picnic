@@ -6,7 +6,7 @@ public class DamageCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent<AttackCollider>(out var attackCollider))
+        if (other.gameObject.layer != gameObject.layer && other.TryGetComponent<AttackCollider>(out var attackCollider))
         {
             var attackInfo = new AttackReceiveInfo(attackCollider.data, other.transform);
             hitManager.ReceiveHit(attackInfo);
