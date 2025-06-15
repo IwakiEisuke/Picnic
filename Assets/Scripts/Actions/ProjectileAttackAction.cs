@@ -37,6 +37,8 @@ public class ProjectileAttackAction : ActionBase
         var rot = Quaternion.LookRotation(target.position - transform.position);
         var obj = Instantiate(projectilePref, transform.position + projectileOffset, rot);
         obj.GetComponent<AttackCollider>().data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime);
+        // 生成元と衝突しないようにレイヤーを設定
+        obj.layer = transform.gameObject.layer;
         // その場に留まらせる
         _agent.SetDestination(transform.position);
         
