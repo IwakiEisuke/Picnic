@@ -29,14 +29,9 @@ public class MeleeAreaAttackAction : ActionBase
     {
         for (int i = 0; i < _targets.Length; i++)
         {
-            var target = _targets[i];
-            if (target != null)
-            {
-                _attackController.AttackDirectly(target, new AttackData(baseAttackData.id, baseAttackData.damage * _stats.Atk * level, baseAttackData.invincibleTime));
-                return new ActionExecuteInfo(true, this, interval);
-            }
+            _attackController.AttackDirectly(_targets[i], new AttackData(baseAttackData.id, baseAttackData.damage * _stats.Atk * level, baseAttackData.invincibleTime));
         }
 
-        return new ActionExecuteInfo(false);
+        return new ActionExecuteInfo(true, this, interval);
     }
 }
