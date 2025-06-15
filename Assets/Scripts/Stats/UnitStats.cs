@@ -25,3 +25,23 @@ public class UnitStats : ScriptableObject
     public float AttackRadius => attackRadius;
     public float KnockBack => knockBack;
 }
+
+public class UnitGameStatus
+{
+    public int maxHealth;
+    public float speed;
+    public int atk;
+    public float attackInterval;
+    public float attackRadius;
+    public float knockBack;
+
+    public UnitGameStatus(UnitStats stats)
+    {
+        maxHealth = stats.MaxHealth;
+        speed = stats.Speed;
+        atk = stats.Atk;
+        attackInterval = stats.AttackInterval;
+        attackRadius = stats.AttackRadius;
+        knockBack = stats.KnockBack;
+    }
+}
