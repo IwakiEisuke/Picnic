@@ -21,7 +21,8 @@ public class MoveAction : ActionBase
 
     public override void Execute()
     {
-        var target = FindObjectsByType<UnitBase>(FindObjectsSortMode.None).Where(x => (x.gameObject.layer & _parent.opponentLayer.value) > 0).OrderBy(x => x).FirstOrDefault();
+        var layerMask = _parent.opponentLayer.value;
+        var target = FindObjectsByType<UnitBase>(FindObjectsSortMode.None).Where(x => (layerMask & 1u << x.gameObject.layer) != 0).OrderBy(x => Vector3.Distance(x.transform.position, _agent.transform.position)).FirstOrDefault();
         
         if (target != null)
         {
