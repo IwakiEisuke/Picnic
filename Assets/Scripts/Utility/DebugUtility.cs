@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DebugUtility : MonoBehaviour
 {
-    static event Action Gizmos;
+    static event Action Gizmo;
 
     [RuntimeInitializeOnLoadMethod]
     public static void Initialize()
@@ -13,30 +13,38 @@ public class DebugUtility : MonoBehaviour
 
     public static void DrawWireBoxOriented(Vector3 center, Vector3 halfExtents, Quaternion orientation, Color color)
     {
-        Gizmos += () =>
+        Gizmo += () =>
         {
-            UnityEngine.Gizmos.matrix = Matrix4x4.Translate(center) * Matrix4x4.Rotate(orientation);
+            Gizmos.matrix = Matrix4x4.Translate(center) * Matrix4x4.Rotate(orientation);
             color.a = 0.5f;
-            UnityEngine.Gizmos.color = color;
-            UnityEngine.Gizmos.DrawCube(Vector3.zero, halfExtents * 2);
+            Gizmos.color = color;
+            Gizmos.DrawCube(Vector3.zero, halfExtents * 2);
         };
     }
 
     public static void DrawBoxOriented(Vector3 center, Vector3 halfExtents, Quaternion orientation, Color color)
     {
-        Gizmos += () =>
+        Gizmo += () =>
         {
-            UnityEngine.Gizmos.matrix = Matrix4x4.Translate(center) * Matrix4x4.Rotate(orientation);
+            Gizmos.matrix = Matrix4x4.Translate(center) * Matrix4x4.Rotate(orientation);
             color.a = 0.5f;
-            UnityEngine.Gizmos.color = color;
-            UnityEngine.Gizmos.DrawCube(Vector3.zero, halfExtents * 2);
+            Gizmos.color = color;
+            Gizmos.DrawCube(Vector3.zero, halfExtents * 2);
+        };
+    }
+
+    public static void DrawSphere(Vector3 center, float radius)
+    {
+        Gizmo += () =>
+        {
+            Gizmos.DrawWireSphere(center, radius);
         };
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos?.Invoke();
+        Gizmo?.Invoke();
 
-        Gizmos = null;
+        Gizmo = null;
     }
 }

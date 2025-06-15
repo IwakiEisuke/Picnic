@@ -6,14 +6,13 @@
 [CreateAssetMenu(fileName = "MeleeAreaAttackAction", menuName = "Actions/MeleeAreaAttackAction")]
 public class MeleeAreaAttackAction : ActionBase
 {
-    [Range(1, 3)] public int level = 1;
     public AttackData baseAttackData;
 
     private Transform[] _targets;
 
     public override float Evaluate()
     {
-        _targets = CheckAround(_parent.transform.position, _stats.AttackRadius, _parent.opponentLayer);
+        _targets = GetOverlapSphere(_parent.transform.position, _stats.AttackRadius, _parent.opponentLayer);
 
         if (_targets.Length == 0)
         {

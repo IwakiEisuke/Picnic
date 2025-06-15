@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45069ed335ab544b920656873d5bec0, type: 3}
+  m_Name: DamageAreaAction
+  m_EditorClassIdentifier: 
+  level: 1
+  interval: 6
+  baseAttackRange: 10
+  damageAreaRadius: 6
+  duration: 3
+  baseAttackData:
+    id: 5
+    damage: 1
+    invincibleTime: 2
+  damageAreaPrefab: {fileID: 6988543025276488954, guid: 2dc7880b1eb77194ebdb2ac060d8ebfe, type: 3}
