@@ -23,12 +23,12 @@ public abstract class ActionBase : ScriptableObject
     public abstract float Evaluate();
     public abstract void Execute();
 
-    protected Span<Transform> CheckAround(Vector3 position, float radius, LayerMask layerMask)
+    protected Transform[] CheckAround(Vector3 position, float radius, LayerMask layerMask)
     {
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
         // 主要コンポーネントのアタッチされているTransformを取得するためRigidbodyが存在する場合はRigidbodyのTransformを、そうでない場合はColliderのTransformを使用
         var rootTransforms = _hits.Select(c => c.attachedRigidbody != null ? c.attachedRigidbody.transform : c.transform);
-        var span = rootTransforms.Take(hitCount).OrderBy(c => (c.transform.position - position).sqrMagnitude).ToArray().AsSpan();
-        return span;
+        var array = rootTransforms.Take(hitCount).OrderBy(c => (c.transform.position - position).sqrMagnitude).ToArray();
+        return array;
     }
 }
