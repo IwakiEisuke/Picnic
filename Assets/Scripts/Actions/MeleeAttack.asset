@@ -15,5 +15,5 @@ MonoBehaviour:
   level: 1
   attackData:
     id: 1
-    damage: 5
+    damage: 1
     invincibleTime: 0.5
