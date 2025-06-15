@@ -22,9 +22,14 @@ public class HitManager : MonoBehaviour
 
         if (damageHistoryManager.CanHit(info))
         {
+            var attackerHitManager = info.attacker.GetComponent<HitManager>();
             health.TakeDamage(info);
             OnDamaged?.Invoke(info);
-            info.attacker.GetComponent<HitManager>()?.OnAttacked?.Invoke(info);
+
+            if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
+            {
+                attackerHitManagerComponent.OnAttacked?.Invoke(info);
+            }
         }
     }
 
