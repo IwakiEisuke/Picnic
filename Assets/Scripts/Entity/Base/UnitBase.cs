@@ -21,6 +21,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
     protected EntityObserver observer;
+
+    // あまりよろしくないが置き換える前提でPublicにしている
     public UnitGameStatus status;
 
     public event Action Destroyed;
