@@ -30,7 +30,7 @@ public class ActionManager : MonoBehaviour
             return;
         }
 
-        var maxScore = 0f;
+        var maxScore = -float.Epsilon;
         var actionIndex = -1;
 
         for (int i = 0; i < _actions.Length; i++)
