@@ -9,6 +9,7 @@ public class ChargeAttackAction : ActionBase
     [SerializeField] float attackRange = 5f;
     [SerializeField] float triggerRadius = 0.5f;
     [SerializeField] float impactRadius = 2f;
+    [SerializeField] StatusEffectAssetBase chargeEffect;
     [SerializeField] Vector3 offset;
     [SerializeField] AttackData baseAttackData;
 
@@ -31,6 +32,7 @@ public class ChargeAttackAction : ActionBase
 
     public override ActionExecuteInfo Execute()
     {
+        _parent.StatusEffectManager.AddEffect(chargeEffect);
         return new ActionExecuteInfo(true, this, interval);
     }
 
