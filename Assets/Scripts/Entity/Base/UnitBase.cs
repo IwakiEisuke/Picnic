@@ -48,7 +48,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     protected void InitializeUnitBase()
     {
-        status = new UnitGameStatus(stats);
+        status = new UnitGameStatus(stats, this);
 
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();

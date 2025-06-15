@@ -28,6 +28,7 @@ public class UnitStats : ScriptableObject
 
 public class UnitGameStatus
 {
+    public UnitBase owner;
     public int maxHealth;
     public float speed;
     public int atk;
@@ -35,7 +36,7 @@ public class UnitGameStatus
     public float attackRadius;
     public float knockBack;
 
-    public UnitGameStatus(UnitStats stats)
+    public UnitGameStatus(UnitStats stats, UnitBase owner)
     {
         maxHealth = stats.MaxHealth;
         speed = stats.Speed;
@@ -43,5 +44,6 @@ public class UnitGameStatus
         attackInterval = stats.AttackInterval;
         attackRadius = stats.AttackRadius;
         knockBack = stats.KnockBack;
+        this.owner = owner;
     }
 }
