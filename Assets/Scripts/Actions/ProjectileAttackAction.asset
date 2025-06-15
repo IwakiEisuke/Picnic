@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: ProjectileAttackAction
   m_EditorClassIdentifier: 
   interval: 0.5
+  level: 1
+  baseAttackRange: 10
+  projectile: {fileID: 3177446423030484919, guid: d139feafd1698f54f85f51e507deaf00, type: 3}
+  baseAttackData:
+    id: 3
+    damage: 1
+    invincibleTime: 0.2
