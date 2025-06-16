@@ -6,16 +6,23 @@
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
+    public bool destroyOnHit = true;
+    public float lifeRange = 5f;
+
     private void Start()
     {
         rb.linearVelocity = transform.forward * 10f;
+        Destroy(gameObject, lifeRange / rb.linearVelocity.magnitude);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != gameObject.layer)
+        if (destroyOnHit)
         {
-            Destroy(gameObject);
+            if (other.gameObject.layer != gameObject.layer)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

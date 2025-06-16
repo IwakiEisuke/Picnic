@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: MoveAction
   m_EditorClassIdentifier: 
   level: 1
+  interval: 0
+  loopCount: 0
+  loopInterval: 0

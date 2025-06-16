@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   interval: 6
+  loopCount: 0
+  loopInterval: 0
   baseAttackRange: 10
   damageAreaRadius: 6
   duration: 3

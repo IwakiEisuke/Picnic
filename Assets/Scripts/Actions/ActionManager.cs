@@ -12,6 +12,9 @@ public class ActionManager : MonoBehaviour
     ActionBase _currentAction;
 
     float remainInterval;
+    float remainLoopInterval;
+    int remainLoopCount;
+    float currentLoopInterval;
 
     private void Start()
     {
@@ -26,6 +29,18 @@ public class ActionManager : MonoBehaviour
 
     private void Update()
     {
+        if (remainLoopCount > 0 && remainLoopInterval > 0)
+        {
+            remainLoopInterval -= Time.deltaTime;
+            if (remainLoopInterval <= 0 && remainLoopCount > 0)
+            {
+                remainLoopCount--;
+                remainLoopInterval = currentLoopInterval;
+                _currentAction.Execute();
+            }
+            return;
+        }
+
         if (remainInterval > 0)
         {
             remainInterval -= Time.deltaTime;
@@ -33,6 +48,11 @@ public class ActionManager : MonoBehaviour
             return;
         }
 
+        EvaluateInvokeAction();
+    }
+
+    private void EvaluateInvokeAction()
+    {
         var maxScore = -float.Epsilon;
         var actionIndex = -1;
 
@@ -53,6 +73,9 @@ public class ActionManager : MonoBehaviour
             var result = _actions[actionIndex].Execute();
             remainInterval = result.interval;
             _currentAction = _actions[actionIndex];
+            remainLoopCount = result.loopCount;
+            remainLoopInterval = result.loopInterval;
+            currentLoopInterval = result.loopInterval;
             if (_debugMode) Debug.Log($"Execute {_actions[actionIndex].name}");
         }
     }

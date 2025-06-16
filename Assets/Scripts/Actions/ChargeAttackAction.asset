@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   interval: 5
+  loopCount: 0
+  loopInterval: 0
   attackRange: 5
   triggerRadius: 0.5
   impactRadius: 2
