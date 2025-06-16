@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002129542374edd4f9f03b261b133b63, type: 3}
   m_Name: LaserAttackAction
   m_EditorClassIdentifier: 
-  interval: 3
   level: 1
+  interval: 3
+  loopCount: 0
+  loopInterval: 0
   baseAttackRange: 10
   laserAdditionalRange: 2
   laserRadius: 1

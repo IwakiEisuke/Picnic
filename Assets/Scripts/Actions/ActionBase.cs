@@ -6,6 +6,8 @@ public abstract class ActionBase : ScriptableObject
 {
     [SerializeField, Range(1, 3)] protected int level = 1;
     [SerializeField] protected float interval; // アクション後の待機時間
+    [SerializeField] protected int loopCount = 1; // アクションのループ回数
+    [SerializeField] protected float loopInterval; // ループ間の待機時間
 
     protected UnitBase _parent;
     protected NavMeshAgent _agent;
@@ -102,12 +104,16 @@ public readonly struct ActionExecuteInfo
     public readonly bool success;
     public readonly ActionBase action;
     public readonly float interval;
+    public readonly int loopCount;
+    public readonly float loopInterval;
 
-    public ActionExecuteInfo(bool success, ActionBase action = null, float interval = 0f)
+    public ActionExecuteInfo(bool success, ActionBase action = null, float interval = 0f, int loop = 0, float loopInterval = 1f)
     {
         this.success = success;
         this.action = action;
         this.interval = interval;
+        this.loopCount = loop;
+        this.loopInterval = loopInterval;
     }
 
     public override readonly string ToString() => $"{action.name} (Interval: {interval})";
