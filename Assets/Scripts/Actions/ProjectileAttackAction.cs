@@ -7,6 +7,8 @@
 public class ProjectileAttackAction : ActionBase
 {
     [SerializeField] float baseAttackRange = 3;
+    [SerializeField] float bulletRange = 5;
+    [SerializeField] bool penetration;
     [SerializeField] Vector3 projectileOffset;
     [SerializeField] GameObject projectilePref;
     [SerializeField] AttackData baseAttackData;
@@ -14,10 +16,12 @@ public class ProjectileAttackAction : ActionBase
     Transform target;
 
     float Damage => level * (baseAttackData.damage + _stats.Atk);
+    float AttackTriggerRange => baseAttackRange + _stats.AttackRadius;
+    float BulletRange => bulletRange + baseAttackRange + _stats.AttackRadius;
 
     public override float Evaluate()
     {
-        var targets = GetOverlapSphere(transform.position, baseAttackRange + _stats.AttackRadius, _parent.opponentLayer);
+        var targets = GetOverlapSphere(transform.position, AttackTriggerRange, _parent.opponentLayer);
 
         if (targets.Length == 0)
         {
@@ -38,6 +42,9 @@ public class ProjectileAttackAction : ActionBase
         obj.GetComponent<AttackCollider>().data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime);
         // 生成元と衝突しないようにレイヤーを設定
         obj.layer = transform.gameObject.layer;
+        var projectile = obj.GetComponent<ProjectileController>();
+        projectile.lifeRange = BulletRange;
+        projectile.destroyOnHit = !penetration;
         // その場に留まらせる
         _agent.SetDestination(transform.position);
         

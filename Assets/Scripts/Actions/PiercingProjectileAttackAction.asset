@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b8e626f0fd37d14da0b9fdf9e01e407, type: 3}
-  m_Name: ProjectileAttackAction
+  m_Name: PiercingProjectileAttackAction
   m_EditorClassIdentifier: 
-  interval: 0.5
   level: 1
+  interval: 0.5
   baseAttackRange: 10
+  penetration: 1
   projectileOffset: {x: 0, y: 1, z: 0}
-  projectilePref: {fileID: 3177446423030484919, guid: d139feafd1698f54f85f51e507deaf00, type: 3}
+  projectilePref: {fileID: 3177446423030484919, guid: b284a5d21e38686409ef8480d509b22b, type: 3}
   baseAttackData:
     id: 3
     damage: 1

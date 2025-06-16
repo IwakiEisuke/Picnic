@@ -516,7 +516,7 @@ MonoBehaviour:
   _debugMode: 1
   _unitBase: {fileID: 610472136}
   _actions:
-  - {fileID: 11400000, guid: 202c981600565084191bedc4f2abf800, type: 2}
+  - {fileID: 11400000, guid: 773a9b6f12a7a3445a16e95ecdd2031b, type: 2}
   - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
 --- !u!1001 &619325279
 PrefabInstance:
