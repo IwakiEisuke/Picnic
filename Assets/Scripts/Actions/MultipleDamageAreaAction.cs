@@ -52,6 +52,15 @@ public class MultipleDamageAreaAction : ActionBase
             Debug.LogWarning($"{name}: {nameof(MultipleDamageAreaAction)}から非{nameof(ITargetedObject)}なインスタンスを生成しました。{nameof(ITargetedObject)}コンポーネントをアタッチしたオブジェクトを入れてください");
         }
 
+        if (obj.TryGetComponent<IAreaObject>(out var areaObject))
+        {
+            areaObject.InitializeArea(damageAreaRadius);
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: {nameof(MultipleDamageAreaAction)}から非{nameof(IAreaObject)}なインスタンスを生成しました。{nameof(IAreaObject)}コンポーネントをアタッチしたオブジェクトを入れてください");
+        }
+
         Destroy(obj, duration);
         return new ActionExecuteInfo(true, this, interval, loopCount, loopInterval);
     }

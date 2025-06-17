@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MultipleDamageAreaAction
   m_EditorClassIdentifier: 
   level: 1
-  interval: 3
-  loopCount: 3
+  interval: 0
+  loopCount: 0
   loopInterval: 0.2
   baseAttackRange: 5
   damageAreaRadius: 3
@@ -23,6 +23,6 @@ MonoBehaviour:
   baseAttackData:
     id: 7
     damage: 2
-    invincibleTime: 0.3
+    invincibleTime: 1
   offset: {x: 0, y: 1, z: 0}
   damageAreaPrefab: {fileID: 375998286362752272, guid: 45078bfa7de4f7e4baa5a13049185ddc, type: 3}
