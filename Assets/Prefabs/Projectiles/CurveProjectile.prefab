@@ -170,5 +170,9 @@ MonoBehaviour:
   time: 0.5
   curveHeight: 6
   gravity: 0
-  onEndSpawnPrefab: {fileID: 6988543025276488954, guid: 1f093b9baf1eb704a9f72122afd31a4f, type: 3}
+  onEndSpawnPrefab: {fileID: 6988543025276488954, guid: 2dc7880b1eb77194ebdb2ac060d8ebfe, type: 3}
+  data:
+    id: 0
+    damage: 0
+    invincibleTime: 0
   targetPos: {x: 3, y: 0, z: 0}
