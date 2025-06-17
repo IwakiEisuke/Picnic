@@ -24,4 +24,5 @@ MonoBehaviour:
     id: 7
     damage: 2
     invincibleTime: 0.3
-  damageAreaPrefab: {fileID: 6988543025276488954, guid: 1f093b9baf1eb704a9f72122afd31a4f, type: 3}
+  offset: {x: 0, y: 1, z: 0}
+  damageAreaPrefab: {fileID: 375998286362752272, guid: 45078bfa7de4f7e4baa5a13049185ddc, type: 3}

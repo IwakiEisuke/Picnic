@@ -11,6 +11,7 @@ public class MultipleDamageAreaAction : ActionBase
     [SerializeField] float duration = 3;
     [SerializeField] float scatterRadius = 1.5f;
     [SerializeField] AttackData baseAttackData;
+    [SerializeField] Vector3 offset;
 
     [SerializeField] GameObject damageAreaPrefab;
 
@@ -39,9 +40,18 @@ public class MultipleDamageAreaAction : ActionBase
         _agent.SetDestination(transform.position);
 
         var scatteredPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * scatterRadius;
-        var obj = Instantiate(damageAreaPrefab, targetPosition + scatteredPos, Quaternion.identity);
+        var obj = Instantiate(damageAreaPrefab, transform.position + offset, Quaternion.identity);
         obj.layer = transform.gameObject.layer;
-        obj.GetComponent<AttackCollider>().data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime);
+        
+        if (obj.TryGetComponent<ITargetedObject>(out var targetedObject))
+        {
+            targetedObject.InitializeTarget(targetPosition + scatteredPos, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: {nameof(MultipleDamageAreaAction)}から非{nameof(ITargetedObject)}なインスタンスを生成しました。{nameof(ITargetedObject)}コンポーネントをアタッチしたオブジェクトを入れてください");
+        }
+
         Destroy(obj, duration);
         return new ActionExecuteInfo(true, this, interval, loopCount, loopInterval);
     }
