@@ -11,6 +11,7 @@ public class MultipleDamageAreaAction : ActionBase
     [SerializeField] float duration = 3;
     [SerializeField] float scatterRadius = 1.5f;
     [SerializeField] AttackData baseAttackData;
+    [SerializeField] bool canMoveWhileExecuting;
     [SerializeField] Vector3 offset;
 
     [SerializeField] GameObject damageAreaPrefab;
@@ -37,7 +38,7 @@ public class MultipleDamageAreaAction : ActionBase
 
     public override ActionExecuteInfo Execute()
     {
-        _agent.SetDestination(transform.position);
+        if (!canMoveWhileExecuting) _agent.SetDestination(transform.position);
 
         var scatteredPos = new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * scatterRadius;
         var obj = Instantiate(damageAreaPrefab, transform.position + offset, Quaternion.identity);
