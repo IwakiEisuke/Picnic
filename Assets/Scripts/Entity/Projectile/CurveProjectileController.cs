@@ -3,7 +3,7 @@
 /// <summary>
 /// 放射状投射
 /// </summary>
-public class CurveProjectileController : MonoBehaviour, ITargetedObject
+public class CurveProjectileController : MonoBehaviour, ITargetedObject, IAreaObject
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] float time = 10f;
@@ -15,6 +15,7 @@ public class CurveProjectileController : MonoBehaviour, ITargetedObject
     public Vector3 targetPos;
 
     float t;
+    float onEndSpawnObjRadius;
 
     private void Start()
     {
@@ -55,11 +56,24 @@ public class CurveProjectileController : MonoBehaviour, ITargetedObject
         {
             collider.data = data;
         }
+
+        if (obj.TryGetComponent<IAreaObject>(out var area))
+        {
+            area.InitializeArea(onEndSpawnObjRadius);
+        }
     }
 
     public void InitializeTarget(Vector3 targetPosition, AttackData data)
     {
         targetPos = targetPosition;
         this.data = data;
+    }
+
+    /// <summary>
+    /// 衝突時に生成するオブジェクトがIAreaObjectを実装していた場合にRadiusを渡す用
+    /// </summary>
+    public void InitializeArea(float radius)
+    {
+        onEndSpawnObjRadius = radius;
     }
 }

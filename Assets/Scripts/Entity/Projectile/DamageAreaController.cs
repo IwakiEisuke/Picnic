@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageAreaController : MonoBehaviour, ITargetedObject
+public class DamageAreaController : MonoBehaviour, ITargetedObject, IAreaObject
 {
     [SerializeField] AttackCollider attackCollider;
 
@@ -8,5 +8,10 @@ public class DamageAreaController : MonoBehaviour, ITargetedObject
     {
         transform.position = targetPosition;
         attackCollider.data = data;
+    }
+
+    public void InitializeArea(float radius)
+    {
+        transform.localScale = new Vector3(radius, transform.localScale.y, radius);
     }
 }
