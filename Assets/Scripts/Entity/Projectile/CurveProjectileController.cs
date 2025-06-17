@@ -3,7 +3,7 @@
 /// <summary>
 /// 放射状投射
 /// </summary>
-public class CurveProjectileController : MonoBehaviour
+public class CurveProjectileController : MonoBehaviour, ITargetedObject
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] float time = 10f;
@@ -50,9 +50,16 @@ public class CurveProjectileController : MonoBehaviour
     void OnDestroy()
     {
         var obj = Instantiate(onEndSpawnPrefab, transform.position, Quaternion.identity);
+        obj.layer = gameObject.layer;
         if (obj.TryGetComponent<AttackCollider>(out var collider))
         {
             collider.data = data;
         }
+    }
+
+    public void InitializeTarget(Vector3 targetPosition, AttackData data)
+    {
+        targetPos = targetPosition;
+        this.data = data;
     }
 }
