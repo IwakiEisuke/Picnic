@@ -10,8 +10,9 @@ public class DamageAreaController : MonoBehaviour, ITargetedObject, IAreaObject
         attackCollider.data = data;
     }
 
-    public void InitializeArea(float radius)
+    public void InitializeArea(float radius, float lifeTime)
     {
         transform.localScale = new Vector3(radius, transform.localScale.y, radius);
+        Destroy(gameObject, lifeTime);
     }
 }

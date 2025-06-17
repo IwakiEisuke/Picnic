@@ -11,11 +11,12 @@ public class CurveProjectileController : MonoBehaviour, ITargetedObject, IAreaOb
     [SerializeField] float gravity;
     [SerializeField] GameObject onEndSpawnPrefab;
     [SerializeField] AttackData data;
-    
+
     public Vector3 targetPos;
 
     float t;
     float onEndSpawnObjRadius;
+    float onEndSpawnObjLifeTime;
 
     private void Start()
     {
@@ -59,7 +60,7 @@ public class CurveProjectileController : MonoBehaviour, ITargetedObject, IAreaOb
 
         if (obj.TryGetComponent<IAreaObject>(out var area))
         {
-            area.InitializeArea(onEndSpawnObjRadius);
+            area.InitializeArea(onEndSpawnObjRadius, onEndSpawnObjLifeTime);
         }
     }
 
@@ -72,8 +73,9 @@ public class CurveProjectileController : MonoBehaviour, ITargetedObject, IAreaOb
     /// <summary>
     /// 衝突時に生成するオブジェクトがIAreaObjectを実装していた場合にRadiusを渡す用
     /// </summary>
-    public void InitializeArea(float radius)
+    public void InitializeArea(float radius, float lifeTime)
     {
         onEndSpawnObjRadius = radius;
+        onEndSpawnObjLifeTime = lifeTime;
     }
 }

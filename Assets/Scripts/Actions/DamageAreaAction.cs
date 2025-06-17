@@ -60,7 +60,7 @@ public class DamageAreaAction : ActionBase
 
         if (obj.TryGetComponent<IAreaObject>(out var areaObject))
         {
-            areaObject.InitializeArea(damageAreaRadius);
+            areaObject.InitializeArea(damageAreaRadius, duration);
         }
         else
         {

@@ -3,5 +3,5 @@
 /// </summary>
 public interface IAreaObject
 {
-    public void InitializeArea(float radius);
+    public void InitializeArea(float radius, float lifeTime);
 }

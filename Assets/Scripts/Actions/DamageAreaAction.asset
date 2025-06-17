@@ -17,9 +17,9 @@ MonoBehaviour:
   loopCount: 3
   loopInterval: 0.2
   baseAttackRange: 5
-  damageAreaRadius: 3
-  duration: 3
-  doPositionScattering: 0
+  damageAreaRadius: 5
+  duration: 1
+  positionScattering: 1
   scatterRadius: 4
   baseAttackData:
     id: 7
