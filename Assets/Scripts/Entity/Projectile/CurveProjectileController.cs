@@ -10,6 +10,7 @@ public class CurveProjectileController : MonoBehaviour
     [SerializeField] float curveHeight = 1f;
     [SerializeField] float gravity;
     [SerializeField] GameObject onEndSpawnPrefab;
+    [SerializeField] AttackData data;
     
     public Vector3 targetPos;
 
@@ -35,7 +36,6 @@ public class CurveProjectileController : MonoBehaviour
         if (t >= time)
         {
             Destroy(gameObject);
-            Instantiate(onEndSpawnPrefab, transform.position, Quaternion.identity);
         }
     }
 
@@ -44,7 +44,15 @@ public class CurveProjectileController : MonoBehaviour
         if (other.gameObject.layer != gameObject.layer)
         {
             Destroy(gameObject);
-            Instantiate(onEndSpawnPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
+    void OnDestroy()
+    {
+        var obj = Instantiate(onEndSpawnPrefab, transform.position, Quaternion.identity);
+        if (obj.TryGetComponent<AttackCollider>(out var collider))
+        {
+            collider.data = data;
         }
     }
 }
