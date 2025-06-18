@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 9c393134285ebe04db8db37db9ecd926, type: 2}
+    - target: {fileID: 1476775191128089322, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: unitBase
+      value: 
+      objectReference: {fileID: -8183712840257897774}
     - target: {fileID: 1661708962146060064, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -177,11 +181,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   destinationTag: Base
-  evolutionTreeAsset: {fileID: 0}
-  evolutionTreeViewParent: {fileID: 0}
   attackController: {fileID: 9198432522562431736}
   hitManager: {fileID: 6346846265073936664}
   statusEffectManager: {fileID: 3435914118055585160}
+  evolutionTreeAsset: {fileID: 0}
+  evolutionTreeViewParent: {fileID: 0}
   evolutionTree: {fileID: 0}
 --- !u!114 &9198432522562431736 stripped
 MonoBehaviour:

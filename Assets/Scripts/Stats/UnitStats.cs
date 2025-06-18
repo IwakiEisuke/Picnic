@@ -11,6 +11,9 @@ public class UnitStats : ScriptableObject
     [SerializeField] float attackRadius;
     [SerializeField] float knockBack;
 
+    [SerializeField] float damageReflect;
+    [SerializeField] float resistance;
+
     public bool isSortie;
 
     public void Init()
@@ -24,6 +27,9 @@ public class UnitStats : ScriptableObject
     public float AttackInterval => attackInterval;
     public float AttackRadius => attackRadius;
     public float KnockBack => knockBack;
+
+    public float DamageReflect => damageReflect;
+    public float Resistance => resistance;
 }
 
 public class UnitGameStatus
@@ -36,6 +42,9 @@ public class UnitGameStatus
     public float attackRadius;
     public float knockBack;
 
+    public float damageReflect;
+    public float resistance;
+
     public UnitGameStatus(UnitStats stats, UnitBase owner)
     {
         maxHealth = stats.MaxHealth;
@@ -44,6 +53,10 @@ public class UnitGameStatus
         attackInterval = stats.AttackInterval;
         attackRadius = stats.AttackRadius;
         knockBack = stats.KnockBack;
+
+        damageReflect = stats.DamageReflect;
+        resistance = stats.Resistance;
+
         this.owner = owner;
     }
 }
