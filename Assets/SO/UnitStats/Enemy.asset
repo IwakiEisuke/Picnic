@@ -17,3 +17,7 @@ MonoBehaviour:
   atk: 1
   attackInterval: 1
   attackRadius: 2
+  knockBack: 0
+  damageReflect: 0
+  resistance: 0
+  isSortie: 0
