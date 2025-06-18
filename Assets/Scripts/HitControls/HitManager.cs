@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,13 +22,16 @@ public class HitManager : MonoBehaviour
 
         if (damageHistoryManager.CanHit(info))
         {
-            var attackerHitManager = info.attacker.GetComponent<HitManager>();
-            health.TakeDamage(info);
+            var response = health.ApplyDamage(info);
             OnDamaged?.Invoke(info);
 
             if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
             {
                 attackerHitManagerComponent.OnAttacked?.Invoke(info);
+                if (response != null)
+                {
+                    attackerHitManagerComponent.health.ApplyRawDamage(response.damage);
+                }
             }
         }
     }
