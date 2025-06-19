@@ -14,6 +14,8 @@ public class Health : MonoBehaviour
 
     UnitGameStatus Status => unitBase.Status;
     public float HealthRatio => 1f * _currentHealth / Status.maxHealth;
+    public int CurrentHealth => _currentHealth;
+    public int CurrentDamaged => Status.maxHealth - _currentHealth;
 
     private void Start()
     {

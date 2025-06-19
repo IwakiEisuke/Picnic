@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e95160c0cbb4f449f6749e196e6103, type: 3}
   m_Name: MedicBee
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   speed: 3
   atk: 2
   attackInterval: 1
@@ -22,4 +22,5 @@ MonoBehaviour:
   resistance: 0
   actions:
   - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+  - {fileID: 11400000, guid: 4cb221d480177064682b8392f35edddf, type: 2}
   isSortie: 0

@@ -14,13 +14,30 @@ public class AllyAffectAction : ActionBase
 
     public override float Evaluate()
     {
-        if (TryGetNearestAround(transform.position, _status.attackRadius, LayerMask.GetMask(LayerMask.LayerToName(_parent.gameObject.layer)), out var target))
+        var targets = GetOverlapSphere(transform.position, _status.attackRadius, LayerMask.GetMask(LayerMask.LayerToName(_parent.gameObject.layer)));
+
+        var maxScore = -1f;
+        for (int i = 0; i < targets.Length; i++)
         {
-            _target = target;
-            return EffectValue / interval;
+            if (targets[i] == null || !targets[i].TryGetComponent<StatusEffectManager>(out _)) continue;
+
+            var score = 0f;
+            for (int j = 0; j < statusEffects.Length; j++)
+            {
+                if (targets[i].TryGetComponent<UnitBase>(out var unit))
+                {
+                    score += statusEffects[j].Evaluate(unit);
+                }
+            }
+
+            if (score > maxScore)
+            {
+                _target = targets[i];
+                maxScore = score;
+            }
         }
 
-        return -1;
+        return maxScore / interval;
     }
 
     public override ActionExecuteInfo Execute()
