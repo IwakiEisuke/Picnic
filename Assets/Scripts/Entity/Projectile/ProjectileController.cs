@@ -6,12 +6,13 @@
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
+    public float speed = 10f;
     public bool destroyOnHit = true;
     public float lifeRange = 5f;
 
     private void Start()
     {
-        rb.linearVelocity = transform.forward * 10f;
+        rb.linearVelocity = transform.forward * speed;
         Destroy(gameObject, lifeRange / rb.linearVelocity.magnitude);
     }
 

@@ -9,6 +9,7 @@ public class ProjectileAttackAction : ActionBase
     [SerializeField] float baseAttackRange = 3;
     [SerializeField] float bulletRange = 5;
     [SerializeField] bool penetration;
+    [SerializeField] float speed = 10f;
     [SerializeField] Vector3 projectileOffset;
     [SerializeField] GameObject projectilePref;
     [SerializeField] AttackData baseAttackData;
@@ -45,6 +46,7 @@ public class ProjectileAttackAction : ActionBase
         var projectile = obj.GetComponent<ProjectileController>();
         projectile.lifeRange = BulletRange;
         projectile.destroyOnHit = !penetration;
+        projectile.speed = speed;
         // その場に留まらせる
         _agent.SetDestination(transform.position);
         
