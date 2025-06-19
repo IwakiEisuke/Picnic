@@ -5,7 +5,10 @@ using UnityEngine.InputSystem;
 public class Ally : UnitBase
 {
     public FSM2<State> movementFSM;
-    public FSM attackFSM;
+
+    [SerializeField] ActionManager _actionManager;
+
+    public ActionManager ActionManager => _actionManager;
 
     private void Start()
     {
@@ -19,22 +22,14 @@ public class Ally : UnitBase
                     { State.Stop, new Stop(this) },
                     { State.MoveToHive, new MoveToHive(this) },
                     { State.InteractTarget, new InteractTarget(this) },
+                    { State.Auto,  new AutoMove(this) },
                 }
-            );
-
-        attackFSM =
-            new(
-                new()
-                {
-                    { new NearTargetAttack(this), new(){ new FSM.Transition(3, () => false) } },
-                }
-            );
+            , 6);
     }
 
     private void Update()
     {
         movementFSM.Update();
-        attackFSM.Update();
     }
 
     public void Next(State type)
@@ -49,7 +44,8 @@ public class Ally : UnitBase
         Follow,
         Stop,
         MoveToHive,
-        InteractTarget
+        InteractTarget,
+        Auto,
     }
 }
 
@@ -251,5 +247,28 @@ public class InteractTarget : FSMState
         {
             ally.movementFSM.Next(Ally.State.MoveToNearestTarget);
         }
+    }
+}
+
+/// <summary>
+/// ActionManagerÇ…ÇÊÇÈìÆçÏÇ…êÿÇËë÷Ç¶
+/// </summary>
+public class AutoMove : FSMState
+{
+    Ally _ally;
+
+    public AutoMove(Ally parent) : base(parent)
+    {
+        _ally = parent;
+    }
+
+    public override void Enter()
+    {
+        _ally.ActionManager.enabled = true;
+    }
+
+    public override void Exit()
+    {
+        _ally.ActionManager.enabled = false;
     }
 }
