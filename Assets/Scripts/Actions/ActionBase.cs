@@ -51,7 +51,6 @@ public abstract class ActionBase : ScriptableObject
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
         if (hitCount > 0)
         {
-            var minDist = float.MaxValue;
             target = GetRootTransforms(_hits, position, hitCount).GetMin(x => (x.transform.position - position).sqrMagnitude);
             return true;
         }
