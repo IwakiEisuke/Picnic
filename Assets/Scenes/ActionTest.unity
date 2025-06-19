@@ -176,6 +176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NormalBee
       objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: d102b07fb2d3b704e985b68c1b4a4e6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -445,6 +449,10 @@ PrefabInstance:
     - target: {fileID: 1858036909408944744, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
       propertyPath: m_Name
       value: Destroyer Bee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -812,6 +820,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GatlingBee
       objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: d0464b25257273c4ab304b48f0ae924b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1040,6 +1052,10 @@ PrefabInstance:
     - target: {fileID: 1858036909408944744, guid: a450676f4df072143bb3456f430f829d, type: 3}
       propertyPath: m_Name
       value: Soldier Bee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: a450676f4df072143bb3456f430f829d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1320,6 +1336,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReconBee
       objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: 6db6234e6546c9e46aeab925bbcba43d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1376,6 +1396,10 @@ PrefabInstance:
     - target: {fileID: 1858036909408944744, guid: e27413f10ea27ea47b1669da94671e00, type: 3}
       propertyPath: m_Name
       value: SniperBee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: e27413f10ea27ea47b1669da94671e00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1769,6 +1793,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1813070346
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
+      propertyPath: m_Name
+      value: TrapperBee
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e6072bc4ac862914586b7c9a433bd067, type: 3}
 --- !u!1 &1815229254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,3 +2188,4 @@ SceneRoots:
   - {fileID: 1318917787}
   - {fileID: 521845373}
   - {fileID: 63824193}
+  - {fileID: 1813070346}
