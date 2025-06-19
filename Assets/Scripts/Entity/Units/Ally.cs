@@ -116,7 +116,7 @@ public class NearTargetAttack : FSMState
     private void Attack()
     {
         Log("Attack");
-        _attackController.AttackNearTarget(_agent.transform.position, _stats.AttackRadius, new AttackData(1, _stats.Atk, 0.0f), _agent.transform, _parent.opponentLayer);
+        _attackController.AttackNearTarget(_agent.transform.position, _stats.AttackRadius, new AttackData(1, _stats.Atk, 0.0f, null), _agent.transform, _parent.opponentLayer);
     }
 
     private bool CheckAround(LayerMask layerMask)

@@ -41,7 +41,7 @@ public class ChargeAttackAction : ActionBase
         if (TryGetNearestAround(TriggerPos, triggerRadius, _parent.opponentLayer, out _))
         {
             var targets = GetOverlapSphere(TriggerPos, impactRadius, _parent.opponentLayer);
-            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         }
     }
 }

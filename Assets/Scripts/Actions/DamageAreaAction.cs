@@ -51,7 +51,7 @@ public class DamageAreaAction : ActionBase
             {
                 targetPos += new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * scatterRadius;
             }
-            targetedObject.InitializeTarget(targetPos, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+            targetedObject.InitializeTarget(targetPos, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         }
         else
         {
