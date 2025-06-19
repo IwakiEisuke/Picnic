@@ -52,7 +52,7 @@ public abstract class ActionBase : ScriptableObject
         if (hitCount > 0)
         {
             var minDist = float.MaxValue;
-            foreach (var hit in _hits.Where(c => c != null))
+            foreach (var hit in GetRootTransforms(_hits, position, hitCount))
             {
                 var sqrDist = (hit.transform.position - position).sqrMagnitude;
                 if (sqrDist < minDist)
