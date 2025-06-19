@@ -18,7 +18,7 @@ public class UnitSelector : MonoBehaviour
     readonly List<Transform> selecting = new();
     readonly Collider[] cols = new Collider[100];
 
-    public List<Ally> SelectingAllies => selecting.Select(x => x.GetComponent<Ally>()).ToList();
+    public List<Ally> SelectingAllies => selecting.Where(x => x != null).Select(x => x.GetComponent<Ally>()).ToList();
     public Transform ControlTarget { get; private set; }
 
     public event Action OnSelectControlTarget;
