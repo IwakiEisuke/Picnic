@@ -1622,7 +1622,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3d8f6ddcad2384a877f90885db7b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseInputManager: {fileID: 11400000, guid: caf86156ead025e4db6b1e45d6001337, type: 2}
+  inputActionAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  inputManagers:
+  - {fileID: 11400000, guid: caf86156ead025e4db6b1e45d6001337, type: 2}
+  - {fileID: 11400000, guid: 709f2906fddd1bc4f927d2dd1d64d8f5, type: 2}
 --- !u!1 &7802338152873523982
 GameObject:
   m_ObjectHideFlags: 0
