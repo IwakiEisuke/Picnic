@@ -24,7 +24,8 @@ public class Health : MonoBehaviour
 
     public DamageResponse ApplyDamage(AttackReceiveInfo info)
     {
-        var damage = (int)(info.damage * Mathf.Max(0, (1 - Status.resistance)));
+        // 受け取ったダメージ量を計算。ステータスの耐性を考慮して、最終的なダメージ量を決定する。完全な耐性が無い限り1ダメージは与えるようにするため切り上げ
+        var damage = Mathf.CeilToInt(info.damage * Mathf.Max(0, (1 - Status.resistance)));
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
