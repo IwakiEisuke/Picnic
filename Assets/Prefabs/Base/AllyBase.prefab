@@ -493,6 +493,7 @@ MonoBehaviour:
   attackController: {fileID: 2635285480694501285}
   hitManager: {fileID: 225611571534924869}
   statusEffectManager: {fileID: 8402553784013832405}
+  actionManager: {fileID: 5124874340930528428}
   evolutionTreeAsset: {fileID: 11400000, guid: 67537e70c2f7f82488fdc299570f0832, type: 2}
   evolutionTreeViewParent: {fileID: 5947957554861696532}
   evolutionTree: {fileID: 0}

@@ -20,4 +20,7 @@ MonoBehaviour:
   knockBack: 2
   damageReflect: 0
   resistance: 0
+  actions:
+  - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+  - {fileID: 11400000, guid: 4adc3edc9b40a4348afe5f79ee42c8ae, type: 2}
   isSortie: 0

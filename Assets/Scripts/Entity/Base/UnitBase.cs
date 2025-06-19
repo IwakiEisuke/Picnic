@@ -14,6 +14,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     [SerializeField] protected AttackController attackController;
     [SerializeField] protected HitManager hitManager;
     [SerializeField] protected StatusEffectManager statusEffectManager;
+    [SerializeField] protected ActionManager actionManager;
 
     [SerializeField] protected EvolutionTree evolutionTreeAsset;
     [SerializeField] protected Transform evolutionTreeViewParent;
@@ -56,6 +57,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);
         observer.Register();
+        actionManager.SetActions(stats.Actions);
 
         if (evolutionTree == null && evolutionTreeAsset != null)
         {

@@ -21,6 +21,11 @@ public class ActionManager : MonoBehaviour
     int remainLoopCount;
     float currentLoopInterval;
 
+    public void SetActions(ActionBase[] actions)
+    {
+        _actionAssets = actions;
+    }
+
     private void Start()
     {
         // コンポーネントに個別なScriptableObjectを生成
