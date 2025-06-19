@@ -14,4 +14,9 @@ public class HealEffect : StatusEffectAssetBase
     {
         status.owner.HitManager.OnAttacked += info => effector.Cancel();
     }
+
+    public override float Evaluate(UnitBase unit)
+    {
+        return 1 - unit.Health.HealthRatio;
+    }
 }

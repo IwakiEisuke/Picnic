@@ -46,11 +46,9 @@ public class StatusEffectManager : MonoBehaviour
         var dt = Time.deltaTime;
         foreach (var effect in effects)
         {
-            if (effect.Consume(dt))
-            {
-                effect.Apply(status);
-            }
-            else
+            effect.Apply(status);
+            
+            if (!effect.Consume(dt))
             {
                 consumed.Add(effect);
             }
@@ -123,7 +121,9 @@ public class StatusEffector
 /// </summary>
 public abstract class StatusEffectAssetBase : ScriptableObject
 {
-    public float Duration;
+    [SerializeField] protected float _duration;
+
+    public float Duration => _duration;
 
     public abstract void Apply(UnitGameStatus status);
 
@@ -134,4 +134,11 @@ public abstract class StatusEffectAssetBase : ScriptableObject
     {
         
     }
+
+    /// <summary>
+    /// このステータスエフェクトがどれくらい有効かを評価するメソッド。
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <returns></returns>
+    public abstract float Evaluate(UnitBase unit);
 }
