@@ -6,6 +6,7 @@ public class HitManager : MonoBehaviour
 {
     [SerializeField] bool debugMode;
     [SerializeField] Health health;
+    [SerializeField] UnitBase owner;
 
     readonly DamageHistoryManager damageHistoryManager = new();
 
@@ -16,13 +17,21 @@ public class HitManager : MonoBehaviour
     {
         if (health == null)
         {
-            Debug.LogWarning("Health component is not assigned in HitManager.");
+            Debug.LogWarning($"<{name}> Health component is not assigned in HitManager.");
+            return;
+        }
+
+        if (owner == null)
+        {
+            Debug.LogWarning($"<{name}> UnitBase component is not assigned in HitManager.");
             return;
         }
 
         if (damageHistoryManager.CanHit(info))
         {
             var response = health.ApplyDamage(info);
+            owner.StatusEffectManager.AddEffect(info.statusEffects);
+
             OnDamaged?.Invoke(info);
 
             if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
@@ -59,6 +68,7 @@ public class AttackReceiveInfo
     public int damage;
     public int id;
     public float invincibleTime;
+    public StatusEffectAssetBase[] statusEffects;
     public Transform attacker;
 
     public AttackReceiveInfo(AttackData attackData, Transform attacker)
@@ -66,6 +76,7 @@ public class AttackReceiveInfo
         damage = attackData.damage;
         id = attackData.id;
         invincibleTime = attackData.invincibleTime;
+        statusEffects = attackData.statusEffects;
         this.attacker = attacker;
     }
 }

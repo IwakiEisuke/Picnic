@@ -25,6 +25,14 @@ public class StatusEffectManager : MonoBehaviour
         effects.Add(effector);
     }
 
+    public void AddEffect(StatusEffectAssetBase[] effects)
+    {
+        foreach (var effect in effects)
+        {
+            AddEffect(effect);
+        }
+    }
+
     public void RemoveEffect(StatusEffector effect)
     {
         effects.Remove(effect);
