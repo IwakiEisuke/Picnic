@@ -22,8 +22,8 @@ public class DamageAreaAction : ActionBase
 
     Vector3 targetPosition;
 
-    float Damage => damageMultipliers[level] * (baseAttackData.damage + _stats.Atk);
-    float AttackRange => rangeMultipliers[level] * (baseAttackRange + _stats.AttackRadius);
+    float Damage => damageMultipliers[level] * (baseAttackData.damage + _status.atk);
+    float AttackRange => rangeMultipliers[level] * (baseAttackRange + _status.attackRadius);
 
     public override float Evaluate()
     {

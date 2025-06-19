@@ -9,7 +9,7 @@ public class MeleeAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var targets = GetOverlapSphere(_parent.transform.position, _stats.AttackRadius, _parent.opponentLayer);
+        var targets = GetOverlapSphere(_parent.transform.position, _status.attackRadius, _parent.opponentLayer);
 
         if (targets.Length == 0)
         {
@@ -18,7 +18,7 @@ public class MeleeAttackAction : ActionBase
         else
         {
             _target = targets[0];
-            return level * _stats.Atk;
+            return level * _status.atk;
         }
     }
 

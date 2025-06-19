@@ -5,13 +5,13 @@ using UnityEngine.AI;
 public abstract class ActionBase : ScriptableObject
 {
     [SerializeField, Range(1, 3)] protected int level = 1;
-    [SerializeField] protected float interval; // アクション後の待機時間
-    [SerializeField] protected int loopCount = 1; // アクションのループ回数
+    [SerializeField] protected float interval = 1; // アクション後の待機時間
+    [SerializeField] protected int loopCount; // アクションのループ回数
     [SerializeField] protected float loopInterval; // ループ間の待機時間
 
     protected UnitBase _parent;
     protected NavMeshAgent _agent;
-    protected UnitStats _stats;
+    protected UnitGameStatus _status;
     protected AttackController _attackController;
     protected Transform transform;
 
@@ -21,7 +21,7 @@ public abstract class ActionBase : ScriptableObject
     {
         _parent = parent;
         _agent = parent.Agent;
-        _stats = parent.Stats;
+        _status = parent.Status;
         _attackController = parent.GetComponent<AttackController>();
         transform = parent.transform;
     }

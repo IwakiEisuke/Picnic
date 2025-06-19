@@ -17,9 +17,9 @@ public class ProjectileAttackAction : ActionBase
 
     Vector3 targetPos;
 
-    float Damage => level * (baseAttackData.damage + _stats.Atk);
-    float AttackTriggerRange => baseAttackRange + _stats.AttackRadius;
-    float BulletRange => bulletRange + baseAttackRange + _stats.AttackRadius;
+    float Damage => level * (baseAttackData.damage + _status.atk);
+    float AttackTriggerRange => baseAttackRange + _status.attackRadius;
+    float BulletRange => bulletRange + baseAttackRange + _status.attackRadius;
 
     public override float Evaluate()
     {
@@ -50,7 +50,7 @@ public class ProjectileAttackAction : ActionBase
         projectile.speed = speed;
         // その場に留まらせる
         _agent.SetDestination(transform.position);
-        
+
         return new ActionExecuteInfo(true, this, interval, loopCount, loopInterval);
     }
 }

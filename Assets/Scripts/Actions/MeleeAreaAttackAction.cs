@@ -12,7 +12,7 @@ public class MeleeAreaAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        _targets = GetOverlapSphere(_parent.transform.position, _stats.AttackRadius, _parent.opponentLayer);
+        _targets = GetOverlapSphere(_parent.transform.position, _status.attackRadius, _parent.opponentLayer);
 
         if (_targets.Length == 0)
         {
@@ -20,7 +20,7 @@ public class MeleeAreaAttackAction : ActionBase
         }
         else
         {
-            return level * baseAttackData.damage * _stats.Atk * _targets.Length; // ターゲットの数に応じて評価値を増加
+            return level * baseAttackData.damage * _status.atk * _targets.Length; // ターゲットの数に応じて評価値を増加
         }
     }
 
@@ -28,7 +28,7 @@ public class MeleeAreaAttackAction : ActionBase
     {
         for (int i = 0; i < _targets.Length; i++)
         {
-            _attackController.AttackDirectly(_targets[i], new AttackData(baseAttackData.id, baseAttackData.damage * _stats.Atk * level, baseAttackData.invincibleTime, baseAttackData.statusEffects));
+            _attackController.AttackDirectly(_targets[i], new AttackData(baseAttackData.id, baseAttackData.damage * _status.atk * level, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         }
 
         return new ActionExecuteInfo(true, this, interval);

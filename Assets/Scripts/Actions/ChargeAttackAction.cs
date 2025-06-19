@@ -17,7 +17,7 @@ public class ChargeAttackAction : ActionBase
 
     Transform target;
 
-    float Damage => damageMultipliers[level] * (baseAttackData.damage + _stats.Atk);
+    float Damage => damageMultipliers[level] * (baseAttackData.damage + _status.atk);
     Vector3 TriggerPos => transform.position + transform.forward + transform.rotation * offset;
 
     public override float Evaluate()

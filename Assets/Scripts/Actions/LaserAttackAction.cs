@@ -13,9 +13,9 @@ public class LaserAttackAction : ActionBase
 
     [SerializeField] AttackData baseAttackData;
 
-    float Damage => level * (baseAttackData.damage + _stats.Atk);
-    float AttackRange => level * baseAttackRange + _stats.AttackRadius;
-    float LaserRange => level * (baseAttackRange + laserAdditionalRange) + _stats.AttackRadius;
+    float Damage => level * (baseAttackData.damage + _status.atk);
+    float AttackRange => level * baseAttackRange + _status.attackRadius;
+    float LaserRange => level * (baseAttackRange + laserAdditionalRange) + _status.attackRadius;
 
     Transform[] targets;
     Vector3 laserDirection;
