@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10f1bf5b1e04ffc4c8a6069d1f002b77, type: 3}
-  m_Name: HealEffect
+  m_Name: InstantHealEffect
   m_EditorClassIdentifier: 
   Duration: 0
-  effectValue: 1
+  effectValue: 3
