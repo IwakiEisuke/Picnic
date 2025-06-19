@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d345800114b25f14fb8ebba43f9367e7, type: 3}
+  m_Name: ScarAction
+  m_EditorClassIdentifier: 
+  level: 1
+  interval: 10
+  loopCount: 0
+  loopInterval: 0
+  baseAttackRange: 5
+  damageAreaRadius: 8
+  duration: 5
+  positionScattering: 0
+  scatterRadius: 0
+  baseAttackData:
+    id: 7
+    damage: 2
+    invincibleTime: 0.7
+    statusEffects: []
+  canMoveWhileExecuting: 0
+  offset: {x: 0, y: 1, z: 0}
+  damageAreaPrefab: {fileID: 6988543025276488954, guid: 2dc7880b1eb77194ebdb2ac060d8ebfe, type: 3}

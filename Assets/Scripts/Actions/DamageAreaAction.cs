@@ -22,8 +22,8 @@ public class DamageAreaAction : ActionBase
 
     Vector3 targetPosition;
 
-    float Damage => damageMultipliers[level] * (baseAttackData.damage + _stats.Atk);
-    float AttackRange => rangeMultipliers[level] * (baseAttackRange + _stats.AttackRadius);
+    float Damage => damageMultipliers[level] * (baseAttackData.damage + _status.atk);
+    float AttackRange => rangeMultipliers[level] * (baseAttackRange + _status.attackRadius);
 
     public override float Evaluate()
     {
@@ -51,7 +51,7 @@ public class DamageAreaAction : ActionBase
             {
                 targetPos += new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * scatterRadius;
             }
-            targetedObject.InitializeTarget(targetPos, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+            targetedObject.InitializeTarget(targetPos, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         }
         else
         {

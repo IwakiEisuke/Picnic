@@ -14,6 +14,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     [SerializeField] protected AttackController attackController;
     [SerializeField] protected HitManager hitManager;
     [SerializeField] protected StatusEffectManager statusEffectManager;
+    [SerializeField] protected ActionManager actionManager;
 
     [SerializeField] protected EvolutionTree evolutionTreeAsset;
     [SerializeField] protected Transform evolutionTreeViewParent;
@@ -23,18 +24,18 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
     protected EntityObserver observer;
-
-    // あまりよろしくないが置き換える前提でPublicにしている
-    public UnitGameStatus status;
+    UnitGameStatus status;
 
     public event Action Destroyed;
 
-    public UnitStats Stats { get { return stats; } }
+    public UnitStats Stats => stats;
+    public Health Health => health;
     public NavMeshAgent Agent => _agent;
     public HitManager HitManager => hitManager;
     public StatusEffectManager StatusEffectManager => statusEffectManager;
     public AttackController AttackController => attackController;
     public EvolutionTree EvolutionTree => evolutionTree;
+    public UnitGameStatus Status => status;
 
     protected void Awake()
     {
@@ -56,6 +57,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
         health.OnDied.AddListener(Die);
         observer = new EntityObserver(stats.name);
         observer.Register();
+        actionManager.SetActions(stats.Actions);
 
         if (evolutionTree == null && evolutionTreeAsset != null)
         {

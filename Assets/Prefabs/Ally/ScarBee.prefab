@@ -17,12 +17,16 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2085086610286189054, guid: d592412050932a649ba6b5666115c102, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 6e21d0338908b78459b52e76f0d37ce2, type: 2}
+    - target: {fileID: 2085086610286189054, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: health.stats
       value: 
       objectReference: {fileID: 11400000, guid: 1451bebf9b8f9f745b94b83ef0684d1e, type: 2}
     - target: {fileID: 3359176124749843262, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: m_Name
-      value: Normal Bee
+      value: ScarBee
       objectReference: {fileID: 0}
     - target: {fileID: 4543852607026005770, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64,6 +68,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5124874340930528428, guid: d592412050932a649ba6b5666115c102, type: 3}
+      propertyPath: _actionAssets.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5124874340930528428, guid: d592412050932a649ba6b5666115c102, type: 3}
+      propertyPath: '_actionAssets.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 256ffeccf0af9964db2c6058904d3328, type: 2}
     - target: {fileID: 6290046964271215860, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: treeNodes.Array.data[0].speciePrefab
       value: 
@@ -77,9 +89,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3150432192943526056, guid: a450676f4df072143bb3456f430f829d, type: 3}
     - target: {fileID: 8580453118175133065, guid: d592412050932a649ba6b5666115c102, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d8c25155ddf8a2b4daeb29912a954972, type: 2}
+    - target: {fileID: 8580453118175133065, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: d3b9575c2fcacc24bbe15189bea08ef4, type: 2}
+      objectReference: {fileID: 2100000, guid: 7af80b8192ccdfe47a3910b1c46b276a, type: 2}
     m_RemovedComponents:
     - {fileID: 3939727021321615618, guid: d592412050932a649ba6b5666115c102, type: 3}
     m_RemovedGameObjects: []

@@ -8,23 +8,24 @@ public class Health : MonoBehaviour
     [SerializeField] UnitBase unitBase;
     [SerializeField] GameObject dieObj;
 
-    public UnityEvent OnDied;
-
     int _currentHealth;
 
-    UnitStats Stats => unitBase.Stats;
-    UnitGameStatus Status => unitBase.status;
+    public UnityEvent OnDied;
 
-    public float HealthRatio => 1f * _currentHealth / Stats.MaxHealth;
+    UnitGameStatus Status => unitBase.Status;
+    public float HealthRatio => 1f * _currentHealth / Status.maxHealth;
+    public int CurrentHealth => _currentHealth;
+    public int CurrentDamaged => Status.maxHealth - _currentHealth;
 
-    public void Start()
+    private void Start()
     {
-        _currentHealth = Stats.MaxHealth;
+        _currentHealth = Status.maxHealth;
     }
 
     public DamageResponse ApplyDamage(AttackReceiveInfo info)
     {
-        var damage = (int)(info.damage * Mathf.Max(0, (1 - Status.resistance)));
+        // 受け取ったダメージ量を計算。ステータスの耐性を考慮して、最終的なダメージ量を決定する。完全な耐性が無い限り1ダメージは与えるようにするため切り上げ
+        var damage = Mathf.CeilToInt(info.damage * Mathf.Max(0, (1 - Status.resistance)));
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
@@ -51,6 +52,15 @@ public class Health : MonoBehaviour
         if (_currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    public void Heal(float value)
+    {
+        _currentHealth += Mathf.CeilToInt(value);
+        if (_currentHealth > Status.maxHealth)
+        {
+            _currentHealth = Status.maxHealth;
         }
     }
 

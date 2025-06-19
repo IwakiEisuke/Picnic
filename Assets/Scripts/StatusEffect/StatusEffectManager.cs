@@ -21,8 +21,16 @@ public class StatusEffectManager : MonoBehaviour
         }
 
         var effector = new StatusEffector(effect);
-        effector.SetCancelCondition(unitBase.status, () => RemoveEffect(effector));
+        effector.SetCancelCondition(unitBase.Status, () => RemoveEffect(effector));
         effects.Add(effector);
+    }
+
+    public void AddEffect(StatusEffectAssetBase[] effects)
+    {
+        foreach (var effect in effects)
+        {
+            AddEffect(effect);
+        }
     }
 
     public void RemoveEffect(StatusEffector effect)
@@ -38,11 +46,9 @@ public class StatusEffectManager : MonoBehaviour
         var dt = Time.deltaTime;
         foreach (var effect in effects)
         {
-            if (effect.Consume(dt))
-            {
-                effect.Apply(status);
-            }
-            else
+            effect.Apply(status);
+            
+            if (!effect.Consume(dt))
             {
                 consumed.Add(effect);
             }
@@ -53,7 +59,7 @@ public class StatusEffectManager : MonoBehaviour
             effects.Remove(cons);
         }
 
-        unitBase.status = status;
+        unitBase.Status.Replace(status);
     }
 
     private void Start()
@@ -115,8 +121,10 @@ public class StatusEffector
 /// </summary>
 public abstract class StatusEffectAssetBase : ScriptableObject
 {
-    protected float duration;
-    public float Duration;
+    [SerializeField] protected float _duration;
+
+    public float Duration => _duration;
+
     public abstract void Apply(UnitGameStatus status);
 
     /// <summary>
@@ -126,4 +134,11 @@ public abstract class StatusEffectAssetBase : ScriptableObject
     {
         
     }
+
+    /// <summary>
+    /// このステータスエフェクトがどれくらい有効かを評価するメソッド。
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <returns></returns>
+    public abstract float Evaluate(UnitBase unit);
 }

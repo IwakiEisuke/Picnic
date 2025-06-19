@@ -32,6 +32,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2038893027407563364, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: -8183712840257897774}
     - target: {fileID: 2334293146028736811, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -112,6 +116,14 @@ PrefabInstance:
       propertyPath: '_actions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+    - target: {fileID: 6374041460597400205, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: _actionAssets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374041460597400205, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: '_actionAssets.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
     - target: {fileID: 7528319036318301096, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
@@ -137,6 +149,17 @@ PrefabInstance:
       insertIndex: 2
       addedObject: {fileID: -8183712840257897774}
   m_SourcePrefab: {fileID: 100100000, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+--- !u!114 &2029497825655259633 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6374041460597400205, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+  m_PrefabInstance: {fileID: 4926688862632747900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8478940444707892835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df69a4aa6e339b4f80f0bf0aa60fa89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3435914118055585160 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7778223179493459700, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
@@ -196,6 +219,7 @@ MonoBehaviour:
   attackController: {fileID: 9198432522562431736}
   hitManager: {fileID: 6346846265073936664}
   statusEffectManager: {fileID: 3435914118055585160}
+  actionManager: {fileID: 2029497825655259633}
   evolutionTreeAsset: {fileID: 0}
   evolutionTreeViewParent: {fileID: 0}
   evolutionTree: {fileID: 0}

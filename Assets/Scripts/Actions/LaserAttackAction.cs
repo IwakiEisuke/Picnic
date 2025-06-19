@@ -13,9 +13,9 @@ public class LaserAttackAction : ActionBase
 
     [SerializeField] AttackData baseAttackData;
 
-    float Damage => level * (baseAttackData.damage + _stats.Atk);
-    float AttackRange => level * baseAttackRange + _stats.AttackRadius;
-    float LaserRange => level * (baseAttackRange + laserAdditionalRange) + _stats.AttackRadius;
+    float Damage => level * (baseAttackData.damage + _status.atk);
+    float AttackRange => level * baseAttackRange + _status.attackRadius;
+    float LaserRange => level * (baseAttackRange + laserAdditionalRange) + _status.attackRadius;
 
     Transform[] targets;
     Vector3 laserDirection;
@@ -40,7 +40,7 @@ public class LaserAttackAction : ActionBase
 
     public override ActionExecuteInfo Execute()
     {
-        _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+        _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         // その場に留める
         _agent.SetDestination(transform.position);
         // レーザー照射時間をリセット
@@ -54,7 +54,7 @@ public class LaserAttackAction : ActionBase
         {
             laserEmittedTime += Time.deltaTime;
             targets = LaserCast(transform.position, laserDirection, LaserRange, laserRadius, _parent.opponentLayer);
-            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         }
     }
 }

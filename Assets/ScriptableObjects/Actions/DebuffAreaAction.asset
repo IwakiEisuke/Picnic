@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d345800114b25f14fb8ebba43f9367e7, type: 3}
+  m_Name: DebuffAreaAction
+  m_EditorClassIdentifier: 
+  level: 1
+  interval: 3
+  loopCount: 3
+  loopInterval: 0.2
+  baseAttackRange: 5
+  damageAreaRadius: 5
+  duration: 1
+  positionScattering: 1
+  scatterRadius: 4
+  baseAttackData:
+    id: 7
+    damage: 0
+    invincibleTime: 1
+    statusEffects:
+    - {fileID: 11400000, guid: c1a28c3152e030b49b43713cf81cf074, type: 2}
+  canMoveWhileExecuting: 0
+  offset: {x: 0, y: 1, z: 0}
+  damageAreaPrefab: {fileID: 375998286362752272, guid: 45078bfa7de4f7e4baa5a13049185ddc, type: 3}

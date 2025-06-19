@@ -17,7 +17,7 @@ public class ChargeAttackAction : ActionBase
 
     Transform target;
 
-    float Damage => damageMultipliers[level] * (baseAttackData.damage + _stats.Atk);
+    float Damage => damageMultipliers[level] * (baseAttackData.damage + _status.atk);
     Vector3 TriggerPos => transform.position + transform.forward + transform.rotation * offset;
 
     public override float Evaluate()
@@ -41,7 +41,7 @@ public class ChargeAttackAction : ActionBase
         if (TryGetNearestAround(TriggerPos, triggerRadius, _parent.opponentLayer, out _))
         {
             var targets = GetOverlapSphere(TriggerPos, impactRadius, _parent.opponentLayer);
-            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime));
+            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         }
     }
 }

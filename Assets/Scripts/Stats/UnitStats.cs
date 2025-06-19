@@ -14,6 +14,8 @@ public class UnitStats : ScriptableObject
     [SerializeField] float damageReflect;
     [SerializeField] float resistance;
 
+    [SerializeField] ActionBase[] actions;
+
     public bool isSortie;
 
     public void Init()
@@ -30,6 +32,7 @@ public class UnitStats : ScriptableObject
 
     public float DamageReflect => damageReflect;
     public float Resistance => resistance;
+    public ActionBase[] Actions => actions;
 }
 
 public class UnitGameStatus
@@ -58,5 +61,17 @@ public class UnitGameStatus
         resistance = stats.Resistance;
 
         this.owner = owner;
+    }
+
+    public void Replace(UnitGameStatus stats)
+    {
+        maxHealth = stats.maxHealth;
+        speed = stats.speed;
+        atk = stats.atk;
+        attackInterval = stats.attackInterval;
+        attackRadius = stats.attackRadius;
+        knockBack = stats.knockBack;
+        damageReflect = stats.damageReflect;
+        resistance = stats.resistance;
     }
 }

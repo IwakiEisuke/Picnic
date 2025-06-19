@@ -318,6 +318,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2038893027407563364, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 2085086610286189054}
     - target: {fileID: 2334293146028736811, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -493,6 +497,7 @@ MonoBehaviour:
   attackController: {fileID: 2635285480694501285}
   hitManager: {fileID: 225611571534924869}
   statusEffectManager: {fileID: 8402553784013832405}
+  actionManager: {fileID: 5124874340930528428}
   evolutionTreeAsset: {fileID: 11400000, guid: 67537e70c2f7f82488fdc299570f0832, type: 2}
   evolutionTreeViewParent: {fileID: 5947957554861696532}
   evolutionTree: {fileID: 0}
