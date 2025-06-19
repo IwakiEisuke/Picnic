@@ -22,4 +22,5 @@ MonoBehaviour:
   resistance: 0
   actions:
   - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+  - {fileID: 11400000, guid: ee8815b5eb37aa146a4fcee30895c09d, type: 2}
   isSortie: 0

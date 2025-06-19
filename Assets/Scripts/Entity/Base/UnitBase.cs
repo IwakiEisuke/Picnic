@@ -24,18 +24,17 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
     protected EntityObserver observer;
-
-    // あまりよろしくないが置き換える前提でPublicにしている
-    public UnitGameStatus status;
+    UnitGameStatus status;
 
     public event Action Destroyed;
 
-    public UnitStats Stats { get { return stats; } }
+    public UnitStats Stats => stats;
     public NavMeshAgent Agent => _agent;
     public HitManager HitManager => hitManager;
     public StatusEffectManager StatusEffectManager => statusEffectManager;
     public AttackController AttackController => attackController;
     public EvolutionTree EvolutionTree => evolutionTree;
+    public UnitGameStatus Status => status;
 
     protected void Awake()
     {

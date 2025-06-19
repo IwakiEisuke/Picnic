@@ -21,7 +21,7 @@ public class StatusEffectManager : MonoBehaviour
         }
 
         var effector = new StatusEffector(effect);
-        effector.SetCancelCondition(unitBase.status, () => RemoveEffect(effector));
+        effector.SetCancelCondition(unitBase.Status, () => RemoveEffect(effector));
         effects.Add(effector);
     }
 
@@ -61,7 +61,7 @@ public class StatusEffectManager : MonoBehaviour
             effects.Remove(cons);
         }
 
-        unitBase.status = status;
+        unitBase.Status.Replace(status);
     }
 
     private void Start()
@@ -123,8 +123,8 @@ public class StatusEffector
 /// </summary>
 public abstract class StatusEffectAssetBase : ScriptableObject
 {
-    protected float duration;
     public float Duration;
+
     public abstract void Apply(UnitGameStatus status);
 
     /// <summary>

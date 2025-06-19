@@ -62,4 +62,16 @@ public class UnitGameStatus
 
         this.owner = owner;
     }
+
+    public void Replace(UnitGameStatus stats)
+    {
+        maxHealth = stats.maxHealth;
+        speed = stats.speed;
+        atk = stats.atk;
+        attackInterval = stats.attackInterval;
+        attackRadius = stats.attackRadius;
+        knockBack = stats.knockBack;
+        damageReflect = stats.damageReflect;
+        resistance = stats.resistance;
+    }
 }
