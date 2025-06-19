@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8e626f0fd37d14da0b9fdf9e01e407, type: 3}
+  m_Name: GatlingAction
+  m_EditorClassIdentifier: 
+  level: 1
+  interval: 1
+  loopCount: 30
+  loopInterval: 0.05
+  baseAttackRange: 10
+  bulletRange: 20
+  penetration: 0
+  speed: 40
+  angle: 5
+  projectileOffset: {x: 0, y: 1, z: 0}
+  projectilePref: {fileID: 3177446423030484919, guid: d139feafd1698f54f85f51e507deaf00, type: 3}
+  baseAttackData:
+    id: 0
+    damage: 1
+    invincibleTime: 0.2
