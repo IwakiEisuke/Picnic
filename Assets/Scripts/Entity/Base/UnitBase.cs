@@ -29,6 +29,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     public event Action Destroyed;
 
     public UnitStats Stats => stats;
+    public Health Health => health;
     public NavMeshAgent Agent => _agent;
     public HitManager HitManager => hitManager;
     public StatusEffectManager StatusEffectManager => statusEffectManager;
