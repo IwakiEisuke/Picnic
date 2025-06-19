@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 4321336669386230148}
   - component: {fileID: 2038893027407563364}
   - component: {fileID: 7778223179493459700}
+  - component: {fileID: 6374041460597400205}
   m_Layer: 0
   m_Name: UnitBase
   m_TagString: Untagged
@@ -278,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c964f678a67d64ea430a26a5f08273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  unitBase: {fileID: 0}
   dieObj: {fileID: 0}
   OnDied:
     m_PersistentCalls:
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e799b7be119e138449387215d6baa708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   health: {fileID: 1476775191128089322}
 --- !u!114 &7778223179493459700
 MonoBehaviour:
@@ -322,6 +324,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419513f4b52b317488f0eb5ab234eb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitBase: {fileID: 0}
+  initialStatusEffects: []
+--- !u!114 &6374041460597400205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3599539401788001567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df69a4aa6e339b4f80f0bf0aa60fa89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugMode: 0
+  _unitBase: {fileID: 0}
+  _actions: []
 --- !u!1 &8599561583628110650
 GameObject:
   m_ObjectHideFlags: 0

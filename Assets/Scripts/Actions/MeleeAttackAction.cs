@@ -13,7 +13,7 @@ public class MeleeAttackAction : ActionBase
 
         if (targets.Length == 0)
         {
-            return 0f;
+            return -1f;
         }
         else
         {
