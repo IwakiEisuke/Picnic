@@ -8,18 +8,16 @@ public class Health : MonoBehaviour
     [SerializeField] UnitBase unitBase;
     [SerializeField] GameObject dieObj;
 
-    public UnityEvent OnDied;
-
     int _currentHealth;
 
-    UnitStats Stats => unitBase.Stats;
-    UnitGameStatus Status => unitBase.status;
+    public UnityEvent OnDied;
 
-    public float HealthRatio => 1f * _currentHealth / Stats.MaxHealth;
+    UnitGameStatus Status => unitBase.Status;
+    public float HealthRatio => 1f * _currentHealth / Status.maxHealth;
 
-    public void Start()
+    private void Start()
     {
-        _currentHealth = Stats.MaxHealth;
+        _currentHealth = Status.maxHealth;
     }
 
     public DamageResponse ApplyDamage(AttackReceiveInfo info)
@@ -52,6 +50,15 @@ public class Health : MonoBehaviour
         if (_currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    public void Heal(float value)
+    {
+        _currentHealth += Mathf.CeilToInt(value);
+        if (_currentHealth > Status.maxHealth)
+        {
+            _currentHealth = Status.maxHealth;
         }
     }
 
