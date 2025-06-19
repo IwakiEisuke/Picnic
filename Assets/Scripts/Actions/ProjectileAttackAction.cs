@@ -21,7 +21,7 @@ public class ProjectileAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var targets = GetOverlapSphere(transform.position, AttackTriggerRange, _parent.opponentLayer);
+        var targets = GetSortedOverlapSphere(transform.position, AttackTriggerRange, _parent.opponentLayer);
 
         if (targets.Length == 0)
         {
