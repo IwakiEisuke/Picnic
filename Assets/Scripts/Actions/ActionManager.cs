@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 最も評価の高いアクションを実行するためのマネージャー
@@ -7,7 +9,10 @@ public class ActionManager : MonoBehaviour
 {
     [SerializeField] bool _debugMode = false;
     [SerializeField] UnitBase _unitBase;
-    [SerializeField] ActionBase[] _actions;
+    [SerializeField, FormerlySerializedAs("_actions")] ActionBase[] _actionAssets;
+
+    // このコンポーネントで操作するActionBaseを格納する配列
+    ActionBase[] _actions;
 
     ActionBase _currentAction;
 
@@ -18,6 +23,9 @@ public class ActionManager : MonoBehaviour
 
     private void Start()
     {
+        // コンポーネントに個別なScriptableObjectを生成
+        _actions = _actionAssets.Select(x => ScriptableObjectUtilityRuntime.Clone(x)).ToArray();
+
         foreach (var action in _actions)
         {
             if (action != null)
