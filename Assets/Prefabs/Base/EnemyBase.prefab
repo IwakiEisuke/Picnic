@@ -100,6 +100,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6374041460597400205, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: _unitBase
+      value: 
+      objectReference: {fileID: -8183712840257897774}
+    - target: {fileID: 6374041460597400205, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: _actions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374041460597400205, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
+      propertyPath: '_actions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
     - target: {fileID: 7528319036318301096, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
@@ -124,9 +136,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3599539401788001567, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
       insertIndex: 2
       addedObject: {fileID: -8183712840257897774}
-    - targetCorrespondingSourceObject: {fileID: 3599539401788001567, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 926539713041024270}
   m_SourcePrefab: {fileID: 100100000, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
 --- !u!114 &3435914118055585160 stripped
 MonoBehaviour:
@@ -190,22 +199,6 @@ MonoBehaviour:
   evolutionTreeAsset: {fileID: 0}
   evolutionTreeViewParent: {fileID: 0}
   evolutionTree: {fileID: 0}
---- !u!114 &926539713041024270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8478940444707892835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df69a4aa6e339b4f80f0bf0aa60fa89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _debugMode: 0
-  _unitBase: {fileID: -8183712840257897774}
-  _actions:
-  - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
 --- !u!114 &9198432522562431736 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4321336669386230148, guid: 56eee8932f9949a4d894b69e88d642ed, type: 3}
