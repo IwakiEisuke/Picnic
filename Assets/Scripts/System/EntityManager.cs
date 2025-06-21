@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EntityManager : MonoBehaviour
@@ -16,31 +17,52 @@ public class EntityManager : MonoBehaviour
         entities.Add(EntityType.Object, objects);
     }
 
-    public EntityType GetEntityType(EntityBase entity)
+    private EntityType GetEntityType(EntityBase entity)
     {
         return entity.EntityType;
     }
 
-    public void Add(EntityBase entity)
+    private EntityType GetOpponentType(EntityType type)
+    {
+        if (type == EntityType.Ally)
+        {
+            return EntityType.Enemy;
+        }
+        else if (type == EntityType.Enemy)
+        {
+            return EntityType.Ally;
+        }
+
+        return EntityType.Object;
+    }
+
+    public void Subscribe(EntityBase entity)
     {
         var type = GetEntityType(entity);
         entities[type].Add(entity);
-        entity.OnDestroyed += () => Remove(entity);
+        entity.OnDestroyed += () => UnSubscribe(entity);
     }
 
-    public void Remove(EntityBase entity)
+    public void UnSubscribe(EntityBase entity)
     {
         var type = GetEntityType(entity);
         entities[type].Remove(entity);
     }
 
-    public void GetEntityAround(Vector3 position, float radius, EntityType type)
+    /// <summary>
+    /// 周囲のエンティティを取得
+    /// </summary>
+    public IEnumerable<EntityBase> GetEntityAround(Vector3 position, float radius, EntityType type)
     {
-
+        var targets = entities[type];
+        return targets.Where(x => (x.transform.position - position).sqrMagnitude < radius * radius);
     }
 
-    public void GetOpponentAround(Vector3 position, float radius, EntityType type)
+    /// <summary>
+    /// 周囲の敵勢力エンティティを取得
+    /// </summary>
+    public IEnumerable<EntityBase> GetOpponentAround(Vector3 position, float radius, EntityType type)
     {
-
+        return GetEntityAround(position, radius, GetOpponentType(type));
     }
 }
