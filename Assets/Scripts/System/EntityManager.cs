@@ -2,16 +2,14 @@
 using System.Linq;
 using UnityEngine;
 
-public class EntityManager : MonoBehaviour
+[CreateAssetMenu(fileName = "EntityManager", menuName = "EntityManager")]
+public class EntityManager : ScriptableObject
 {
-    [SerializeField] List<EntityBase> allies;
-    [SerializeField] List<EntityBase> enemies;
-    [SerializeField] List<EntityBase> objects;
-
     readonly Dictionary<EntityType, List<EntityBase>> entities = new();
 
-    private void Start()
+    public void Init(List<EntityBase> allies, List<EntityBase> enemies, List<EntityBase> objects)
     {
+        entities.Clear();
         entities.Add(EntityType.Ally, allies);
         entities.Add(EntityType.Enemy, enemies);
         entities.Add(EntityType.Object, objects);
@@ -36,9 +34,8 @@ public class EntityManager : MonoBehaviour
         return EntityType.Object;
     }
 
-    public void Subscribe(EntityBase entity)
+    public void Subscribe(EntityBase entity, EntityType type)
     {
-        var type = GetEntityType(entity);
         entities[type].Add(entity);
         entity.OnDestroyed += () => UnSubscribe(entity);
     }
