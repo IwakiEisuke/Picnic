@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// 弾を飛ばす攻撃
@@ -8,13 +9,13 @@ public class AllyAffectAction : ActionBase
 {
     [SerializeField] StatusEffectAssetBase[] statusEffects;
 
-    Transform _target;
+    EntityBase _target;
 
     float EffectValue => _status.atk * level;
 
     public override float Evaluate()
     {
-        var targets = GetOverlapSphere(transform.position, _status.attackRadius, LayerMask.GetMask(LayerMask.LayerToName(_parent.gameObject.layer)));
+        var targets = _parent.Manager.GetEntityAround(transform.position, _status.attackRadius, _parent.EntityType).ToArray();
 
         var maxScore = -1f;
         for (int i = 0; i < targets.Length; i++)

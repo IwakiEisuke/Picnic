@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// 持続ダメージエリア
@@ -27,11 +28,11 @@ public class DamageAreaAction : ActionBase
 
     public override float Evaluate()
     {
-        if (TryGetNearestAround(transform.position, AttackRange, _parent.opponentLayer, out var target))
+        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, AttackRange, _parent.EntityType, out var target))
         {
-            var targets = GetOverlapSphere(target.position, damageAreaRadius, _parent.opponentLayer);
-            targetPosition = target.position;
-            return Damage * targets.Length / interval;
+            targetPosition = target.transform.position;
+            var hitCount = _parent.Manager.GetOpponentAround(target.transform.position, damageAreaRadius, _parent.EntityType).Count();
+            return Damage * hitCount / interval;
         }
 
         return -1f;

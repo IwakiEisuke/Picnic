@@ -5,26 +5,21 @@ public class MeleeAttackAction : ActionBase
 {
     public AttackData attackData;
 
-    Transform _target;
+    EntityBase _target;
 
     public override float Evaluate()
     {
-        var targets = GetOverlapSphere(_parent.transform.position, _status.attackRadius, _parent.opponentLayer);
-
-        if (targets.Length == 0)
+        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, _status.attackRadius, _parent.EntityType, out _target))
         {
-            return -1f;
-        }
-        else
-        {
-            _target = targets[0];
             return level * _status.atk;
         }
+
+        return -1f;
     }
 
     public override ActionExecuteInfo Execute()
     {
-        _attackController.AttackDirectly(_target, attackData);
+        _attackController.AttackDirectly(_target.transform, attackData);
         return new ActionExecuteInfo(true, this, interval);
     }
 }

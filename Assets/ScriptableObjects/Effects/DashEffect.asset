@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b904cab8f8ab04ba075e2d025af7e8, type: 3}
   m_Name: DashEffect
   m_EditorClassIdentifier: 
-  Duration: 5
+  _duration: 3
   effectValue: 5

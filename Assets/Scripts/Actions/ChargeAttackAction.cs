@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// 突進攻撃
@@ -15,14 +16,12 @@ public class ChargeAttackAction : ActionBase
 
     [SerializeField] float[] damageMultipliers = { 1, 1.5f, 2};
 
-    Transform target;
-
     float Damage => damageMultipliers[level] * (baseAttackData.damage + _status.atk);
     Vector3 TriggerPos => transform.position + transform.forward + transform.rotation * offset;
 
     public override float Evaluate()
     {
-        if (TryGetNearestAround(transform.position, attackRange, _parent.opponentLayer, out target))
+        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, attackRange, _parent.EntityType, out _))
         {
             return Damage / interval;
         }
@@ -38,10 +37,14 @@ public class ChargeAttackAction : ActionBase
 
     public override void Update()
     {
-        if (TryGetNearestAround(TriggerPos, triggerRadius, _parent.opponentLayer, out _))
+        if (_parent.Manager.TryGetNearestOpponentAround(TriggerPos, triggerRadius, _parent.EntityType, out _))
         {
-            var targets = GetOverlapSphere(TriggerPos, impactRadius, _parent.opponentLayer);
-            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
+            var targets = _parent.Manager.GetOpponentAround(TriggerPos, impactRadius, _parent.EntityType);
+            if (targets.Count() > 0)
+            {
+                _attackController.AttackDirectly(targets.Select(x => x.transform).ToArray(), new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
+                _agent.SetDestination(transform.position);
+            }
         }
     }
 }

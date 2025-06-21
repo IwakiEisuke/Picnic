@@ -16,7 +16,7 @@ MonoBehaviour:
   interval: 5
   loopCount: 0
   loopInterval: 0
-  attackRange: 5
+  attackRange: 10
   triggerRadius: 0.5
   impactRadius: 2
   chargeEffect: {fileID: 11400000, guid: a62fb371672d7164a9b9487ddfc25495, type: 2}
@@ -25,6 +25,7 @@ MonoBehaviour:
     id: 6
     damage: 3
     invincibleTime: 1
+    statusEffects: []
   damageMultipliers:
   - 1
   - 1.5

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// 近接範囲攻撃
@@ -12,7 +13,7 @@ public class MeleeAreaAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        _targets = GetOverlapSphere(_parent.transform.position, _status.attackRadius, _parent.opponentLayer);
+        _targets = _parent.Manager.GetOpponentAround(transform.position, _status.attackRadius, _parent.EntityType).Select(x => x.transform).ToArray();
 
         if (_targets.Length == 0)
         {
