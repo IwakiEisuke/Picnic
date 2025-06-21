@@ -7,12 +7,12 @@ public class EntityManager : ScriptableObject
 {
     readonly Dictionary<EntityType, List<EntityBase>> entities = new();
 
-    public void Init(List<EntityBase> allies, List<EntityBase> enemies, List<EntityBase> objects)
+    public void Init()
     {
         entities.Clear();
-        entities.Add(EntityType.Ally, allies);
-        entities.Add(EntityType.Enemy, enemies);
-        entities.Add(EntityType.Object, objects);
+        entities.Add(EntityType.Ally, new());
+        entities.Add(EntityType.Enemy, new());
+        entities.Add(EntityType.Object, new());
     }
 
     private EntityType GetEntityType(EntityBase entity)
