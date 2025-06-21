@@ -24,17 +24,13 @@ public class ProjectileAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var target = _parent.Manager.GetNearestOpponentAround(transform.position, AttackTriggerRange, _parent.EntityType);
-
-        if (target == null)
-        {
-            return -1;
-        }
-        else
+        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, AttackTriggerRange, _parent.EntityType, out var target))
         {
             targetPos = target.transform.position;
             return Damage / interval;
         }
+
+        return -1;
     }
 
     public override ActionExecuteInfo Execute()
