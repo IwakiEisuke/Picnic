@@ -37,6 +37,7 @@ public abstract class UnitBase : EntityBase
 
     protected void Awake()
     {
+        InitializeEntityBase();
         InitializeUnitBase();
     }
 
