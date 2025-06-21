@@ -62,4 +62,20 @@ public class EntityManager : ScriptableObject
     {
         return GetEntityAround(position, radius, GetOpponentType(type));
     }
+
+    /// <summary>
+    /// 周囲のエンティティから最も近いものを取得
+    /// </summary>
+    public EntityBase GetNearestEntityAround(Vector3 position, float radius, EntityType type)
+    {
+        return entities[type].OrderBy(x => (x.transform.position - position).sqrMagnitude).FirstOrDefault();
+    }
+
+    /// <summary>
+    /// 周囲の敵勢力エンティティから最も近いものを取得
+    /// </summary>
+    public EntityBase GetNearestOpponentAround(Vector3 position, float radius, EntityType type)
+    {
+        return entities[GetOpponentType(type)].OrderBy(x => (x.transform.position - position).sqrMagnitude).FirstOrDefault();
+    }
 }
