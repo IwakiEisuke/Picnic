@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// 弾を飛ばす攻撃
@@ -23,15 +24,15 @@ public class ProjectileAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var targets = GetSortedOverlapSphere(transform.position, AttackTriggerRange, _parent.opponentLayer);
+        var target = _parent.Manager.GetNearestOpponentAround(transform.position, AttackTriggerRange, _parent.EntityType);
 
-        if (targets.Length == 0)
+        if (target == null)
         {
             return -1;
         }
         else
         {
-            targetPos = targets[0].position;
+            targetPos = target.transform.position;
             return Damage / interval;
         }
     }
