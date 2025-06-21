@@ -1,17 +1,15 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "MoveAction", menuName = "Actions/MoveAction")]
 public class MoveAction : ActionBase
 {
-    Transform _target;
+    Vector3 _targetPos;
 
     public override float Evaluate()
     {
-        var target = FindObjectsByType<UnitBase>(FindObjectsSortMode.None).Where(x => (_parent.opponentLayer.value & 1u << x.gameObject.layer) > 0).OrderBy(x => Vector3.Distance(x.transform.position, _parent.transform.position)).FirstOrDefault();
-        if (target != null)
+        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, float.MaxValue, _parent.EntityType, out var target))
         {
-            _target = target.transform;
+            _targetPos = target.transform.position;
             return 0; // 他のアクションを優先する
         }
 
@@ -20,7 +18,7 @@ public class MoveAction : ActionBase
 
     public override ActionExecuteInfo Execute()
     {
-        _agent.SetDestination(_target.position);
+        _agent.SetDestination(_targetPos);
         return new ActionExecuteInfo(true, this, interval);
     }
 }
