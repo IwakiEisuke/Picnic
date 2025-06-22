@@ -8,6 +8,7 @@ public abstract class ActionBase : ScriptableObject
     [SerializeField] protected float interval = 1; // アクション後の待機時間
     [SerializeField] protected int loopCount; // アクションのループ回数
     [SerializeField] protected float loopInterval; // ループ間の待機時間
+    [SerializeField] protected bool opponent = true;
 
     protected UnitBase _parent;
     protected NavMeshAgent _agent;

@@ -13,7 +13,7 @@ public class MeleeAreaAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        _targets = _parent.Manager.GetOpponentAround(transform.position, _status.attackRadius, _parent.EntityType).Select(x => x.transform).ToArray();
+        _targets = _parent.Manager.GetEntityAround(transform.position, _status.attackRadius, _parent.EntityType, opponent).Select(x => x.transform).ToArray();
 
         if (_targets.Length == 0)
         {

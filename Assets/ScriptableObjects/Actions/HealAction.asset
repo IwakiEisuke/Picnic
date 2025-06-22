@@ -16,5 +16,6 @@ MonoBehaviour:
   interval: 2
   loopCount: 0
   loopInterval: 0
+  opponent: 0
   statusEffects:
   - {fileID: 11400000, guid: 5fc49e82b0a993e40838553944753a89, type: 2}

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed3cb282314b8ef4aa0ccd011cd61d3b, type: 3}
-  m_Name: MoveAction
+  m_Name: MoveToAllyAction
   m_EditorClassIdentifier: 
   level: 1
   interval: 0
   loopCount: 0
   loopInterval: 0
+  opponent: 0

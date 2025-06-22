@@ -7,7 +7,7 @@ public class MoveAction : ActionBase
 
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, float.MaxValue, _parent.EntityType, out var target))
+        if (_parent.Manager.TryGetNearestEntityAround(transform.position, float.MaxValue, _parent.EntityType, opponent, out var target))
         {
             _targetPos = target.transform.position;
             return 0; // 他のアクションを優先する

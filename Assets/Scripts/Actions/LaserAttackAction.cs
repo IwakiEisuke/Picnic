@@ -24,7 +24,7 @@ public class LaserAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, AttackRange, _parent.EntityType, out var target))
+        if (_parent.Manager.TryGetNearestEntityAround(transform.position, AttackRange, _parent.EntityType, opponent, out var target))
         {
             laserDirection = (target.transform.position - transform.position).normalized;
             targets = LaserCast(transform.position, laserDirection, LaserRange, laserRadius, _parent.opponentLayer);

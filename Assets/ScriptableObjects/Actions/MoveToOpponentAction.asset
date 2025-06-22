@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06ce4e3d1ba5e834c9e32c1f32c377f2, type: 3}
-  m_Name: GreatHealAction
+  m_Script: {fileID: 11500000, guid: ed3cb282314b8ef4aa0ccd011cd61d3b, type: 3}
+  m_Name: MoveToOpponentAction
   m_EditorClassIdentifier: 
   level: 1
-  interval: 2
+  interval: 0
   loopCount: 0
   loopInterval: 0
-  opponent: 0
-  statusEffects:
-  - {fileID: 11400000, guid: 635a9422892a5014897343ffd2364d09, type: 2}
-  - {fileID: 11400000, guid: 0888be1d0f61e534da3c7c644c60b97e, type: 2}

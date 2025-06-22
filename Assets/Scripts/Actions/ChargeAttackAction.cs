@@ -21,7 +21,7 @@ public class ChargeAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, attackRange, _parent.EntityType, out _))
+        if (_parent.Manager.TryGetNearestEntityAround(transform.position, attackRange, _parent.EntityType, opponent, out _))
         {
             return Damage / interval;
         }
@@ -37,9 +37,9 @@ public class ChargeAttackAction : ActionBase
 
     public override void Update()
     {
-        if (_parent.Manager.TryGetNearestOpponentAround(TriggerPos, triggerRadius, _parent.EntityType, out _))
+        if (_parent.Manager.TryGetNearestEntityAround(TriggerPos, triggerRadius, _parent.EntityType, opponent, out _))
         {
-            var targets = _parent.Manager.GetOpponentAround(TriggerPos, impactRadius, _parent.EntityType);
+            var targets = _parent.Manager.GetEntityAround(TriggerPos, impactRadius, _parent.EntityType, opponent);
             if (targets.Count() > 0)
             {
                 _attackController.AttackDirectly(targets.Select(x => x.transform).ToArray(), new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));

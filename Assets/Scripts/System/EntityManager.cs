@@ -49,28 +49,30 @@ public class EntityManager : ScriptableObject
     /// <summary>
     /// 周囲のエンティティを取得
     /// </summary>
-    public IEnumerable<EntityBase> GetEntityAround(Vector3 position, float radius, EntityType type)
+    public IEnumerable<EntityBase> GetEntityAround(EntityBase user, Vector3 position, float radius, EntityType type, bool opponent, bool includingSelf)
     {
         DebugUtility.DrawSphere(position, radius, Color.green);
+
+        if (opponent)
+        {
+            type = GetOpponentType(type);
+        }
 
         var targets = entities[type];
         return targets.Where(x => (x.transform.position - position).sqrMagnitude < radius * radius);
     }
 
     /// <summary>
-    /// 周囲の敵勢力エンティティを取得
-    /// </summary>
-    public IEnumerable<EntityBase> GetOpponentAround(Vector3 position, float radius, EntityType type)
-    {
-        return GetEntityAround(position, radius, GetOpponentType(type));
-    }
-
-    /// <summary>
     /// 周囲のエンティティから最も近いものを取得
     /// </summary>
-    public bool TryGetNearestEntityAround(Vector3 position, float radius, EntityType type, out EntityBase target)
+    public bool TryGetNearestEntityAround(Vector3 position, float radius, EntityType type, bool opponent, out EntityBase target)
     {
         DebugUtility.DrawSphere(position, radius, Color.green);
+
+        if (opponent)
+        {
+            type = GetOpponentType(type);
+        }
 
         var entity = entities[type].OrderBy(x => (x.transform.position - position).sqrMagnitude).FirstOrDefault();
 
@@ -82,13 +84,5 @@ public class EntityManager : ScriptableObject
 
         target = null;
         return false;
-    }
-
-    /// <summary>
-    /// 周囲の敵勢力エンティティから最も近いものを取得
-    /// </summary>
-    public bool TryGetNearestOpponentAround(Vector3 position, float radius, EntityType type, out EntityBase target)
-    {
-        return TryGetNearestEntityAround(position, radius, GetOpponentType(type), out target);
     }
 }

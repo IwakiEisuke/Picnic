@@ -28,10 +28,10 @@ public class DamageAreaAction : ActionBase
 
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestOpponentAround(transform.position, AttackRange, _parent.EntityType, out var target))
+        if (_parent.Manager.TryGetNearestEntityAround(transform.position, AttackRange, _parent.EntityType, opponent, out var target))
         {
             targetPosition = target.transform.position;
-            var hitCount = _parent.Manager.GetOpponentAround(target.transform.position, damageAreaRadius, _parent.EntityType).Count();
+            var hitCount = _parent.Manager.GetEntityAround(target.transform.position, damageAreaRadius, _parent.EntityType, opponent).Count();
             return Damage * hitCount / interval;
         }
 

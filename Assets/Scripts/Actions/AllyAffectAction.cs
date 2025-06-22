@@ -15,7 +15,7 @@ public class AllyAffectAction : ActionBase
 
     public override float Evaluate()
     {
-        var targets = _parent.Manager.GetEntityAround(transform.position, _status.attackRadius, _parent.EntityType).ToArray();
+        var targets = _parent.Manager.GetEntityAround(transform.position, _status.attackRadius, _parent.EntityType, opponent).ToArray();
 
         var maxScore = -1f;
         for (int i = 0; i < targets.Length; i++)
