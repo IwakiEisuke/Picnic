@@ -16,6 +16,8 @@ MonoBehaviour:
   interval: 3
   loopCount: 3
   loopInterval: 0.2
+  opponent: 0
+  selfInclude: 0
   baseAttackRange: 5
   damageAreaRadius: 5
   duration: 1
