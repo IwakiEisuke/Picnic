@@ -41,14 +41,6 @@ public class CurveProjectileController : MonoBehaviour, ITargetedObject, IAreaOb
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer != gameObject.layer)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     void OnDestroy()
     {
         var obj = Instantiate(onEndSpawnPrefab, transform.position, Quaternion.identity);

@@ -39,11 +39,18 @@ public class ProjectileAttackAction : ActionBase
         var rot = Quaternion.LookRotation(targetPos - transform.position) * Quaternion.Euler(0, Random.Range(-angle, angle), 0);
         var obj = Instantiate(projectilePref, transform.position + projectileOffset, rot);
         obj.GetComponent<AttackCollider>().data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects);
-        // 生成元と衝突しないようにレイヤーを設定
-        obj.layer = transform.gameObject.layer;
+        obj.layer = _parent.Manager.GetEntityLayer(_parent, !opponent);
         var projectile = obj.GetComponent<ProjectileController>();
         projectile.lifeRange = BulletRange;
-        projectile.destroyOnHit = !penetration;
+
+        if (obj.TryGetComponent<DestroyOnHit>(out var destroyOnHit))
+        {
+            destroyOnHit.enabled = !penetration; // 貫通しない攻撃なら有効
+            if (!opponent) // 味方を対象とする場合、自身に衝突しても破壊されないように設定
+            {
+                destroyOnHit.ignoreTargets = new[] { _parent.transform };
+            }
+        }
         projectile.speed = speed;
         // その場に留まらせる
         _agent.SetDestination(transform.position);

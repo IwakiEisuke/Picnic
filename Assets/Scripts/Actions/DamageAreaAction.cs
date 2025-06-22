@@ -47,6 +47,11 @@ public class DamageAreaAction : ActionBase
 
         if (obj.TryGetComponent<ITargetedObject>(out var targetedObject))
         {
+            if (!opponent && obj.TryGetComponent<DestroyOnHit>(out var destroyOnHit))
+            {
+                destroyOnHit.ignoreTargets = new[] { _parent.transform };
+            }
+
             var targetPos = targetPosition;
             if (positionScattering)
             {
