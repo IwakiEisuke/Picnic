@@ -17,6 +17,7 @@ MonoBehaviour:
   loopCount: 0
   loopInterval: 0
   opponent: 0
+  selfInclude: 1
   statusEffects:
   - {fileID: 11400000, guid: 635a9422892a5014897343ffd2364d09, type: 2}
   - {fileID: 11400000, guid: 0888be1d0f61e534da3c7c644c60b97e, type: 2}

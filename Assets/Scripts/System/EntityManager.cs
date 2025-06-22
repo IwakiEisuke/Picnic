@@ -49,7 +49,7 @@ public class EntityManager : ScriptableObject
     /// <summary>
     /// 周囲のエンティティを取得
     /// </summary>
-    public IEnumerable<EntityBase> GetEntityAround(EntityBase user, Vector3 position, float radius, EntityType type, bool opponent, bool includingSelf)
+    public IEnumerable<EntityBase> GetEntityAround(EntityBase user, Vector3 position, float radius, EntityType type, bool opponent, bool selfInclude)
     {
         DebugUtility.DrawSphere(position, radius, Color.green);
 
@@ -59,13 +59,22 @@ public class EntityManager : ScriptableObject
         }
 
         var targets = entities[type];
-        return targets.Where(x => (x.transform.position - position).sqrMagnitude < radius * radius);
+        var result = targets.Where(x => (x.transform.position - position).sqrMagnitude < radius * radius);
+
+        if (selfInclude)
+        {
+            return result;
+        }
+        else
+        {
+            return result.Where(x => x != user);
+        }
     }
 
     /// <summary>
     /// 周囲のエンティティから最も近いものを取得
     /// </summary>
-    public bool TryGetNearestEntityAround(Vector3 position, float radius, EntityType type, bool opponent, out EntityBase target)
+    public bool TryGetNearestEntityAround(EntityBase user, Vector3 position, float radius, EntityType type, bool opponent, bool selfInclude, out EntityBase target)
     {
         DebugUtility.DrawSphere(position, radius, Color.green);
 
@@ -74,7 +83,14 @@ public class EntityManager : ScriptableObject
             type = GetOpponentType(type);
         }
 
-        var entity = entities[type].OrderBy(x => (x.transform.position - position).sqrMagnitude).FirstOrDefault();
+        var targets = entities[type].AsEnumerable();
+
+        if (!selfInclude)
+        {
+            targets = targets.Where(x => x != user);
+        }
+
+        var entity = targets.OrderBy(x => (x.transform.position - position).sqrMagnitude).FirstOrDefault();
 
         if (entity != null && (entity.transform.position - position).sqrMagnitude < radius * radius)
         {

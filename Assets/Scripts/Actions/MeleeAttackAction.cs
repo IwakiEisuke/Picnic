@@ -9,7 +9,7 @@ public class MeleeAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestEntityAround(transform.position, _status.attackRadius, _parent.EntityType, opponent, out _target))
+        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, _status.attackRadius, _parent.EntityType, opponent, selfInclude, out _target))
         {
             return level * _status.atk;
         }
