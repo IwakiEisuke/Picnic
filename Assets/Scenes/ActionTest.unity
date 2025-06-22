@@ -237,6 +237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuantumBee
       objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: 1cdfc62b832834343abb665291a30e6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -516,6 +520,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
+--- !u!1001 &369366611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 601269608163708508, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_Name
+      value: SurgeonBee
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
 --- !u!1 &370594741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,6 +2484,7 @@ SceneRoots:
   - {fileID: 1875689983}
   - {fileID: 1455768569}
   - {fileID: 1948042508}
+  - {fileID: 606095022}
   - {fileID: 725598718}
   - {fileID: 328305515}
   - {fileID: 1310435819}
@@ -2432,5 +2494,5 @@ SceneRoots:
   - {fileID: 1813070346}
   - {fileID: 871699800}
   - {fileID: 743609972}
-  - {fileID: 606095022}
   - {fileID: 83158516}
+  - {fileID: 369366611}

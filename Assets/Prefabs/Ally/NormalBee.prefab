@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 1451bebf9b8f9f745b94b83ef0684d1e, type: 2}
     - target: {fileID: 3359176124749843262, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: m_Name
-      value: Normal Bee
+      value: NormalBee
       objectReference: {fileID: 0}
     - target: {fileID: 4543852607026005770, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64,14 +64,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5124874340930528428, guid: d592412050932a649ba6b5666115c102, type: 3}
-      propertyPath: _actionAssets.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5124874340930528428, guid: d592412050932a649ba6b5666115c102, type: 3}
-      propertyPath: '_actionAssets.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 4adc3edc9b40a4348afe5f79ee42c8ae, type: 2}
     - target: {fileID: 6290046964271215860, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: treeNodes.Array.data[0].speciePrefab
       value: 

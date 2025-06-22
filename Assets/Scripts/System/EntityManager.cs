@@ -51,6 +51,8 @@ public class EntityManager : ScriptableObject
     /// </summary>
     public IEnumerable<EntityBase> GetEntityAround(Vector3 position, float radius, EntityType type)
     {
+        DebugUtility.DrawSphere(position, radius, Color.green);
+
         var targets = entities[type];
         return targets.Where(x => (x.transform.position - position).sqrMagnitude < radius * radius);
     }
@@ -68,6 +70,8 @@ public class EntityManager : ScriptableObject
     /// </summary>
     public bool TryGetNearestEntityAround(Vector3 position, float radius, EntityType type, out EntityBase target)
     {
+        DebugUtility.DrawSphere(position, radius, Color.green);
+
         var entity = entities[type].OrderBy(x => (x.transform.position - position).sqrMagnitude).FirstOrDefault();
 
         if (entity != null && (entity.transform.position - position).sqrMagnitude < radius * radius)

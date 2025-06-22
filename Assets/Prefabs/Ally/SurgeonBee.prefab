@@ -19,14 +19,14 @@ PrefabInstance:
     - target: {fileID: 2085086610286189054, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: stats
       value: 
-      objectReference: {fileID: 11400000, guid: 454ac05f8d9d6d64e91c328dc773a716, type: 2}
+      objectReference: {fileID: 11400000, guid: 0a54a8d3c098fa44a8e35ed601d0e9c7, type: 2}
     - target: {fileID: 2085086610286189054, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: health.stats
       value: 
       objectReference: {fileID: 11400000, guid: 1451bebf9b8f9f745b94b83ef0684d1e, type: 2}
     - target: {fileID: 3359176124749843262, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: m_Name
-      value: GatlingBee
+      value: SurgeonBee
       objectReference: {fileID: 0}
     - target: {fileID: 4543852607026005770, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: m_LocalPosition.x
@@ -87,7 +87,7 @@ PrefabInstance:
     - target: {fileID: 8580453118175133065, guid: d592412050932a649ba6b5666115c102, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 78b0ad157ba03b248a4b0e08ab200be6, type: 2}
+      objectReference: {fileID: 2100000, guid: d370770356653c64e982ab344b51c124, type: 2}
     m_RemovedComponents:
     - {fileID: 3939727021321615618, guid: d592412050932a649ba6b5666115c102, type: 3}
     m_RemovedGameObjects: []

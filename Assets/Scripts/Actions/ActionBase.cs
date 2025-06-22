@@ -32,21 +32,18 @@ public abstract class ActionBase : ScriptableObject
 
     protected Transform[] GetSortedOverlapSphere(Vector3 position, float radius, LayerMask layerMask)
     {
-        DebugUtility.DrawSphere(position, radius);
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
         return GetRootTransformsOrder(_hits, position, hitCount);
     }
 
     protected Transform[] GetOverlapSphere(Vector3 position, float radius, LayerMask layerMask)
     {
-        DebugUtility.DrawSphere(position, radius);
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
         return GetRootTransforms(_hits, position, hitCount);
     }
 
     protected bool TryGetNearestAround(Vector3 position, float radius, LayerMask layerMask, out Transform target)
     {
-        DebugUtility.DrawSphere(position, radius);
         target = null;
         var hitCount = Physics.OverlapSphereNonAlloc(position, radius, _hits, layerMask.value);
         if (hitCount > 0)
