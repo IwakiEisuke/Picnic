@@ -34,6 +34,27 @@ public class EntityManager : ScriptableObject
         return EntityType.Object;
     }
 
+    /// <summary>
+    /// エンティティのレイヤーを取得
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="opponent">エンティティの敵勢力レイヤーを取得するか</param>
+    /// <returns></returns>
+    public int GetEntityLayer(EntityBase entity, bool opponent)
+    {
+        var type = GetEntityType(entity);
+        if (opponent) 
+            type = GetOpponentType(type);
+
+        return type switch
+        {
+            EntityType.Ally => LayerMask.NameToLayer("Ally"),
+            EntityType.Enemy => LayerMask.NameToLayer("Enemy"),
+            EntityType.Object => LayerMask.NameToLayer("Object"),
+            _ => LayerMask.NameToLayer("Default"),
+        };
+    }
+
     public void Subscribe(EntityBase entity, EntityType type)
     {
         entities[type].Add(entity);

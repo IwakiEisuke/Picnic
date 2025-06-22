@@ -43,8 +43,8 @@ public class DamageAreaAction : ActionBase
         if (!canMoveWhileExecuting) _agent.SetDestination(transform.position);
 
         var obj = Instantiate(damageAreaPrefab, transform.position + offset, Quaternion.identity);
-        obj.layer = transform.gameObject.layer;
-        
+        obj.layer = _parent.Manager.GetEntityLayer(_parent, !opponent);
+
         if (obj.TryGetComponent<ITargetedObject>(out var targetedObject))
         {
             var targetPos = targetPosition;
