@@ -10,7 +10,7 @@ public abstract class ActionBase : ScriptableObject
     [Tooltip("このアクションが再発動可能になるまでの時間")] 
     [SerializeField] protected float cooldownTime = 1;
     [Tooltip("アクションの持続(Update)時間")] 
-    [SerializeField] protected float duration = 1;
+    [SerializeField] protected float duration;
     [Tooltip("アクションのループ回数")] 
     [SerializeField] protected int loopCount;
     [Tooltip("ループ間の待機時間")] 
