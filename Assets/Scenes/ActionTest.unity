@@ -469,7 +469,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 601269608163708508, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.4113483
+      value: -1.28
       objectReference: {fileID: 0}
     - target: {fileID: 601269608163708508, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
       propertyPath: m_LocalPosition.y
@@ -477,7 +477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 601269608163708508, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.603304
+      value: 8.64
       objectReference: {fileID: 0}
     - target: {fileID: 601269608163708508, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
       propertyPath: m_LocalRotation.w
@@ -513,7 +513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1858036909408944744, guid: 7d32d326da338e54d82a15d33812a743, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -571,6 +571,10 @@ PrefabInstance:
     - target: {fileID: 1858036909408944744, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
       propertyPath: m_Name
       value: SurgeonBee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: aa2333626e0998f46b1c84ee77488fad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1231,7 +1235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1858036909408944744, guid: a450676f4df072143bb3456f430f829d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1577,6 +1581,10 @@ PrefabInstance:
     - target: {fileID: 1858036909408944744, guid: 3627c3dfe030a8b499b8ce93b895cf1b, type: 3}
       propertyPath: m_Name
       value: QueenBee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: 3627c3dfe030a8b499b8ce93b895cf1b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
