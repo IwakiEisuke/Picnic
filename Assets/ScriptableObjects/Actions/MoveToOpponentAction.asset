@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: MoveToOpponentAction
   m_EditorClassIdentifier: 
   level: 1
-  interval: 0
+  delayTime: 0
+  cooldownTime: 0
+  duration: 0
   loopCount: 0
   loopInterval: 0
+  opponent: 1
+  selfInclude: 0

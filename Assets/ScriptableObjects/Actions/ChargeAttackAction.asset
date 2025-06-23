@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ChargeAttackAction
   m_EditorClassIdentifier: 
   level: 1
-  interval: 5
+  delayTime: 2
+  cooldownTime: 5
+  duration: 1.5
   loopCount: 0
   loopInterval: 0
   opponent: 1
@@ -25,7 +27,7 @@ MonoBehaviour:
   offset: {x: 0, y: 1, z: 1}
   baseAttackData:
     id: 6
-    damage: 3
+    damage: 2
     invincibleTime: 1
     statusEffects: []
   damageMultipliers:

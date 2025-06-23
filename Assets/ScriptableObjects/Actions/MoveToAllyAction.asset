@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: MoveToAllyAction
   m_EditorClassIdentifier: 
   level: 1
-  interval: 0
+  delayTime: 0
+  cooldownTime: 0
+  duration: 0
   loopCount: 0
   loopInterval: 0
   opponent: 0
+  selfInclude: 0
