@@ -38,7 +38,9 @@ public class ProjectileAttackAction : ActionBase
         // 弾のプレハブを生成
         var rot = Quaternion.LookRotation(targetPos - transform.position) * Quaternion.Euler(0, Random.Range(-angle, angle), 0);
         var obj = Instantiate(projectilePref, transform.position + projectileOffset, rot);
-        obj.GetComponent<AttackCollider>().data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects);
+        var attackCollider = obj.GetComponent<AttackCollider>();
+        attackCollider.data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects);
+        if (!opponent) attackCollider.hitFilter.AddIgnore(transform);
         obj.layer = _parent.Manager.GetEntityLayer(_parent, !opponent);
         var projectile = obj.GetComponent<ProjectileController>();
         projectile.lifeRange = BulletRange;

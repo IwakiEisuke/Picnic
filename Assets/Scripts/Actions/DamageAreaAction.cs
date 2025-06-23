@@ -45,6 +45,11 @@ public class DamageAreaAction : ActionBase
         var obj = Instantiate(damageAreaPrefab, transform.position + offset, Quaternion.identity);
         obj.layer = _parent.Manager.GetEntityLayer(_parent, !opponent);
 
+        if (obj.TryGetComponent<AttackCollider>(out var attackCollider))
+        {
+            if (!opponent) attackCollider.hitFilter.AddIgnore(transform);
+        }
+
         if (obj.TryGetComponent<ITargetedObject>(out var targetedObject))
         {
             if (!opponent && obj.TryGetComponent<DestroyOnHit>(out var destroyOnHit))

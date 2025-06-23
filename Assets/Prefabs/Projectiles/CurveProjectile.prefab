@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4408258070248958843}
   - component: {fileID: 1000825762674260974}
   - component: {fileID: -7778497740202615027}
+  - component: {fileID: 1554720170191015287}
   m_Layer: 0
   m_Name: CurveProjectile
   m_TagString: Untagged
@@ -129,6 +130,7 @@ MonoBehaviour:
     damage: 0
     invincibleTime: 0
     statusEffects: []
+  hitFilter: {fileID: 1554720170191015287}
 --- !u!54 &4408258070248958843
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -189,6 +191,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 704f119930870e34592511e623c96578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitFilter: {fileID: 1554720170191015287}
+  ignoreTargets: []
+--- !u!114 &1554720170191015287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375998286362752272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39cdb6cdfb5adf469e14fdcf755a4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreTargets: []

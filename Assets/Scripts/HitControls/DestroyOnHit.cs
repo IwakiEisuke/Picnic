@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class DestroyOnHit : MonoBehaviour
 {
+    [SerializeField] HitFilter hitFilter;
+
     public Transform[] ignoreTargets;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.attachedRigidbody && ignoreTargets.Contains(other.attachedRigidbody.transform)) return;
-        else if (ignoreTargets.Contains(other.transform)) return;
-
-        if (other.gameObject.layer != gameObject.layer)
+        if (hitFilter != null && !hitFilter.CanHit(other))
         {
-            Destroy(gameObject);
+            return;
         }
+
+        Destroy(gameObject);
     }
 }

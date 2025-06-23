@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1773882116269518459}
   - component: {fileID: 6066534257086014194}
   - component: {fileID: 7322409554864527665}
+  - component: {fileID: 2032276723783554538}
   m_Layer: 0
   m_Name: DamageArea
   m_TagString: Untagged
@@ -126,6 +127,8 @@ MonoBehaviour:
     id: 0
     damage: 0
     invincibleTime: 0
+    statusEffects: []
+  hitFilter: {fileID: 2032276723783554538}
 --- !u!114 &7322409554864527665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,3 +142,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 6066534257086014194}
+--- !u!114 &2032276723783554538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6988543025276488954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39cdb6cdfb5adf469e14fdcf755a4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreTargets: []
