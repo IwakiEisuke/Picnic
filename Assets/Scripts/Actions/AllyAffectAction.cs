@@ -38,22 +38,22 @@ public class AllyAffectAction : ActionBase
             }
         }
 
-        return maxScore / interval;
+        return maxScore / cooldownTime;
     }
 
     public override ActionExecuteInfo Execute()
     {
         if (_target == null)
         {
-            return new ActionExecuteInfo(false, this, interval, loopCount, loopInterval);
+            return new ActionExecuteInfo(false, this);
         }
 
         if (_target.TryGetComponent<StatusEffectManager>(out var statusEffectManager))
         {
             statusEffectManager.AddEffect(statusEffects);
-            return new ActionExecuteInfo(true, this, interval, loopCount, loopInterval);
+            return new ActionExecuteInfo(true, this);
         }
 
-        return new ActionExecuteInfo(false, this, interval, loopCount, loopInterval);
+        return new ActionExecuteInfo(false, this);
     }
 }

@@ -19,6 +19,6 @@ public class MoveAction : ActionBase
     public override ActionExecuteInfo Execute()
     {
         _agent.SetDestination(_targetPos);
-        return new ActionExecuteInfo(true, this, interval);
+        return new ActionExecuteInfo(true, this);
     }
 }

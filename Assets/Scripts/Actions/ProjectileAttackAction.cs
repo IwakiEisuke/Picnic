@@ -27,7 +27,7 @@ public class ProjectileAttackAction : ActionBase
         if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, AttackTriggerRange, _parent.EntityType, opponent, selfInclude, out var target))
         {
             targetPos = target.transform.position;
-            return Damage / interval;
+            return Damage / cooldownTime;
         }
 
         return -1;
@@ -57,6 +57,6 @@ public class ProjectileAttackAction : ActionBase
         // その場に留まらせる
         _agent.SetDestination(transform.position);
 
-        return new ActionExecuteInfo(true, this, interval, loopCount, loopInterval);
+        return new ActionExecuteInfo(true, this);
     }
 }

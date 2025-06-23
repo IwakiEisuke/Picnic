@@ -9,7 +9,7 @@ public class DamageAreaAction : ActionBase
 {
     [SerializeField] float baseAttackRange = 5;
     [SerializeField] float damageAreaRadius = 3;
-    [SerializeField] float duration = 3;
+    [SerializeField] float areaDuration = 3;
     [SerializeField] bool positionScattering;
     [SerializeField] float scatterRadius = 1.5f;
     [SerializeField] AttackData baseAttackData;
@@ -32,7 +32,7 @@ public class DamageAreaAction : ActionBase
         {
             targetPosition = target.transform.position;
             var hitCount = _parent.Manager.GetEntityAround(_parent, target.transform.position, damageAreaRadius, _parent.EntityType, opponent, selfInclude).Count();
-            return Damage * hitCount / interval;
+            return Damage * hitCount / cooldownTime;
         }
 
         return -1f;
@@ -71,14 +71,14 @@ public class DamageAreaAction : ActionBase
 
         if (obj.TryGetComponent<IAreaObject>(out var areaObject))
         {
-            areaObject.InitializeArea(damageAreaRadius, duration);
+            areaObject.InitializeArea(damageAreaRadius, areaDuration);
         }
         else
         {
             Debug.LogWarning($"{name}: {nameof(DamageAreaAction)}から非{nameof(IAreaObject)}なインスタンスを生成しました。{nameof(IAreaObject)}コンポーネントをアタッチしたオブジェクトを入れてください");
         }
 
-        Destroy(obj, duration);
-        return new ActionExecuteInfo(true, this, interval, loopCount, loopInterval);
+        Destroy(obj, areaDuration);
+        return new ActionExecuteInfo(true, this);
     }
 }

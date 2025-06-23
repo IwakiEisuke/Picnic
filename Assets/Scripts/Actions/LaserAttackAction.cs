@@ -28,7 +28,7 @@ public class LaserAttackAction : ActionBase
         {
             laserDirection = (target.transform.position - transform.position).normalized;
             targets = LaserCast(transform.position, laserDirection, LaserRange, laserRadius, _parent.opponentLayer);
-            return Damage * targets.Length / interval;
+            return Damage * targets.Length / cooldownTime;
         }
 
         return -1f;
@@ -41,7 +41,7 @@ public class LaserAttackAction : ActionBase
         _agent.SetDestination(transform.position);
         // レーザー照射時間をリセット
         laserEmittedTime = 0;
-        return new ActionExecuteInfo(true, this, interval);
+        return new ActionExecuteInfo(true, this);
     }
 
     public override void Update()

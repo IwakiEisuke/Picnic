@@ -5,11 +5,24 @@ using UnityEngine.AI;
 public abstract class ActionBase : ScriptableObject
 {
     [SerializeField, Range(1, 3)] protected int level = 1;
-    [SerializeField] protected float interval = 1; // アクション後の待機時間
-    [SerializeField] protected int loopCount; // アクションのループ回数
-    [SerializeField] protected float loopInterval; // ループ間の待機時間
+    [Tooltip("次のアクションを選択できるようになるまでの時間")] 
+    [SerializeField] protected float delayTime = 1;
+    [Tooltip("このアクションが再発動可能になるまでの時間")] 
+    [SerializeField] protected float cooldownTime = 1;
+    [Tooltip("アクションの持続(Update)時間")] 
+    [SerializeField] protected float duration = 1;
+    [Tooltip("アクションのループ回数")] 
+    [SerializeField] protected int loopCount;
+    [Tooltip("ループ間の待機時間")] 
+    [SerializeField] protected float loopInterval;
     [SerializeField] protected bool opponent = true;
     [SerializeField] protected bool selfInclude = false;
+
+    public float DelayTime => delayTime;
+    public float CooldownTime => cooldownTime;
+    public float Duration => duration;
+    public int LoopCount => loopCount;
+    public float LoopInterval => loopInterval;
 
     protected UnitBase _parent;
     protected NavMeshAgent _agent;
@@ -66,18 +79,33 @@ public readonly struct ActionExecuteInfo
 {
     public readonly bool success;
     public readonly ActionBase action;
-    public readonly float interval;
+    public readonly float delay;
+    public readonly float cooldownTime;
+    public readonly float duration;
     public readonly int loopCount;
     public readonly float loopInterval;
 
-    public ActionExecuteInfo(bool success, ActionBase action = null, float interval = 0f, int loop = 0, float loopInterval = 1f)
+    public ActionExecuteInfo(bool success, ActionBase action)
     {
         this.success = success;
         this.action = action;
-        this.interval = interval;
+        this.delay = action.DelayTime;
+        this.cooldownTime = action.CooldownTime;
+        this.duration = action.Duration;
+        this.loopCount = action.LoopCount;
+        this.loopInterval = action.LoopInterval;
+    }
+
+    public ActionExecuteInfo(bool success, ActionBase action, float delayTime, float cooldownTime, float duration, int loop, float loopInterval)
+    {
+        this.success = success;
+        this.action = action;
+        this.delay = delayTime;
+        this.cooldownTime = cooldownTime;
+        this.duration = duration;
         this.loopCount = loop;
         this.loopInterval = loopInterval;
     }
 
-    public override readonly string ToString() => $"{action.name} (Interval: {interval})";
+    public override readonly string ToString() => $"{action.name} (Interval: {cooldownTime})";
 }

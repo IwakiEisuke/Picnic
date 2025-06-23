@@ -25,7 +25,7 @@ public class ChargeAttackAction : ActionBase
     {
         if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, attackRange, _parent.EntityType, opponent, selfInclude, out target))
         {
-            return Damage / interval;
+            return Damage / cooldownTime;
         }
 
         return -1f;
@@ -35,7 +35,7 @@ public class ChargeAttackAction : ActionBase
     {
         _parent.StatusEffectManager.AddEffect(chargeEffect);
         _agent.SetDestination(target.transform.position);
-        return new ActionExecuteInfo(true, this, interval);
+        return new ActionExecuteInfo(true, this);
     }
 
     public override void Update()

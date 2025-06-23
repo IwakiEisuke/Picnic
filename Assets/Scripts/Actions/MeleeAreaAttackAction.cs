@@ -32,6 +32,6 @@ public class MeleeAreaAttackAction : ActionBase
             _attackController.AttackDirectly(_targets[i], new AttackData(baseAttackData.id, baseAttackData.damage * _status.atk * level, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         }
 
-        return new ActionExecuteInfo(true, this, interval);
+        return new ActionExecuteInfo(true, this);
     }
 }

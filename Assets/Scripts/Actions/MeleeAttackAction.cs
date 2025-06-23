@@ -22,6 +22,6 @@ public class MeleeAttackAction : ActionBase
     public override ActionExecuteInfo Execute()
     {
         _attackController.AttackDirectly(_target.transform, new AttackData(baseAttackData.id, Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
-        return new ActionExecuteInfo(true, this, interval);
+        return new ActionExecuteInfo(true, this);
     }
 }
