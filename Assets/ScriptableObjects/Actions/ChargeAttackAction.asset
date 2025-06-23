@@ -16,11 +16,13 @@ MonoBehaviour:
   interval: 5
   loopCount: 0
   loopInterval: 0
+  opponent: 1
+  selfInclude: 0
   attackRange: 10
-  triggerRadius: 0.5
-  impactRadius: 2
+  triggerRadius: 1
+  impactRadius: 3
   chargeEffect: {fileID: 11400000, guid: a62fb371672d7164a9b9487ddfc25495, type: 2}
-  offset: {x: 0, y: 1, z: 0}
+  offset: {x: 0, y: 1, z: 1}
   baseAttackData:
     id: 6
     damage: 3

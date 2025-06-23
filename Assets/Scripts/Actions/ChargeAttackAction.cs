@@ -15,13 +15,15 @@ public class ChargeAttackAction : ActionBase
     [SerializeField] AttackData baseAttackData;
 
     [SerializeField] float[] damageMultipliers = { 1, 1.5f, 2};
+    
+    private EntityBase target;
 
     float Damage => damageMultipliers[level] * (baseAttackData.damage + _status.atk);
-    Vector3 TriggerPos => transform.position + transform.forward + transform.rotation * offset;
+    Vector3 TriggerPos => transform.position + transform.rotation * offset;
 
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, attackRange, _parent.EntityType, opponent, selfInclude, out _))
+        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, attackRange, _parent.EntityType, opponent, selfInclude, out target))
         {
             return Damage / interval;
         }
@@ -32,6 +34,7 @@ public class ChargeAttackAction : ActionBase
     public override ActionExecuteInfo Execute()
     {
         _parent.StatusEffectManager.AddEffect(chargeEffect);
+        _agent.SetDestination(target.transform.position);
         return new ActionExecuteInfo(true, this, interval);
     }
 
