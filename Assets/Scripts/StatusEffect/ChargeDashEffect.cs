@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DashEffect", menuName = "Effects/DashEffect")]
-public class DashEffect : StatusEffectAssetBase
+[CreateAssetMenu(fileName = "ChargeDashEffect", menuName = "Effects/ChargeDashEffect")]
+public class ChargeDashEffect : StatusEffectAssetBase
 {
     [SerializeField] float effectValue = 1;
 
