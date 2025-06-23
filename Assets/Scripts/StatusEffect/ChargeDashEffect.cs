@@ -1,5 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// 何かを攻撃するまでの間、ユニットの移動速度を上昇させるステータス効果
+/// </summary>
 [CreateAssetMenu(fileName = "ChargeDashEffect", menuName = "Effects/ChargeDashEffect")]
 public class ChargeDashEffect : StatusEffectAssetBase
 {
@@ -17,7 +20,7 @@ public class ChargeDashEffect : StatusEffectAssetBase
 
     public override float Evaluate(UnitBase unit)
     {
-        // ���ۂɂ�Action�̔����͈͂ɓ���܂ł��ړ����ԂȂ̂ŁA�ߑ�]������Ă���
+        // 実際にはActionの発動範囲に入るまでが移動時間なので、過大評価されている
         var remainTime = unit.Agent.remainingDistance / (unit.Status.speed + effectValue);
         return Mathf.Min(1, remainTime / _duration);
     }
