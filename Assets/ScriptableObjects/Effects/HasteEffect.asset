@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HasteEffect
   m_EditorClassIdentifier: 
   _duration: 5
-  effectValue: 3
+  effectValue: 1

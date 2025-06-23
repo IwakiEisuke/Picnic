@@ -27,8 +27,9 @@ public class Ally : UnitBase
             , 6);
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         movementFSM.Update();
     }
 

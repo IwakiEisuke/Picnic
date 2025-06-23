@@ -35,13 +35,13 @@ public abstract class UnitBase : EntityBase
     public EvolutionTree EvolutionTree => evolutionTree;
     public UnitGameStatus Status => status;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         InitializeEntityBase();
         InitializeUnitBase();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         _agent.speed = status.speed;
     }

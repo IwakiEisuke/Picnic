@@ -16,6 +16,8 @@ MonoBehaviour:
   interval: 3
   loopCount: 3
   loopInterval: 0.2
+  opponent: 1
+  selfInclude: 0
   baseAttackRange: 5
   damageAreaRadius: 5
   duration: 1
@@ -26,7 +28,7 @@ MonoBehaviour:
     damage: 0
     invincibleTime: 1
     statusEffects:
-    - {fileID: 11400000, guid: c1a28c3152e030b49b43713cf81cf074, type: 2}
+    - {fileID: 11400000, guid: 6cbc3c11472dbb943a685403e096ac59, type: 2}
   canMoveWhileExecuting: 0
   offset: {x: 0, y: 1, z: 0}
   damageAreaPrefab: {fileID: 375998286362752272, guid: 45078bfa7de4f7e4baa5a13049185ddc, type: 3}
