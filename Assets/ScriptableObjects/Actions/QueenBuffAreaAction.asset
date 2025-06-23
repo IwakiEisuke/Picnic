@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: QueenBuffAreaAction
   m_EditorClassIdentifier: 
   level: 1
-  interval: 15
+  delayTime: 3
+  cooldownTime: 20
+  duration: 0
   loopCount: 0
   loopInterval: 0
   opponent: 0
   selfInclude: 0
   baseAttackRange: 5
   damageAreaRadius: 8
-  duration: 10
+  areaDuration: 10
   positionScattering: 0
   scatterRadius: 4
   baseAttackData:

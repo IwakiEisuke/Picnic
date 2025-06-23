@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,13 +14,10 @@ public class ActionManager : MonoBehaviour
 
     // このコンポーネントで操作するActionBaseを格納する配列
     ActionBase[] _actions;
+    // 現在実行中のアクション
+    List<ExecutingAction> _executingActions = new();
 
-    ActionBase _currentAction;
-
-    float remainInterval;
-    float remainLoopInterval;
-    int remainLoopCount;
-    float currentLoopInterval;
+    float remainCoolTime;
 
     public void SetActions(ActionBase[] actions)
     {
@@ -42,26 +40,60 @@ public class ActionManager : MonoBehaviour
 
     private void Update()
     {
-        if (remainLoopCount > 0 && remainLoopInterval > 0)
-        {
-            remainLoopInterval -= Time.deltaTime;
-            if (remainLoopInterval <= 0 && remainLoopCount > 0)
-            {
-                remainLoopCount--;
-                remainLoopInterval = currentLoopInterval;
-                _currentAction.Execute();
-            }
-            return;
-        }
+        var dt = Time.deltaTime;
+        UpdateExecutingActions(_executingActions, dt);
 
-        if (remainInterval > 0)
+        if (remainCoolTime > 0)
         {
-            remainInterval -= Time.deltaTime;
-            _currentAction.Update();
+            remainCoolTime -= dt;
+            
             return;
         }
 
         EvaluateInvokeAction();
+    }
+
+    private void UpdateExecutingActions(List<ExecutingAction> executingActions, float dt)
+    {
+        for (int i = 0; i < executingActions.Count; i++)
+        {
+            var executing = executingActions[i];
+
+            executing.remainDuration -= dt;
+            executing.remainCooldownTime -= dt;
+
+            if (executing.remainCooldownTime > 0)
+            {
+                // アクション持続中はUpdateを呼び出す
+                if (executing.remainDuration > 0)
+                {
+                    executing.action.Update();
+                }
+                continue;
+            }
+
+            // アクションループ判定
+            if (executing.remainLoopCount > 0 && executing.remainLoopInterval > 0)
+            {
+                executing.remainLoopInterval -= dt;
+                if (executing.remainLoopInterval <= 0 && executing.remainLoopCount > 0)
+                {
+                    executing.remainLoopCount -= 1;
+                    executing.remainLoopInterval = executing.loopInterval;
+                    executing.action.Execute();
+                }
+                continue;
+            }
+
+            // 残りループが無い場合、実行中のアクションから削除
+            executingActions.RemoveAt(i);
+            i -= 1;
+
+            if (_debugMode)
+            {
+                Debug.Log($"Action {executing.action.name} finished.");
+            }
+        }
     }
 
     private void EvaluateInvokeAction()
@@ -72,7 +104,12 @@ public class ActionManager : MonoBehaviour
         for (int i = 0; i < _actions.Length; i++)
         {
             var action = _actions[i];
-            if (action == null) continue;
+            
+            if (_executingActions.Any(x => x.action == action))
+            {
+                continue;
+            }
+
             float score = action.Evaluate();
             if (score > maxScore)
             {
@@ -84,12 +121,48 @@ public class ActionManager : MonoBehaviour
         if (actionIndex >= 0)
         {
             var result = _actions[actionIndex].Execute();
-            remainInterval = result.interval;
-            _currentAction = _actions[actionIndex];
-            remainLoopCount = result.loopCount;
-            remainLoopInterval = result.loopInterval;
-            currentLoopInterval = result.loopInterval;
+            remainCoolTime = result.delay;
+            _executingActions.Add(new ExecutingAction(result));
             if (_debugMode) Debug.Log($"Execute {_actions[actionIndex].name}");
         }
+    }
+}
+
+public class ExecutingAction
+{
+    public ActionBase action;
+    public float cooldownTime;
+    public float duration;
+    public int loopCount;
+    public float loopInterval;
+    public float remainCooldownTime;
+    public float remainDuration;
+    public int remainLoopCount;
+    public float remainLoopInterval;
+
+    public ExecutingAction(ActionExecuteInfo info)
+    {
+        action = info.action;
+        cooldownTime = info.cooldownTime;
+        duration = info.duration;
+        loopCount = info.loopCount;
+        loopInterval = info.loopInterval;
+        remainCooldownTime = cooldownTime;
+        remainDuration = duration;
+        remainLoopCount = loopCount;
+        remainLoopInterval = loopInterval;
+    }
+
+    public ExecutingAction(ActionBase action, float cooldownTime, float duration, int loopCount, float loopInterval)
+    {
+        this.action = action;
+        this.cooldownTime = cooldownTime;
+        this.duration = duration;
+        this.loopCount = loopCount;
+        this.loopInterval = loopInterval;
+        remainCooldownTime = cooldownTime;
+        remainDuration = duration;
+        remainLoopCount = loopCount;
+        remainLoopInterval = loopInterval;
     }
 }
