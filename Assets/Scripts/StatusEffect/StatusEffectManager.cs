@@ -64,10 +64,7 @@ public class StatusEffectManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < initialStatusEffects.Length; i++)
-        {
-            AddEffect(initialStatusEffects[i]);
-        }
+        AddEffect(initialStatusEffects);
     }
 }
 

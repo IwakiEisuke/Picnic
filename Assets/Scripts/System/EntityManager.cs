@@ -80,7 +80,7 @@ public class EntityManager : ScriptableObject
         }
 
         var targets = entities[type];
-        var result = targets.Where(x => (x.transform.position - position).sqrMagnitude < radius * radius);
+        var result = targets.Where(x => (x.CenterPosition - position).sqrMagnitude < radius * radius);
 
         if (selfInclude)
         {
@@ -111,9 +111,9 @@ public class EntityManager : ScriptableObject
             targets = targets.Where(x => x != user);
         }
 
-        var entity = targets.OrderBy(x => (x.transform.position - position).sqrMagnitude).FirstOrDefault();
+        var entity = targets.OrderBy(x => (x.CenterPosition - position).sqrMagnitude).FirstOrDefault();
 
-        if (entity != null && (entity.transform.position - position).sqrMagnitude < radius * radius)
+        if (entity != null && (entity.CenterPosition - position).sqrMagnitude < radius * radius)
         {
             target = entity;
             return true;

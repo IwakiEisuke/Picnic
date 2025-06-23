@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   manager: {fileID: 11400000, guid: 1b4198b73382bb1499a9674b0ee2ff72, type: 2}
+  pivotOffset: {x: 0, y: 1, z: 0}
   stats: {fileID: 11400000, guid: 9c393134285ebe04db8db37db9ecd926, type: 2}
   health: {fileID: 5774057124058726806}
   opponentLayer:
