@@ -31,6 +31,7 @@ public abstract class UnitBase : EntityBase
     public NavMeshAgent Agent => _agent;
     public HitManager HitManager => hitManager;
     public StatusEffectManager StatusEffectManager => statusEffectManager;
+    public ActionManager ActionManager => actionManager;
     public AttackController AttackController => attackController;
     public EvolutionTree EvolutionTree => evolutionTree;
     public UnitGameStatus Status => status;

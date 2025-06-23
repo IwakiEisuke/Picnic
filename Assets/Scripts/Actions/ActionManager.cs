@@ -19,6 +19,7 @@ public class ActionManager : MonoBehaviour
 
     float remainCoolTime;
 
+    public bool DebugMode => _debugMode;
     public void SetActions(ActionBase[] actions)
     {
         _actionAssets = actions;
