@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// 一定時間の間ユニットの移動速度を上昇させるステータス効果
+/// 一定時間の間ユニットの移動速度を増減させるステータス効果
 /// </summary>
-[CreateAssetMenu(fileName = "HasteEffect", menuName = "Effects/HasteEffect")]
-public class HasteEffect : StatusEffectAssetBase
+[CreateAssetMenu(fileName = "SpeedModifierEffect", menuName = "Effects/SpeedModifierEffect")]
+public class SpeedModifierEffect : StatusEffectAssetBase
 {
     [SerializeField] float effectValue = 1;
 
