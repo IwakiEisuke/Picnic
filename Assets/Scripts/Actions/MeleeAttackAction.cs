@@ -3,9 +3,11 @@
 [CreateAssetMenu(fileName = "MeleeAttack", menuName = "Actions/MeleeAttack")]
 public class MeleeAttackAction : ActionBase
 {
-    public AttackData attackData;
+    public AttackData baseAttackData;
 
     EntityBase _target;
+
+    int Damage => baseAttackData.damage * level + _status.atk;
 
     public override float Evaluate()
     {
@@ -19,7 +21,7 @@ public class MeleeAttackAction : ActionBase
 
     public override ActionExecuteInfo Execute()
     {
-        _attackController.AttackDirectly(_target.transform, attackData);
+        _attackController.AttackDirectly(_target.transform, new AttackData(baseAttackData.id, Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
         return new ActionExecuteInfo(true, this, interval);
     }
 }
