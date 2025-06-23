@@ -118,8 +118,10 @@ public class StatusEffector
 /// </summary>
 public abstract class StatusEffectAssetBase : ScriptableObject
 {
+    [SerializeField] protected Sprite _icon;
     [SerializeField] protected float _duration;
 
+    public Sprite Icon => _icon;
     public float Duration => _duration;
 
     public abstract void Apply(UnitGameStatus status);
