@@ -39,7 +39,13 @@ public abstract class ActionBase : ScriptableObject
         _status = parent.Status;
         _attackController = parent.GetComponent<AttackController>();
         transform = parent.transform;
+        OnInitialize();
     }
+
+    /// <summary>
+    /// 派生クラスで初期化処理を行うためのメソッド
+    /// </summary>
+    protected virtual void OnInitialize() { }
 
     public abstract float Evaluate();
     public abstract ActionExecuteInfo Execute();
