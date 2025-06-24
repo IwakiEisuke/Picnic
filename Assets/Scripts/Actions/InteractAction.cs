@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 近いオブジェクトにインタラクトする
@@ -9,15 +8,21 @@ public class InteractAction : ActionBase
 {
     [SerializeField] EntityType targetType;
 
-    EntityBase target;
+    IInteractable _target;
 
     float InteractRadius => _parent.Status.attackRadius;
 
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, InteractRadius, targetType, opponent, selfInclude, out target))
+        var objects = _parent.Manager.GetEntityAround(_parent, transform.position, InteractRadius, targetType, opponent, selfInclude);
+
+        foreach (var obj in objects)
         {
-            return 1;
+            if (obj is IInteractable interactable && interactable.IsInteractable)
+            {
+                _target = interactable;
+                return 1;
+            }
         }
 
         return -1f;
@@ -25,11 +30,12 @@ public class InteractAction : ActionBase
 
     public override ActionExecuteInfo Execute()
     {
-        if (target is IInteractable interactable)
+        if (_target.IsInteractable)
         {
-            interactable.Interact();
+            _target.Interact();
+            return new ActionExecuteInfo(true, this);
         }
 
-        return new ActionExecuteInfo(true, this);
+        return new ActionExecuteInfo(false, this);
     }
 }

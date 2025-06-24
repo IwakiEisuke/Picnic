@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "MoveAction", menuName = "Actions/MoveAction")]
 public class MoveAction : ActionBase
@@ -19,6 +20,30 @@ public class MoveAction : ActionBase
 
     public override float Evaluate()
     {
+        // Objectをターゲットにする場合、インタラクト可能な状態にあるオブジェクトへ移動する
+        if (TargetType == EntityType.Object)
+        {
+            var objects = _parent.Manager.GetEntityAround(_parent, transform.position, float.MaxValue, targetType, opponent, selfInclude).OrderBy(obj => (obj.transform.position - transform.position).sqrMagnitude); ;
+
+            foreach (var obj in objects)
+            {
+                if (obj is IInteractable interactable && interactable.IsInteractable)
+                {
+                    _targetPos = obj.transform.position;
+
+                    if (_flee)
+                    {
+                        var fleeVector = CalculateFleeVector();
+                        _targetPos += fleeVector * _fleeForceScale;
+                        return fleeVector.magnitude * _fleeValueFactor / _fleeRange; // 敵が近ければ逃げるアクションを優先
+                    }
+
+                    return 0;
+                }
+            }
+        }
+
+        // 移動先のエンティティを取得
         if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, float.MaxValue, TargetType, opponent, selfInclude, out var target))
         {
             _targetPos = target.transform.position;
