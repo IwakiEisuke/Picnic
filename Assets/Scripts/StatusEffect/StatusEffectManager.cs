@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,7 @@ public class StatusEffectManager : MonoBehaviour
     [SerializeField] StatusEffectAssetBase[] initialStatusEffects;
 
     readonly List<StatusEffector> effects = new();
+    readonly List<StatusEffector> _consumed = new();
 
     public void AddEffect(StatusEffectAssetBase effect)
     {
@@ -45,7 +47,7 @@ public class StatusEffectManager : MonoBehaviour
 
     public void ClearEffects(EffectType type, int clearCount)
     {
-        effects.RemoveAll(e => e.EffectType == type && clearCount-- > 0);
+        _consumed.AddRange(effects.Where(e => e.EffectType == type && clearCount-- > 0));
     }
 
     public List<StatusEffector> GetEffects(EffectType type)
@@ -57,7 +59,6 @@ public class StatusEffectManager : MonoBehaviour
     {
         var status = new UnitGameStatus(unitBase.Stats, unitBase);
 
-        var consumed = new List<StatusEffector>();
         var dt = Time.deltaTime;
         foreach (var effect in effects)
         {
@@ -65,14 +66,15 @@ public class StatusEffectManager : MonoBehaviour
             
             if (!effect.Consume(dt))
             {
-                consumed.Add(effect);
+                _consumed.Add(effect);
             }
         }
 
-        foreach (var cons in consumed)
+        foreach (var cons in _consumed)
         {
             effects.Remove(cons);
         }
+        _consumed.Clear();
 
         unitBase.Status.Replace(status);
     }
