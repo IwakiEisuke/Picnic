@@ -3,6 +3,10 @@
 [CreateAssetMenu(fileName = "MoveAction", menuName = "Actions/MoveAction")]
 public class MoveAction : ActionBase
 {
+    [Header("Move Settings")]
+    [SerializeField] bool overwriteTargetType = false;
+    [SerializeField] EntityType targetType = EntityType.Object;
+
     [Header("Flee Settings")]
     [SerializeField] bool _flee;
     [SerializeField] float _fleeRange = 3f;
@@ -11,9 +15,11 @@ public class MoveAction : ActionBase
 
     Vector3 _targetPos;
 
+    EntityType TargetType => overwriteTargetType ? targetType : _parent.EntityType;
+
     public override float Evaluate()
     {
-        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, float.MaxValue, _parent.EntityType, opponent, selfInclude, out var target))
+        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, float.MaxValue, TargetType, opponent, selfInclude, out var target))
         {
             _targetPos = target.transform.position;
 
