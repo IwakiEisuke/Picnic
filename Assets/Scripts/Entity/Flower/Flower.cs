@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Flower : MonoBehaviour, IInteractable
+public class Flower : EntityBase, IInteractable
 {
     [SerializeField] float duration;
     [SerializeField] int remainNectar;
@@ -9,6 +9,11 @@ public class Flower : MonoBehaviour, IInteractable
     public float Duration => duration;
 
     public event Action CancelInteract;
+
+    private void Awake()
+    {
+        RegisterEntityBase();
+    }
 
     public void Interact()
     {
