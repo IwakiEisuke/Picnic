@@ -15,5 +15,5 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _duration: 0
   _effectType: 0
-  maxClearCount: 1
+  maxClearCount: 2
   clearEffectType: 1

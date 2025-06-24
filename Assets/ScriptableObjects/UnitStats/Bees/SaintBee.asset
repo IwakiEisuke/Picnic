@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   speed: 3
-  atk: 2
-  attackInterval: 1
+  atk: 0
+  attackInterval: 0
   attackRadius: 2
-  knockBack: 2
+  knockBack: 0
   damageReflect: 0
   resistance: 0
   actions:
