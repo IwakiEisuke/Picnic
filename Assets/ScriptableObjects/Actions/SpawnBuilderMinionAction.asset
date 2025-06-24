@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b8e626f0fd37d14da0b9fdf9e01e407, type: 3}
-  m_Name: ProjectileAttackAction
+  m_Script: {fileID: 11500000, guid: 34b617517f12bc54cae5fcf3119fdb6c, type: 3}
+  m_Name: SpawnBuilderMinionAction
   m_EditorClassIdentifier: 
   level: 1
   delayTime: 1
@@ -20,15 +20,8 @@ MonoBehaviour:
   loopInterval: 0
   opponent: 1
   selfInclude: 0
-  baseAttackRange: 10
-  bulletRange: 5
-  penetration: 0
-  speed: 10
-  angle: 5
-  projectileOffset: {x: 0, y: 1, z: 0}
-  projectilePref: {fileID: 3177446423030484919, guid: d139feafd1698f54f85f51e507deaf00, type: 3}
-  baseAttackData:
-    id: 3
-    damage: 1
-    invincibleTime: 0.2
-    statusEffects: []
+  maxSpawnCount: 3
+  spawnRadius: 1.5
+  canMoveWhileExecuting: 0
+  offset: {x: 0, y: 0, z: 0}
+  spawnPrefab: {fileID: 1858036909408944744, guid: 64ca1c3c489e26e45a0ccd521aa45645, type: 3}

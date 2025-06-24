@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92e95160c0cbb4f449f6749e196e6103, type: 3}
-  m_Name: ConstructorBee
+  m_Name: BuilderMinion
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  speed: 3
-  atk: 2
+  maxHealth: 5
+  speed: 1
+  atk: 1
   attackInterval: 1
-  attackRadius: 8
-  knockBack: 2
+  attackRadius: 2
+  knockBack: 1
   damageReflect: 0
   resistance: 0
   actions:
-  - {fileID: 11400000, guid: 9adbc95a2785edf4bb95233258ffb0ae, type: 2}
-  - {fileID: 11400000, guid: dd335cf1a6e11324dbd4e95ec06a7fd2, type: 2}
+  - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+  - {fileID: 11400000, guid: 4adc3edc9b40a4348afe5f79ee42c8ae, type: 2}
   isSortie: 0
