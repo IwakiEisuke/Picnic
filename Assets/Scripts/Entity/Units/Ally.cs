@@ -6,10 +6,6 @@ public class Ally : UnitBase
 {
     public FSM2<State> movementFSM;
 
-    [SerializeField] ActionManager _actionManager;
-
-    public ActionManager ActionManager => _actionManager;
-
     private void Start()
     {
         movementFSM =
