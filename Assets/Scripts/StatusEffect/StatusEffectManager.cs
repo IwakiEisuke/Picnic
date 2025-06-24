@@ -38,6 +38,21 @@ public class StatusEffectManager : MonoBehaviour
         effects.Remove(effect);
     }
 
+    public void ClearEffects()
+    {
+        effects.Clear();
+    }
+
+    public void ClearEffects(EffectType type, int clearCount)
+    {
+        effects.RemoveAll(e => e.EffectType == type && clearCount-- > 0);
+    }
+
+    public List<StatusEffector> GetEffects(EffectType type)
+    {
+        return effects.FindAll(e => e.EffectType == type);
+    }
+
     private void Update()
     {
         var status = new UnitGameStatus(unitBase.Stats, unitBase);
@@ -76,6 +91,8 @@ public class StatusEffector
     readonly StatusEffectAssetBase effect;
     float duration;
     event Action CancelAction;
+
+    public EffectType EffectType => effect.EffectType;
 
     public StatusEffector(StatusEffectAssetBase effect)
     {
@@ -120,9 +137,11 @@ public abstract class StatusEffectAssetBase : ScriptableObject
 {
     [SerializeField] protected Sprite _icon;
     [SerializeField] protected float _duration;
+    [SerializeField] protected EffectType _effectType;
 
     public Sprite Icon => _icon;
     public float Duration => _duration;
+    public EffectType EffectType => _effectType;
 
     public abstract void Apply(UnitGameStatus status);
 
@@ -140,4 +159,11 @@ public abstract class StatusEffectAssetBase : ScriptableObject
     /// <param name="unit"></param>
     /// <returns></returns>
     public abstract float Evaluate(UnitBase unit);
+}
+
+public enum EffectType
+{
+    Buff,
+    Debuff,
+    Neutral
 }
