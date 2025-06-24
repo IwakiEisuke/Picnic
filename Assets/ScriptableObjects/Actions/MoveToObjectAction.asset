@@ -23,6 +23,6 @@ MonoBehaviour:
   overwriteTargetType: 1
   targetType: 2
   _flee: 1
-  _fleeRange: 3
+  _fleeRange: 5
   _fleeValueFactor: 2
   _fleeForceScale: 1
