@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 25
   speed: 2
-  atk: 6
+  atk: 12
   attackInterval: 0.5
   attackRadius: 4
   knockBack: 6
@@ -22,5 +22,5 @@ MonoBehaviour:
   resistance: 0.1
   actions:
   - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
-  - {fileID: 11400000, guid: 81cf9f533e555c64abd675f6ef38e0ad, type: 2}
+  - {fileID: 11400000, guid: 4adc3edc9b40a4348afe5f79ee42c8ae, type: 2}
   isSortie: 0

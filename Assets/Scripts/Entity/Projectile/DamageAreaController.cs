@@ -12,7 +12,7 @@ public class DamageAreaController : MonoBehaviour, ITargetedObject, IAreaObject
 
     public void InitializeArea(float radius, float lifeTime)
     {
-        transform.localScale = new Vector3(radius, transform.localScale.y, radius);
+        transform.localScale = new Vector3(radius * 2, transform.localScale.y, radius * 2);
         Destroy(gameObject, lifeTime);
     }
 }

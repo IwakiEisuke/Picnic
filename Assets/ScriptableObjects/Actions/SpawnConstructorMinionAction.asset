@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34b617517f12bc54cae5fcf3119fdb6c, type: 3}
+  m_Name: SpawnConstructorMinionAction
+  m_EditorClassIdentifier: 
+  level: 1
+  delayTime: 1
+  cooldownTime: 1
+  duration: 0
+  loopCount: 0
+  loopInterval: 0
+  opponent: 1
+  selfInclude: 0
+  maxSpawnCount: 3
+  spawnRadius: 1.5
+  canMoveWhileExecuting: 0
+  offset: {x: 0, y: 0, z: 0}
+  spawnPrefab: {fileID: 1858036909408944744, guid: ff2410d860e9c014a8498ca0ffe808b6, type: 3}

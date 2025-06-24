@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[DefaultExecutionOrder((int)ExecutionOrder.UnitBase)]
-public abstract class UnitBase : MonoBehaviour, IUnit
+public abstract class UnitBase : EntityBase
 {
     [SerializeField] protected UnitStats stats;
     [SerializeField] protected Health health;
@@ -26,23 +25,23 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     protected EntityObserver observer;
     UnitGameStatus status;
 
-    public event Action Destroyed;
-
     public UnitStats Stats => stats;
     public Health Health => health;
     public NavMeshAgent Agent => _agent;
     public HitManager HitManager => hitManager;
     public StatusEffectManager StatusEffectManager => statusEffectManager;
+    public ActionManager ActionManager => actionManager;
     public AttackController AttackController => attackController;
     public EvolutionTree EvolutionTree => evolutionTree;
     public UnitGameStatus Status => status;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
+        RegisterEntityBase();
         InitializeUnitBase();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         _agent.speed = status.speed;
     }
@@ -72,6 +71,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit
     public void Die()
     {
         observer.Remove();
+        InvokeOnDied();
         StopAllCoroutines();
     }
 
@@ -112,11 +112,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit
 
     private void OnDestroy()
     {
-        Destroyed?.Invoke();
+        InvokeOnDestroyed();
     }
-}
-
-public interface IUnit
-{
-    public event Action Destroyed;
 }

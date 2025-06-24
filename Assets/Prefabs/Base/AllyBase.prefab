@@ -488,6 +488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39a6a74395ca8054b9f5630ab7309920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  manager: {fileID: 11400000, guid: 1b4198b73382bb1499a9674b0ee2ff72, type: 2}
+  pivotOffset: {x: 0, y: 1, z: 0}
   stats: {fileID: 11400000, guid: 1451bebf9b8f9f745b94b83ef0684d1e, type: 2}
   health: {fileID: 798436579812320459}
   opponentLayer:

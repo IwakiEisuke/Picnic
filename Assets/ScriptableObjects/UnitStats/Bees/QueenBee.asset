@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   speed: 3
-  atk: 2
+  atk: 0
   attackInterval: 1
   attackRadius: 2
   knockBack: 2
   damageReflect: 0
   resistance: 0
   actions:
-  - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+  - {fileID: 11400000, guid: 4a11fecbc33a8cf44a09cf547fbbd72a, type: 2}
+  - {fileID: 11400000, guid: 9adbc95a2785edf4bb95233258ffb0ae, type: 2}
   isSortie: 0

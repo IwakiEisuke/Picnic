@@ -1,14 +1,20 @@
 using System;
 using UnityEngine;
 
-public class Flower : MonoBehaviour, IInteractable
+public class Flower : EntityBase, IInteractable
 {
     [SerializeField] float duration;
     [SerializeField] int remainNectar;
     [SerializeField] int amountNectarOnce;
     public float Duration => duration;
+    public bool IsInteractable => remainNectar > 0;
 
     public event Action CancelInteract;
+
+    private void Awake()
+    {
+        RegisterEntityBase();
+    }
 
     public void Interact()
     {

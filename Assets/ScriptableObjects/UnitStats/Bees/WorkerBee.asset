@@ -21,5 +21,6 @@ MonoBehaviour:
   damageReflect: 0
   resistance: 0
   actions:
-  - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+  - {fileID: 11400000, guid: a4c55026d2eb7874fa6d56f41e5b9849, type: 2}
+  - {fileID: 11400000, guid: a76b4182c5e1a4b44ba77f4516063c4d, type: 2}
   isSortie: 0

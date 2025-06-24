@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8e626f0fd37d14da0b9fdf9e01e407, type: 3}
+  m_Name: WaveAttackAction
+  m_EditorClassIdentifier: 
+  level: 1
+  delayTime: 1
+  cooldownTime: 2.5
+  duration: 0
+  loopCount: 0
+  loopInterval: 0
+  opponent: 1
+  selfInclude: 0
+  baseAttackRange: 3
+  bulletRange: 5
+  penetration: 1
+  speed: 4
+  angle: 5
+  projectileOffset: {x: 0, y: 0, z: 0}
+  projectilePref: {fileID: 3177446423030484919, guid: 432f9ae9ad607ea4986ac36ef60ac9d0, type: 3}
+  baseAttackData:
+    id: 5
+    damage: 3
+    invincibleTime: 0.5
+    statusEffects: []

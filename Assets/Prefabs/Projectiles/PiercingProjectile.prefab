@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 530071147185228317}
   - component: {fileID: 6909462444393617278}
   - component: {fileID: 6077587915567810698}
+  - component: {fileID: -8971681237770405046}
+  - component: {fileID: -4723689089825066200}
   m_Layer: 0
   m_Name: PiercingProjectile
   m_TagString: Untagged
@@ -127,6 +129,8 @@ MonoBehaviour:
     id: 0
     damage: 0
     invincibleTime: 0
+    statusEffects: []
+  hitFilter: {fileID: -4723689089825066200}
 --- !u!114 &6909462444393617278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6077587915567810698}
-  destroyOnHit: 0
+  speed: 10
   lifeRange: 5
 --- !u!54 &6077587915567810698
 Rigidbody:
@@ -169,3 +173,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8971681237770405046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3177446423030484919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704f119930870e34592511e623c96578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitFilter: {fileID: -4723689089825066200}
+  ignoreTargets: []
+--- !u!114 &-4723689089825066200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3177446423030484919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39cdb6cdfb5adf469e14fdcf755a4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreTargets: []

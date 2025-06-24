@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// 突進攻撃
@@ -14,17 +15,17 @@ public class ChargeAttackAction : ActionBase
     [SerializeField] AttackData baseAttackData;
 
     [SerializeField] float[] damageMultipliers = { 1, 1.5f, 2};
-
-    Transform target;
+    
+    private EntityBase target;
 
     float Damage => damageMultipliers[level] * (baseAttackData.damage + _status.atk);
-    Vector3 TriggerPos => transform.position + transform.forward + transform.rotation * offset;
+    Vector3 TriggerPos => transform.position + transform.rotation * offset;
 
     public override float Evaluate()
     {
-        if (TryGetNearestAround(transform.position, attackRange, _parent.opponentLayer, out target))
+        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, attackRange, _parent.EntityType, opponent, selfInclude, out target))
         {
-            return Damage / interval;
+            return Damage / cooldownTime;
         }
 
         return -1f;
@@ -33,15 +34,20 @@ public class ChargeAttackAction : ActionBase
     public override ActionExecuteInfo Execute()
     {
         _parent.StatusEffectManager.AddEffect(chargeEffect);
-        return new ActionExecuteInfo(true, this, interval);
+        _agent.SetDestination(target.transform.position);
+        return new ActionExecuteInfo(true, this);
     }
 
     public override void Update()
     {
-        if (TryGetNearestAround(TriggerPos, triggerRadius, _parent.opponentLayer, out _))
+        if (_parent.Manager.TryGetNearestEntityAround(_parent, TriggerPos, triggerRadius, _parent.EntityType, opponent, selfInclude, out _))
         {
-            var targets = GetOverlapSphere(TriggerPos, impactRadius, _parent.opponentLayer);
-            _attackController.AttackDirectly(targets, new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
+            var targets = _parent.Manager.GetEntityAround(_parent, TriggerPos, impactRadius, _parent.EntityType, opponent, selfInclude);
+            if (targets.Count() > 0)
+            {
+                _attackController.AttackDirectly(targets.Select(x => x.transform).ToArray(), new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects));
+                _agent.SetDestination(transform.position);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// 弾を飛ばす攻撃
@@ -23,17 +24,13 @@ public class ProjectileAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var targets = GetSortedOverlapSphere(transform.position, AttackTriggerRange, _parent.opponentLayer);
+        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, AttackTriggerRange, _parent.EntityType, opponent, selfInclude, out var target))
+        {
+            targetPos = target.transform.position;
+            return Damage / cooldownTime;
+        }
 
-        if (targets.Length == 0)
-        {
-            return -1;
-        }
-        else
-        {
-            targetPos = targets[0].position;
-            return Damage / interval;
-        }
+        return -1;
     }
 
     public override ActionExecuteInfo Execute()
@@ -41,16 +38,25 @@ public class ProjectileAttackAction : ActionBase
         // 弾のプレハブを生成
         var rot = Quaternion.LookRotation(targetPos - transform.position) * Quaternion.Euler(0, Random.Range(-angle, angle), 0);
         var obj = Instantiate(projectilePref, transform.position + projectileOffset, rot);
-        obj.GetComponent<AttackCollider>().data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects);
-        // 生成元と衝突しないようにレイヤーを設定
-        obj.layer = transform.gameObject.layer;
+        var attackCollider = obj.GetComponent<AttackCollider>();
+        attackCollider.data = new AttackData(baseAttackData.id, (int)Damage, baseAttackData.invincibleTime, baseAttackData.statusEffects);
+        if (!opponent) attackCollider.hitFilter.AddIgnore(transform);
+        obj.layer = _parent.Manager.GetEntityLayer(_parent, !opponent);
         var projectile = obj.GetComponent<ProjectileController>();
         projectile.lifeRange = BulletRange;
-        projectile.destroyOnHit = !penetration;
+
+        if (obj.TryGetComponent<DestroyOnHit>(out var destroyOnHit))
+        {
+            destroyOnHit.enabled = !penetration; // 貫通しない攻撃なら有効
+            if (!opponent) // 味方を対象とする場合、自身に衝突しても破壊されないように設定
+            {
+                destroyOnHit.ignoreTargets = new[] { _parent.transform };
+            }
+        }
         projectile.speed = speed;
         // その場に留まらせる
         _agent.SetDestination(transform.position);
 
-        return new ActionExecuteInfo(true, this, interval, loopCount, loopInterval);
+        return new ActionExecuteInfo(true, this);
     }
 }

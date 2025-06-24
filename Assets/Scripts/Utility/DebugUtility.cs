@@ -33,10 +33,11 @@ public class DebugUtility : MonoBehaviour
         };
     }
 
-    public static void DrawSphere(Vector3 center, float radius)
+    public static void DrawSphere(Vector3 center, float radius, Color color)
     {
         Gizmo += () =>
         {
+            Gizmos.color = color;
             Gizmos.DrawWireSphere(center, radius);
         };
     }

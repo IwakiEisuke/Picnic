@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,7 @@ public class StatusEffectManager : MonoBehaviour
     [SerializeField] StatusEffectAssetBase[] initialStatusEffects;
 
     readonly List<StatusEffector> effects = new();
+    readonly List<StatusEffector> _consumed = new();
 
     public void AddEffect(StatusEffectAssetBase effect)
     {
@@ -38,11 +40,25 @@ public class StatusEffectManager : MonoBehaviour
         effects.Remove(effect);
     }
 
+    public void ClearEffects()
+    {
+        effects.Clear();
+    }
+
+    public void ClearEffects(EffectType type, int clearCount)
+    {
+        _consumed.AddRange(effects.Where(e => e.EffectType == type && clearCount-- > 0));
+    }
+
+    public List<StatusEffector> GetEffects(EffectType type)
+    {
+        return effects.FindAll(e => e.EffectType == type);
+    }
+
     private void Update()
     {
         var status = new UnitGameStatus(unitBase.Stats, unitBase);
 
-        var consumed = new List<StatusEffector>();
         var dt = Time.deltaTime;
         foreach (var effect in effects)
         {
@@ -50,24 +66,22 @@ public class StatusEffectManager : MonoBehaviour
             
             if (!effect.Consume(dt))
             {
-                consumed.Add(effect);
+                _consumed.Add(effect);
             }
         }
 
-        foreach (var cons in consumed)
+        foreach (var cons in _consumed)
         {
             effects.Remove(cons);
         }
+        _consumed.Clear();
 
         unitBase.Status.Replace(status);
     }
 
     private void Start()
     {
-        for (int i = 0; i < initialStatusEffects.Length; i++)
-        {
-            AddEffect(initialStatusEffects[i]);
-        }
+        AddEffect(initialStatusEffects);
     }
 }
 
@@ -79,6 +93,8 @@ public class StatusEffector
     readonly StatusEffectAssetBase effect;
     float duration;
     event Action CancelAction;
+
+    public EffectType EffectType => effect.EffectType;
 
     public StatusEffector(StatusEffectAssetBase effect)
     {
@@ -121,9 +137,13 @@ public class StatusEffector
 /// </summary>
 public abstract class StatusEffectAssetBase : ScriptableObject
 {
+    [SerializeField] protected Sprite _icon;
     [SerializeField] protected float _duration;
+    [SerializeField] protected EffectType _effectType;
 
+    public Sprite Icon => _icon;
     public float Duration => _duration;
+    public EffectType EffectType => _effectType;
 
     public abstract void Apply(UnitGameStatus status);
 
@@ -141,4 +161,11 @@ public abstract class StatusEffectAssetBase : ScriptableObject
     /// <param name="unit"></param>
     /// <returns></returns>
     public abstract float Evaluate(UnitBase unit);
+}
+
+public enum EffectType
+{
+    Buff,
+    Debuff,
+    Neutral
 }

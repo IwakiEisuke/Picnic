@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: GatlingAction
   m_EditorClassIdentifier: 
   level: 1
-  interval: 1
+  delayTime: 1
+  cooldownTime: 1
+  duration: 1
   loopCount: 30
   loopInterval: 0.05
+  opponent: 1
+  selfInclude: 0
   baseAttackRange: 10
   bulletRange: 20
   penetration: 0
@@ -27,3 +31,4 @@ MonoBehaviour:
     id: 0
     damage: 1
     invincibleTime: 0.2
+    statusEffects: []

@@ -3,6 +3,7 @@ using UnityEngine;
 public class AttackCollider : MonoBehaviour
 {
     public AttackData data;
+    public HitFilter hitFilter;
 }
 
 [System.Serializable]

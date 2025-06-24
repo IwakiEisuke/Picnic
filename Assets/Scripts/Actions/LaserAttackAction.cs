@@ -24,18 +24,14 @@ public class LaserAttackAction : ActionBase
 
     public override float Evaluate()
     {
-        var around = GetOverlapSphere(transform.position, AttackRange, _parent.opponentLayer);
-
-        if (around.Length != 0)
+        if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, AttackRange, _parent.EntityType, opponent, selfInclude, out var target))
         {
-            laserDirection = (around[0].position - transform.position).normalized;
+            laserDirection = (target.transform.position - transform.position).normalized;
             targets = LaserCast(transform.position, laserDirection, LaserRange, laserRadius, _parent.opponentLayer);
-            return Damage * targets.Length / interval;
+            return Damage * targets.Length / cooldownTime;
         }
-        else
-        {
-            return -1f;
-        }
+
+        return -1f;
     }
 
     public override ActionExecuteInfo Execute()
@@ -45,7 +41,7 @@ public class LaserAttackAction : ActionBase
         _agent.SetDestination(transform.position);
         // レーザー照射時間をリセット
         laserEmittedTime = 0;
-        return new ActionExecuteInfo(true, this, interval);
+        return new ActionExecuteInfo(true, this);
     }
 
     public override void Update()

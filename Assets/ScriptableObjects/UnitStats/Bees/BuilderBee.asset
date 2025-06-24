@@ -16,10 +16,11 @@ MonoBehaviour:
   speed: 3
   atk: 2
   attackInterval: 1
-  attackRadius: 2
+  attackRadius: 5
   knockBack: 2
   damageReflect: 0
   resistance: 0
   actions:
-  - {fileID: 11400000, guid: 37e117a6970b3954aa123433bebd725e, type: 2}
+  - {fileID: 11400000, guid: cdd4ff98a6c9c2742ba036647cf15581, type: 2}
+  - {fileID: 11400000, guid: 35d7673961753eb4ba98ed70b3f20054, type: 2}
   isSortie: 0
