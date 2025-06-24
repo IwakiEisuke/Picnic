@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[DefaultExecutionOrder((int)ExecutionOrder.EntityBase)]
 public class EntityBase : MonoBehaviour
 {
     [SerializeField] protected EntityType type;
@@ -17,7 +18,7 @@ public class EntityBase : MonoBehaviour
     protected void InvokeOnDied() => OnDied?.Invoke();
     protected void InvokeOnDestroyed() => OnDestroyed?.Invoke();
 
-    protected void InitializeEntityBase()
+    protected void RegisterEntityBase()
     {
         manager.Subscribe(this, type);
     }

@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[DefaultExecutionOrder((int)ExecutionOrder.UnitBase)]
 public abstract class UnitBase : EntityBase
 {
     [SerializeField] protected UnitStats stats;
@@ -38,7 +37,7 @@ public abstract class UnitBase : EntityBase
 
     protected virtual void Awake()
     {
-        InitializeEntityBase();
+        RegisterEntityBase();
         InitializeUnitBase();
     }
 
