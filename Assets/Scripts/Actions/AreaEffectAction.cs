@@ -28,7 +28,11 @@ public class AreaEffectAction : ActionBase
         if (_parent.Manager.TryGetNearestEntityAround(_parent, transform.position, AreaEffectRange, _parent.EntityType, opponent, selfInclude, out var target))
         {
             var hitCount = _parent.Manager.GetEntityAround(_parent, target.transform.position, areaRadius, _parent.EntityType, opponent, selfInclude).Count();
-            return Damage * hitCount / cooldownTime;
+
+            var damageScore = Damage * hitCount / cooldownTime;
+            var effectsScore = baseAttackData.statusEffects.Sum(x => x.Evaluate(_parent));
+
+            return damageScore + effectsScore;
         }
 
         return -1f;
@@ -43,12 +47,12 @@ public class AreaEffectAction : ActionBase
 
         if (obj.TryGetComponent<AttackCollider>(out var attackCollider))
         {
-            if (!opponent) attackCollider.hitFilter.AddIgnore(transform);
+            if (!selfInclude) attackCollider.hitFilter.AddIgnore(transform);
         }
 
         if (obj.TryGetComponent<ITargetedObject>(out var targetedObject))
         {
-            if (!opponent && obj.TryGetComponent<DestroyOnHit>(out var destroyOnHit))
+            if (!selfInclude && obj.TryGetComponent<DestroyOnHit>(out var destroyOnHit))
             {
                 destroyOnHit.ignoreTargets = new[] { _parent.transform };
             }
