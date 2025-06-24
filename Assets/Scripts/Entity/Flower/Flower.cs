@@ -7,6 +7,7 @@ public class Flower : EntityBase, IInteractable
     [SerializeField] int remainNectar;
     [SerializeField] int amountNectarOnce;
     public float Duration => duration;
+    public bool IsInteractable => remainNectar > 0;
 
     public event Action CancelInteract;
 
