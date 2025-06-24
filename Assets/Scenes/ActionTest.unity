@@ -2777,6 +2777,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SaintBee
       objectReference: {fileID: 0}
+    - target: {fileID: 1858036909408944744, guid: f8377a96403c3664eabbb54520c2603e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
