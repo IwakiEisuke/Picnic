@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "ClearEffectStatusEffect", menuName = "Effects/ClearEffectStatusEffect")]
 public class ClearEffectStatusEffect : StatusEffectAssetBase

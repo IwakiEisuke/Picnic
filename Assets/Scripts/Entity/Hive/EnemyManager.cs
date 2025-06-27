@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 
 /// <summary>
-/// Œ»İƒQ[ƒ€ã‚É‘¶İ‚·‚é“G‚Ì”‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+/// ç¾åœ¨ã‚²ãƒ¼ãƒ ä¸Šã«å­˜åœ¨ã™ã‚‹æ•µã®æ•°ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public static class EnemyManager
 {

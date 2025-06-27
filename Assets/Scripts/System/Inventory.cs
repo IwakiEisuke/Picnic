@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// –I–¨‚È‚Ç‚ÌƒAƒCƒeƒ€‚ğŠi”[‚·‚éƒCƒ“ƒxƒ“ƒgƒŠ
+/// èœ‚èœœãªã©ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ ¼ç´ã™ã‚‹ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒª
 /// </summary>
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private int _honeyCount = 0; // –I–¨‚Ì”
+    [SerializeField] private int _honeyCount = 0; // èœ‚èœœã®æ•°
 
     public int HoneyCount => _honeyCount;
 

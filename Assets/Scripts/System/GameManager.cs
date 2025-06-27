@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [DefaultExecutionOrder((int)ExecutionOrder.GameManager)]
 public class GameManager : MonoBehaviour

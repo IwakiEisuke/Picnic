@@ -1,9 +1,9 @@
-using System.Linq;
+ï»¿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// i‰»ƒcƒŠ[‚ÌŠeƒm[ƒh‚Æ‚»‚ÌƒGƒbƒW‚ğ•\¦‚·‚é‚½‚ß‚Ìƒrƒ…[ƒRƒ“ƒ|[ƒlƒ“ƒg
+/// é€²åŒ–ãƒ„ãƒªãƒ¼ã®å„ãƒãƒ¼ãƒ‰ã¨ãã®ã‚¨ãƒƒã‚¸ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ãƒ“ãƒ¥ãƒ¼ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 /// </summary>
 public class EvolutionTreeNodeView : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class EvolutionTreeNodeView : MonoBehaviour
     [SerializeField] Button iconButton;
 
     /// <summary>
-    /// ƒcƒŠ[î•ñ‚Æ•\¦‚·‚éƒm[ƒh‚ÌƒCƒ“ƒfƒbƒNƒX‚©‚çƒm[ƒh’PˆÊ‚Åƒrƒ…[‚ğì¬‚µ‚Ü‚·
+    /// ãƒ„ãƒªãƒ¼æƒ…å ±ã¨è¡¨ç¤ºã™ã‚‹ãƒãƒ¼ãƒ‰ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‹ã‚‰ãƒãƒ¼ãƒ‰å˜ä½ã§ãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆã—ã¾ã™
     /// </summary>
     /// <param name="tree"></param>
     /// <param name="index"></param>

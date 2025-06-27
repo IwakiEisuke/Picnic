@@ -1,4 +1,4 @@
-using System.Linq;
+ï»¿using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,7 +47,7 @@ public class Ally : UnitBase
 }
 
 /// <summary>
-/// Å‚à‹ß‚¢–Ú•W‚ÉŒü‚©‚Á‚ÄˆÚ“®‚·‚é
+/// æœ€ã‚‚è¿‘ã„ç›®æ¨™ã«å‘ã‹ã£ã¦ç§»å‹•ã™ã‚‹
 /// </summary>
 public class NearTargetMove : FSMState
 {
@@ -87,7 +87,7 @@ public class NearTargetMove : FSMState
 }
 
 /// <summary>
-/// Å‚à‹ß‚¢–Ú•W‚ğUŒ‚‚·‚é
+/// æœ€ã‚‚è¿‘ã„ç›®æ¨™ã‚’æ”»æ’ƒã™ã‚‹
 /// </summary>
 public class NearTargetAttack : FSMState
 {
@@ -248,7 +248,7 @@ public class InteractTarget : FSMState
 }
 
 /// <summary>
-/// ActionManager‚É‚æ‚é“®ì‚ÉØ‚è‘Ö‚¦
+/// ActionManagerã«ã‚ˆã‚‹å‹•ä½œã«åˆ‡ã‚Šæ›¿ãˆ
 /// </summary>
 public class AutoMove : FSMState
 {

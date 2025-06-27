@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "HealEffect", menuName = "Effects/HealEffect")]
 public class HealEffect : StatusEffectAssetBase

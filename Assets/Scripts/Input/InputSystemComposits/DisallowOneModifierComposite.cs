@@ -1,18 +1,18 @@
-using System.ComponentModel;
+ï»¿using System.ComponentModel;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
 
 [DisplayName("Disallow One Modifier")]
 public class DisallowOneModifierComposite : InputBindingComposite<float>
 {
-    // ‚±‚ÌƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Îbutton‚ÌAction‚ğÀs‚·‚é
+    // ã“ã®ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãªã‘ã‚Œã°buttonã®Actionã‚’å®Ÿè¡Œã™ã‚‹
     [InputControl(layout = "Button")] public int modifier;
 
-    // ”r‘¼§Œä‘ÎÛ‚Ìƒ{ƒ^ƒ“
+    // æ’ä»–åˆ¶å¾¡å¯¾è±¡ã®ãƒœã‚¿ãƒ³
     [InputControl(layout = "Button")] public int button;
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
 #if UNITY_EDITOR
     [UnityEditor.InitializeOnLoadMethod]
@@ -21,16 +21,16 @@ public class DisallowOneModifierComposite : InputBindingComposite<float>
 #endif
     private static void Initialize()
     {
-        // ‰‰ñ‚ÉCompositeBinding‚ğ“o˜^‚·‚é•K—v‚ª‚ ‚é
+        // åˆå›ã«CompositeBindingã‚’ç™»éŒ²ã™ã‚‹å¿…è¦ãŒã‚ã‚‹
         InputSystem.RegisterBindingComposite(typeof(DisallowOneModifierComposite), "DisallowOneModifierComposite");
     }
 
     /// <summary>
-    /// ˆê•û‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢‚¾‚¯’l‚ğ•Ô‚·
+    /// ä¸€æ–¹ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãªã„æ™‚ã ã‘å€¤ã‚’è¿”ã™
     /// </summary>
     public override float ReadValue(ref InputBindingCompositeContext context)
     {
-        // modifier‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢‚¾‚¯button‚Ì“ü—Í‚ğ’Ê‚·
+        // modifierã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãªã„æ™‚ã ã‘buttonã®å…¥åŠ›ã‚’é€šã™
         if (!context.ReadValueAsButton(modifier))
             return context.ReadValue<float>(button);
 
@@ -38,8 +38,8 @@ public class DisallowOneModifierComposite : InputBindingComposite<float>
     }
 
     /// <summary>
-    /// “ü—Í’l‚Ì‘å‚«‚³‚ğæ“¾‚·‚é
-    /// modifier“ü—Í‚Ì‰Ÿ‰º”»’èiPress Point‚Æ‚Ìè‡’l”»’èj‚Ì‚½‚ß‚ÉÀ‘••K{
+    /// å…¥åŠ›å€¤ã®å¤§ãã•ã‚’å–å¾—ã™ã‚‹
+    /// modifierå…¥åŠ›ã®æŠ¼ä¸‹åˆ¤å®šï¼ˆPress Pointã¨ã®é–¾å€¤åˆ¤å®šï¼‰ã®ãŸã‚ã«å®Ÿè£…å¿…é ˆ
     /// </summary>
     public override float EvaluateMagnitude(ref InputBindingCompositeContext context)
     {
