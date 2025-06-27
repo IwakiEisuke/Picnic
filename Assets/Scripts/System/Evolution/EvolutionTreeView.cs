@@ -14,6 +14,7 @@ public class EvolutionTreeView : MonoBehaviour
     private void Start()
     {
         closeButton.onClick.AddListener(() => PanelClose());
+        PanelClose();
     }
 
     public void ShowTree(EvolutionTree tree)
@@ -25,6 +26,7 @@ public class EvolutionTreeView : MonoBehaviour
         }
 
         currentTreePanel = tree.GeneratePanel(treeViewParent);
+        PanelOpen();
     }
 
     public void PanelOpen()
