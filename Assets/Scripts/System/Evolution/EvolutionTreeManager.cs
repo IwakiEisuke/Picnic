@@ -31,6 +31,7 @@ public class EvolutionTreeManager : MonoBehaviour
 
     public void Copy(EvolutionTreeManager origin)
     {
+        origin.evolutionTree.SetOwner(initOwner);
         evolutionTree = origin.evolutionTree;
     }
 }
