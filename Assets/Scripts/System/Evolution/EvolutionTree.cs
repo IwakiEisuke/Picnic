@@ -35,18 +35,23 @@ public class EvolutionTree : ScriptableObject
         this.owner = owner;
     }
 
-    public void GeneratePanel(Transform parent)
+    public GameObject GeneratePanel(Transform parent)
     {
+        var parentObj = new GameObject("Tree");
+        parentObj.transform.SetParent(parent, false);
+
         views = new EvolutionTreeNodeView[treeNodes.Length];
 
         for (int i = 0; i < views.Length; i++)
         {
             if (views[i] == null)
             {
-                views[i] = Instantiate(viewPrefab, parent);
+                views[i] = Instantiate(viewPrefab, parentObj.transform);
             }
             views[i].Set(this, i);
         }
+
+        return parentObj;
     }
 
     public void TryEvolve(int to)
@@ -54,6 +59,13 @@ public class EvolutionTree : ScriptableObject
         if (currentNode.CanEvolve(to))
         {
             currentNode = treeNodes[to]; // 進化に成功したら現在のノードを更新
+            
+            if (owner == null)
+            {
+                Debug.LogWarning("EvolutionTree: Owner is not set. Please assign a UnitBase to the owner field.");
+                return;
+            }
+
             owner.Evolve(currentNode.SpeciePrefab);
         }
     }
