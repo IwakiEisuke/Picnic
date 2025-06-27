@@ -2,6 +2,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 進化ツリーの各ノードとそのエッジを表示するためのビューコンポーネント
+/// </summary>
 public class EvolutionTreeNodeView : MonoBehaviour
 {
     EvolutionTreeNode node;
@@ -10,6 +13,11 @@ public class EvolutionTreeNodeView : MonoBehaviour
     [SerializeField] Image edgeArrowPref;
     [SerializeField] Button iconButton;
 
+    /// <summary>
+    /// ツリー情報と表示するノードのインデックスからノード単位でビューを作成します
+    /// </summary>
+    /// <param name="tree"></param>
+    /// <param name="index"></param>
     public void Set(EvolutionTree tree, int index)
     {
         node = tree.TreeNodes[index];
