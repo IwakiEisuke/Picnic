@@ -312,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   health: {fileID: 1476775191128089322}
+  owner: {fileID: 0}
 --- !u!114 &7778223179493459700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugMode: 0
   _unitBase: {fileID: 0}
-  _actions: []
+  _actionAssets: []
 --- !u!1 &8599561583628110650
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +391,8 @@ MonoBehaviour:
     id: 0
     damage: 0
     invincibleTime: 0
+    statusEffects: []
+  hitFilter: {fileID: 0}
 --- !u!135 &6794841316208805712
 SphereCollider:
   m_ObjectHideFlags: 0

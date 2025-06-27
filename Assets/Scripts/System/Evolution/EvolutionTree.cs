@@ -10,11 +10,15 @@ public class EvolutionTree : ScriptableObject
     EvolutionTreeNode currentNode;
     EvolutionTreeNodeView[] views;
 
-    public UnitBase owner;
+    UnitBase owner;
 
     public EvolutionTreeNode[] TreeNodes => treeNodes;
     public EvolutionTreeNode CurrentNode => currentNode;
 
+    /// <summary>
+    /// 引数のEvolutionTreeの内容をこのインスタンスにコピーします。
+    /// </summary>
+    /// <param name="tree"></param>
     public void Copy(EvolutionTree tree)
     {
         treeNodes = tree.treeNodes;
@@ -24,6 +28,11 @@ public class EvolutionTree : ScriptableObject
             currentNode = tree.currentNode;
         }
         else currentNode = treeNodes[0];
+    }
+
+    public void SetOwner(UnitBase owner)
+    {
+        this.owner = owner;
     }
 
     public void GeneratePanel(Transform parent)

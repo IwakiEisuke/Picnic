@@ -53,7 +53,7 @@ public class UnitController : MonoBehaviour
 
         if (unitSelector.ControlTarget.TryGetComponent<UnitBase>(out var unit))
         {
-            unit.PanelOpen();
+            unit.EvolutionTreeView.PanelOpen();
         }
         else
         {
