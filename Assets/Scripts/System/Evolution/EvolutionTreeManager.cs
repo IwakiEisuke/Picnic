@@ -3,9 +3,9 @@
 /// <summary>
 /// ユニット毎の進化ツリーの管理を行うクラス
 /// </summary>
-public class EvolutionTreeController : MonoBehaviour
+public class EvolutionTreeManager : MonoBehaviour
 {
-    [SerializeField] UnitBase owner;
+    [SerializeField] UnitBase initOwner;
     [SerializeField] EvolutionTree evolutionTreeAsset;
 
     EvolutionTree evolutionTree;
@@ -18,9 +18,9 @@ public class EvolutionTreeController : MonoBehaviour
         {
             evolutionTree = ScriptableObject.CreateInstance<EvolutionTree>();
             evolutionTree.Copy(evolutionTreeAsset);
-            if (owner)
+            if (initOwner)
             {
-                evolutionTree.SetOwner(owner);
+                evolutionTree.SetOwner(initOwner);
             }
             else
             {
@@ -29,7 +29,7 @@ public class EvolutionTreeController : MonoBehaviour
         }
     }
 
-    public void Copy(EvolutionTreeController origin)
+    public void Copy(EvolutionTreeManager origin)
     {
         evolutionTree = origin.evolutionTree;
     }

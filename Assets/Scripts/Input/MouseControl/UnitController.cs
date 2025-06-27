@@ -52,9 +52,15 @@ public class UnitController : MonoBehaviour
             return;
         }
 
+        if (evolutionTreeView == null)
+        {
+            Debug.LogWarning("EvolutionTreeView is not assigned.", this);
+            return;
+        }
+
         if (unitSelector.ControlTarget.TryGetComponent<UnitBase>(out var unit))
         {
-            evolutionTreeView.ShowTree(unit.EvolutionTreeView.EvolutionTree);
+            evolutionTreeView.ShowTree(unit.EvolutionTreeManager.EvolutionTree);
         }
         else
         {

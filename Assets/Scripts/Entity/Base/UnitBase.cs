@@ -15,7 +15,7 @@ public abstract class UnitBase : EntityBase
     [SerializeField] protected StatusEffectManager statusEffectManager;
     [SerializeField] protected ActionManager actionManager;
 
-    [SerializeField] protected EvolutionTreeController evolutionTreeView;
+    [SerializeField] protected EvolutionTreeManager evolutionTreeManager;
     //[SerializeField] protected EvolutionTree evolutionTreeAsset;
     //[SerializeField] protected Transform evolutionTreeViewParent;
     //[SerializeField] protected EvolutionTree evolutionTree;
@@ -34,7 +34,7 @@ public abstract class UnitBase : EntityBase
     public ActionManager ActionManager => actionManager;
     public AttackController AttackController => attackController;
     //public EvolutionTree EvolutionTree => evolutionTree;
-    public EvolutionTreeController EvolutionTreeView => evolutionTreeView;
+    public EvolutionTreeManager EvolutionTreeManager => evolutionTreeManager;
     public UnitGameStatus Status => status;
 
     protected virtual void Awake()
@@ -94,10 +94,10 @@ public abstract class UnitBase : EntityBase
         // 状態異常の引き継ぎ
 
         // 進化状態の引き継ぎ
-        if (evolutionTreeView != null)
+        if (evolutionTreeManager != null)
         {
             //evolved.evolutionTree.Copy(evolutionTree);
-            evolved.evolutionTreeView.Copy(evolutionTreeView);
+            evolved.evolutionTreeManager.Copy(evolutionTreeManager);
         }
 
 
