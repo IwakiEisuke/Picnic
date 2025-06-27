@@ -9,6 +9,7 @@ public class UnitController : MonoBehaviour
 {
     [SerializeField] UnitSelector unitSelector;
     [SerializeField] UnitControlMenu unitControlMenu;
+    [SerializeField] EvolutionTreeView evolutionTreeView;
 
     [SerializeField] InputActionReference unitMove;
     [SerializeField] InputActionReference unitFreeMove;
@@ -53,7 +54,7 @@ public class UnitController : MonoBehaviour
 
         if (unitSelector.ControlTarget.TryGetComponent<UnitBase>(out var unit))
         {
-            unit.EvolutionTreeView.PanelOpen();
+            evolutionTreeView.ShowTree(unit.EvolutionTreeView.EvolutionTree);
         }
         else
         {
