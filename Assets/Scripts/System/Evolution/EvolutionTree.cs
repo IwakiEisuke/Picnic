@@ -10,11 +10,15 @@ public class EvolutionTree : ScriptableObject
     EvolutionTreeNode currentNode;
     EvolutionTreeNodeView[] views;
 
-    public UnitBase owner;
+    UnitBase owner;
 
     public EvolutionTreeNode[] TreeNodes => treeNodes;
     public EvolutionTreeNode CurrentNode => currentNode;
 
+    /// <summary>
+    /// 引数のEvolutionTreeの内容をこのインスタンスにコピーします。
+    /// </summary>
+    /// <param name="tree"></param>
     public void Copy(EvolutionTree tree)
     {
         treeNodes = tree.treeNodes;
@@ -26,18 +30,28 @@ public class EvolutionTree : ScriptableObject
         else currentNode = treeNodes[0];
     }
 
-    public void GeneratePanel(Transform parent)
+    public void SetOwner(UnitBase owner)
     {
+        this.owner = owner;
+    }
+
+    public GameObject GeneratePanel(Transform parent)
+    {
+        var parentObj = new GameObject("Tree");
+        parentObj.transform.SetParent(parent, false);
+
         views = new EvolutionTreeNodeView[treeNodes.Length];
 
         for (int i = 0; i < views.Length; i++)
         {
             if (views[i] == null)
             {
-                views[i] = Instantiate(viewPrefab, parent);
+                views[i] = Instantiate(viewPrefab, parentObj.transform);
             }
             views[i].Set(this, i);
         }
+
+        return parentObj;
     }
 
     public void TryEvolve(int to)
@@ -45,6 +59,13 @@ public class EvolutionTree : ScriptableObject
         if (currentNode.CanEvolve(to))
         {
             currentNode = treeNodes[to]; // 進化に成功したら現在のノードを更新
+            
+            if (owner == null)
+            {
+                Debug.LogWarning("EvolutionTree: Owner is not set. Please assign a UnitBase to the owner field.");
+                return;
+            }
+
             owner.Evolve(currentNode.SpeciePrefab);
         }
     }

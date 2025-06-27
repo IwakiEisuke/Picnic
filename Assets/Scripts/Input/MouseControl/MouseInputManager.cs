@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// ƒ}ƒEƒX“ü—Í‚ÌŠÇ—
+/// ãƒã‚¦ã‚¹å…¥åŠ›ã®ç®¡ç†
 /// </summary>
 [CreateAssetMenu(menuName = "InputManager/MouseInput")]
 public class MouseInputManager : InputManagerBase
@@ -76,7 +76,7 @@ public class MouseInputManager : InputManagerBase
     {
         if (EventSystem.current == null)
         {
-            Debug.LogWarning("EventSystemƒRƒ“ƒ|[ƒlƒ“ƒg‚ª‘¶İ‚µ‚Ü‚¹‚ñBƒ}ƒEƒX‘€ì‚Í³í‚É“®ì‚µ‚Ü‚¹‚ñ");
+            Debug.LogWarning("EventSystemã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚ãƒã‚¦ã‚¹æ“ä½œã¯æ­£å¸¸ã«å‹•ä½œã—ã¾ã›ã‚“");
             return;
         }
         _isMouseHoveringUI = EventSystem.current.IsPointerOverGameObject();

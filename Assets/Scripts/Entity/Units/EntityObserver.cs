@@ -1,7 +1,7 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// Entity‚ğEntityManager‚Ö“o˜^Eíœ‚·‚éƒNƒ‰ƒX
+/// Entityã‚’EntityManagerã¸ç™»éŒ²ãƒ»å‰Šé™¤ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class EntityObserver
 {

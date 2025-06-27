@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e058d9d7c9c66e748b8536f0069d7c88, type: 3}
-  m_Name: AllyEvolutionTree
+  m_Name: AllyEvolutionTree2
   m_EditorClassIdentifier: 
   treeNodes:
   - specieName: NormalBee
@@ -21,14 +21,16 @@ MonoBehaviour:
     - toIndex: 2
       cost: 20
     speciePrefab: {fileID: 3150432192943526056, guid: d102b07fb2d3b704e985b68c1b4a4e6f, type: 3}
-    pos: {x: 0, y: 0}
+    pos: {x: -100, y: 100}
     icon: {fileID: 21300000, guid: b93acc4ada3397d4fb8516b10e345f39, type: 3}
     isUnlocked: 0
   - specieName: PowerBee
     description: "\u5F37\u529B"
-    edges: []
+    edges:
+    - toIndex: 3
+      cost: 0
     speciePrefab: {fileID: 3150432192943526056, guid: a450676f4df072143bb3456f430f829d, type: 3}
-    pos: {x: 400, y: 0}
+    pos: {x: 192.4, y: 0}
     icon: {fileID: 21300000, guid: 44cb7cd4f61b61a4f8ef51b079c16e56, type: 3}
     isUnlocked: 0
   - specieName: RangedBee
@@ -37,14 +39,14 @@ MonoBehaviour:
     - toIndex: 3
       cost: 100
     speciePrefab: {fileID: 3150432192943526056, guid: a450676f4df072143bb3456f430f829d, type: 3}
-    pos: {x: -300, y: 100}
+    pos: {x: 337.3, y: 100}
     icon: {fileID: 21300000, guid: 1369ad7b05d319e4d93ce840fa99091a, type: 3}
     isUnlocked: 0
   - specieName: Hawk-Eye-Bee
     description: "\u30DB\u30FC\u30AF\u30A2\u30A4"
     edges: []
     speciePrefab: {fileID: 3150432192943526056, guid: a450676f4df072143bb3456f430f829d, type: 3}
-    pos: {x: -300, y: 400}
+    pos: {x: 399, y: 400}
     icon: {fileID: 21300000, guid: 757140402f2bc9b4ab087c7b6443b564, type: 3}
     isUnlocked: 0
   viewPrefab: {fileID: 5447473488537624786, guid: 4077f2b2c02f29946bc3faf8091784b9, type: 3}

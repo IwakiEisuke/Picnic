@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// –¡•ûƒ†ƒjƒbƒg‚ÌŠÇ—
+/// å‘³æ–¹ãƒ¦ãƒ‹ãƒƒãƒˆã®ç®¡ç†
 /// </summary>
 public class AllyManager : MonoBehaviour
 {
@@ -43,7 +43,7 @@ public class AllyManager : MonoBehaviour
 }
 
 /// <summary>
-/// ƒ†ƒjƒbƒgGameObject‚Ì¶¬‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+/// ãƒ¦ãƒ‹ãƒƒãƒˆGameObjectã®ç”Ÿæˆã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class UnitFactory
 {
@@ -79,7 +79,7 @@ public class UnitFactory
 }
 
 /// <summary>
-/// ƒ†ƒjƒbƒg‚Ì‰Šú‰»‚Æ¶Yˆ—‚ğs‚¤ƒNƒ‰ƒX
+/// ãƒ¦ãƒ‹ãƒƒãƒˆã®åˆæœŸåŒ–ã¨ç”Ÿç”£å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class UnitGenerator
 {
@@ -98,7 +98,7 @@ public class UnitGenerator
 }
 
 /// <summary>
-/// •¡”í—Ş‚Ìƒ†ƒjƒbƒg¶Y‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+/// è¤‡æ•°ç¨®é¡ã®ãƒ¦ãƒ‹ãƒƒãƒˆç”Ÿç”£ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class UnitGenerateManager
 {

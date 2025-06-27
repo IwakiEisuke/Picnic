@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 [DefaultExecutionOrder((int)ExecutionOrder.AttackCollisionController)]
@@ -20,7 +20,7 @@ public class AttackController : MonoBehaviour
     {
         if (i < 0 || i >= attackColliders.Length)
         {
-            Debug.LogError($"{name}| SetColliderActive�̈����͔͈͊O�ł�");
+            Debug.LogError($"{name}| SetColliderActiveの引数は範囲外です");
             return;
         }
 
