@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -18,14 +19,19 @@ public class UnitController : MonoBehaviour
     [SerializeField] InputActionReference unitMoveToHive;
     [SerializeField] InputActionReference openUnitPanel;
 
+    List<InputActionWrapper> actions;
+
     private void Start()
     {
-        unitMove.action.performed += _ => UnitSetState(Ally.State.MoveToNearestTarget);
-        unitFreeMove.action.performed += _ => UnitSetState(Ally.State.MoveToClickPos);
-        unitFollow.action.performed += _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); };
-        unitStop.action.performed += _ => UnitSetState(Ally.State.Stop);
-        unitMoveToHive.action.performed += _ => UnitSetState(Ally.State.MoveToHive);
-        openUnitPanel.action.performed += _ => OpenUnitPanel();
+        actions = new List<InputActionWrapper>
+        {
+            new(unitMove, _ => UnitSetState(Ally.State.MoveToNearestTarget)),
+            new(unitFreeMove, _ => UnitSetState(Ally.State.MoveToClickPos)),
+            new(unitFollow, _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); }),
+            new(unitStop, _ => UnitSetState(Ally.State.Stop)),
+            new(unitMoveToHive, _ => UnitSetState(Ally.State.MoveToHive)),
+            new(openUnitPanel, _ => OpenUnitPanel()),
+        };
     }
 
     private void UnitSetState(Ally.State nextState)
@@ -72,11 +78,9 @@ public class UnitController : MonoBehaviour
 
     private void OnDestroy()
     {
-        unitMove.action.Reset();
-        unitFreeMove.action.Reset();
-        unitFollow.action.Reset();
-        unitStop.action.Reset();
-        unitMoveToHive.action.Reset();
-        openUnitPanel.action.Reset();
+        foreach (var action in actions)
+        {
+            action.Unregister();
+        }
     }
 }
