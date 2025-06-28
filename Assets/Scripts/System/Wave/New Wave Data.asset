@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be9bccde791dbb428e7a44aa00a0978, type: 3}
+  m_Name: New Wave Data
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 8784338313791942373, guid: 3cb188f3798b1084da555d4ce8217112, type: 3}
+  - {fileID: 8784338313791942373, guid: 57ab3c4f6eb9a2b4f9d1378bd1e07867, type: 3}
+  spawnPoints:
+  - name: wao
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  - name: rect
+    position: {x: 10, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  - name: aaa
+    position: {x: 10, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  spawnEvents:
+  - time: 10.003908
+    enemyIndex: 0
+    spawnPointIndex: 1
+  - time: 21.814089
+    enemyIndex: 0
+    spawnPointIndex: 1
+  - time: 21.996101
+    enemyIndex: 0
+    spawnPointIndex: 0
+  - time: 21.672956
+    enemyIndex: 1
+    spawnPointIndex: 2
+  - time: 49.98873
+    enemyIndex: 0
+    spawnPointIndex: 1
