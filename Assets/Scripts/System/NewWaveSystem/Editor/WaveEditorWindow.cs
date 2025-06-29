@@ -143,6 +143,20 @@ public class WaveEditorWindow : EditorWindow
                     GUI.Label(labelRect, $"{evt.spawnCountPerBatch}", style);
                 }
             }
+
+            // 繰り返しイベントの線を描画
+            if (evt.repeatCount > 0 && evt.repeatInterval > 0f)
+            {
+                float startX = evt.time / secondsPerPixel - scrollOffsetX;
+                float endTime = evt.time + evt.repeatInterval * (evt.repeatCount - 1);
+                float endX = endTime / secondsPerPixel - scrollOffsetX;
+                float centerY = evt.spawnPointIndex * rowHeight + rowHeight / 2f;
+
+                Handles.color = new Color(1, 0, 0, 0.5f);
+                Handles.DrawLine(new Vector3(startX, centerY, 0), new Vector3(endX, centerY, 0));
+                Handles.DrawLine(new Vector3(startX, centerY - 1, 0), new Vector3(endX, centerY - 1, 0));
+                Handles.DrawLine(new Vector3(startX, centerY + 1, 0), new Vector3(endX, centerY + 1, 0));
+            }
         }
 
         GUI.EndGroup();
