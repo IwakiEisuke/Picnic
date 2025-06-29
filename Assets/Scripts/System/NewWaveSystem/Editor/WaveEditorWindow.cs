@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEngine;
 
 public class WaveEditorWindow : EditorWindow
@@ -89,14 +89,14 @@ public class WaveEditorWindow : EditorWindow
             if (evt.spawnPointIndex < 0 || evt.spawnPointIndex >= wave.spawnPoints.Count) continue;
 
             float x = evt.time / secondsPerPixel - scrollOffsetX;
-            float y = evt.spawnPointIndex * rowHeight + rowHeight / 2f; // c’†‰›‚É”z’u
+            float y = evt.spawnPointIndex * rowHeight + rowHeight / 2f; // ç¸¦ä¸­å¤®ã«é…ç½®
 
-            float size = 10f; // ƒ_ƒCƒ„‚Ì‘ÎŠpü’·‚³i’²®‰Âj
+            float size = 10f; // ãƒ€ã‚¤ãƒ¤ã®å¯¾è§’ç·šé•·ã•ï¼ˆèª¿æ•´å¯ï¼‰
 
-            Vector3 p1 = new Vector3(x, y - size / 2f);   // ã“_
-            Vector3 p2 = new Vector3(x + size / 2f, y);   // ‰E“_
-            Vector3 p3 = new Vector3(x, y + size / 2f);   // ‰º“_
-            Vector3 p4 = new Vector3(x - size / 2f, y);   // ¶“_
+            Vector3 p1 = new Vector3(x, y - size / 2f);   // ä¸Šç‚¹
+            Vector3 p2 = new Vector3(x + size / 2f, y);   // å³ç‚¹
+            Vector3 p3 = new Vector3(x, y + size / 2f);   // ä¸‹ç‚¹
+            Vector3 p4 = new Vector3(x - size / 2f, y);   // å·¦ç‚¹
 
             Vector3[] diamondPoints = new Vector3[] { p1, p2, p3, p4 };
 
@@ -150,12 +150,12 @@ public class WaveEditorWindow : EditorWindow
                 {
                     if (!isDragging)
                     {
-                        // ˆÚ“®‹——£‚ªè‡’l‚ğ’´‚¦‚½‚çƒhƒ‰ƒbƒOŠJn
+                        // ç§»å‹•è·é›¢ãŒé–¾å€¤ã‚’è¶…ãˆãŸã‚‰ãƒ‰ãƒ©ãƒƒã‚°é–‹å§‹
                         if (Vector2.Distance(e.mousePosition, mouseDownPos) > 4f)
                         {
                             isDragging = true;
 
-                            // ƒhƒ‰ƒbƒO—p‚ÌŠJnƒf[ƒ^‚ğƒZƒbƒg
+                            // ãƒ‰ãƒ©ãƒƒã‚°ç”¨ã®é–‹å§‹ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆ
                             draggingEvent = candidateSelectEvent;
                             dragStartMousePos = mouseDownPos;
                             dragStartTime = draggingEvent.time;
@@ -169,10 +169,10 @@ public class WaveEditorWindow : EditorWindow
 
                         float newTime = dragStartTime + delta.x * secondsPerPixel;
 
-                        // Ctrl‰Ÿ‰º’†‚Í1•b’PˆÊ‚ÉƒXƒiƒbƒv
+                        // CtrlæŠ¼ä¸‹ä¸­ã¯1ç§’å˜ä½ã«ã‚¹ãƒŠãƒƒãƒ—
                         if (e.control)
                         {
-                            newTime = Mathf.Round(newTime); // 1•b’PˆÊ‚ÅƒXƒiƒbƒv
+                            newTime = Mathf.Round(newTime); // 1ç§’å˜ä½ã§ã‚¹ãƒŠãƒƒãƒ—
                         }
 
                         draggingEvent.time = Mathf.Max(0, newTime);
@@ -191,7 +191,7 @@ public class WaveEditorWindow : EditorWindow
                 {
                     if (!isDragging)
                     {
-                        // ˆÚ“®‚ªè‡’lˆÈ‰º‚È‚Ì‚ÅƒNƒŠƒbƒN‚Æ”»’f‚µ‚Ä‘I‘ğŠm’è
+                        // ç§»å‹•ãŒé–¾å€¤ä»¥ä¸‹ãªã®ã§ã‚¯ãƒªãƒƒã‚¯ã¨åˆ¤æ–­ã—ã¦é¸æŠç¢ºå®š
                         selectedEvent = candidateSelectEvent;
                         Repaint();
                     }
@@ -217,13 +217,13 @@ public class WaveEditorWindow : EditorWindow
         {
             EditorGUILayout.LabelField("Selected Spawn Event Details", EditorStyles.boldLabel);
 
-            // ƒXƒ|[ƒ“ƒ|ƒCƒ“ƒg‚Í‘I‘ğˆ‚ªŒÀ‚ç‚ê‚é‚È‚çPopup‚È‚Ç‚Å•ÒW‰Â”\‚É
+            // ã‚¹ãƒãƒ¼ãƒ³ãƒã‚¤ãƒ³ãƒˆã¯é¸æŠè‚¢ãŒé™ã‚‰ã‚Œã‚‹ãªã‚‰Popupãªã©ã§ç·¨é›†å¯èƒ½ã«
             selectedEvent.spawnPointIndex = EditorGUILayout.IntSlider("Spawn Point Index", selectedEvent.spawnPointIndex, 0, currentWaveData.spawnPoints.Count - 1);
 
-            // ŠÔ‚Ífloat‚Å“ü—Í
+            // æ™‚é–“ã¯floatã§å…¥åŠ›
             selectedEvent.time = EditorGUILayout.FloatField("Time (s)", selectedEvent.time);
 
-            // “G‚ÍenemyPrefabs‚©‚ç‘I‘ğ‚Å‚«‚é‚æ‚¤‚ÉPopup
+            // æ•µã¯enemyPrefabsã‹ã‚‰é¸æŠã§ãã‚‹ã‚ˆã†ã«Popup
             if (currentWaveData.enemyPrefabs != null && currentWaveData.enemyPrefabs.Count > 0)
             {
                 string[] enemyNames = new string[currentWaveData.enemyPrefabs.Count];
@@ -240,7 +240,7 @@ public class WaveEditorWindow : EditorWindow
                 EditorGUILayout.LabelField("Enemy prefabs not assigned.");
             }
 
-            // •ÒW‚µ‚½‚çƒf[ƒ^‚ğDirty‚É‚·‚éi•Û‘¶ƒtƒ‰ƒOj
+            // ç·¨é›†ã—ãŸã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’Dirtyã«ã™ã‚‹ï¼ˆä¿å­˜ãƒ•ãƒ©ã‚°ï¼‰
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(currentWaveData);
@@ -259,9 +259,9 @@ public class WaveEditorWindow : EditorWindow
         if (currentWaveData == null || spawnPointIndex >= currentWaveData.spawnPoints.Count)
             return;
 
-        // ’Ç‰ÁF‰EƒNƒŠƒbƒNˆÊ’u•t‹ß‚ÌƒCƒxƒ“ƒg‚ğŒŸõiŠÔ‚ÆƒXƒ|[ƒ“ƒ|ƒCƒ“ƒg‚ªˆê’vj
+        // è¿½åŠ ï¼šå³ã‚¯ãƒªãƒƒã‚¯ä½ç½®ä»˜è¿‘ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’æ¤œç´¢ï¼ˆæ™‚é–“ã¨ã‚¹ãƒãƒ¼ãƒ³ãƒã‚¤ãƒ³ãƒˆãŒä¸€è‡´ï¼‰
         EnemySpawnEvent eventToDelete = null;
-        float maxTimeDiff = secondsPerPixel * 10f; // ƒNƒŠƒbƒN‹–—e”ÍˆÍiƒsƒNƒZƒ‹¨ŠÔŠ·Zj
+        float maxTimeDiff = secondsPerPixel * 10f; // ã‚¯ãƒªãƒƒã‚¯è¨±å®¹ç¯„å›²ï¼ˆãƒ”ã‚¯ã‚»ãƒ«â†’æ™‚é–“æ›ç®—ï¼‰
         foreach (var evt in currentWaveData.spawnEvents)
         {
             if (evt.spawnPointIndex == spawnPointIndex && Mathf.Abs(evt.time - time) < maxTimeDiff)
@@ -271,7 +271,7 @@ public class WaveEditorWindow : EditorWindow
             }
         }
 
-        // ‚à‚µƒCƒxƒ“ƒg‚ª‚ ‚ê‚Îíœƒƒjƒ…[‚ğ’Ç‰Á
+        // ã‚‚ã—ã‚¤ãƒ™ãƒ³ãƒˆãŒã‚ã‚Œã°å‰Šé™¤ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¿½åŠ 
         if (eventToDelete != null)
         {
             menu.AddItem(new GUIContent("Delete Spawn Event"), false, () =>
@@ -285,7 +285,7 @@ public class WaveEditorWindow : EditorWindow
             menu.AddDisabledItem(new GUIContent("Delete Spawn Event"));
         }
 
-        // Šù‘¶‚Ì’Ç‰Áƒƒjƒ…[
+        // æ—¢å­˜ã®è¿½åŠ ãƒ¡ãƒ‹ãƒ¥ãƒ¼
         for (int i = 0; i < currentWaveData.enemyPrefabs.Count; i++)
         {
             string enemyName = currentWaveData.enemyPrefabs[i]?.name ?? "Null";
@@ -379,23 +379,23 @@ public class WaveEditorWindow : EditorWindow
         {
             float oldSecondsPerPixel = secondsPerPixel;
 
-            // ƒ}ƒEƒXˆÊ’u‚Ìƒ^ƒCƒ€ƒ‰ƒCƒ“ã‚Ìƒ[ƒJƒ‹XiƒXƒNƒ[ƒ‹‚İj
+            // ãƒã‚¦ã‚¹ä½ç½®ã®ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ä¸Šã®ãƒ­ãƒ¼ã‚«ãƒ«Xï¼ˆã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«è¾¼ã¿ï¼‰
             Vector2 mousePos = e.mousePosition;
 
-            // timelineRect ‚ÌXÀ•W‚Æ•‚ÍDrawTimeline‚ÌindexColumnWidth‚ÆˆÊ’u‚ÉˆË‘¶‚·‚é‚Ì‚ÅA‚±‚±‚Å‚ÍŒÅ’è’l‚Å‡‚í‚¹‚é
-            float timelineX = 50f; // indexColumnWidth‚É‡‚í‚¹‚Ä’²®‚µ‚Ä‚­‚¾‚³‚¢
+            // timelineRect ã®Xåº§æ¨™ã¨å¹…ã¯DrawTimelineã®indexColumnWidthã¨ä½ç½®ã«ä¾å­˜ã™ã‚‹ã®ã§ã€ã“ã“ã§ã¯å›ºå®šå€¤ã§åˆã‚ã›ã‚‹
+            float timelineX = 50f; // indexColumnWidthã«åˆã‚ã›ã¦èª¿æ•´ã—ã¦ãã ã•ã„
             float timelineWidth = position.width - timelineX;
 
-            // ƒ}ƒEƒX‚ÌˆÊ’uiƒ[ƒJƒ‹ƒ^ƒCƒ€ƒ‰ƒCƒ“À•Wj
+            // ãƒã‚¦ã‚¹ã®ä½ç½®ï¼ˆãƒ­ãƒ¼ã‚«ãƒ«ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³åº§æ¨™ï¼‰
             float mouseLocalX = mousePos.x - timelineX;
 
             if (mouseLocalX < 0 || mouseLocalX > timelineWidth)
-                return; // ƒ^ƒCƒ€ƒ‰ƒCƒ“ŠO‚È‚çƒY[ƒ€‚µ‚È‚¢
+                return; // ã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³å¤–ãªã‚‰ã‚ºãƒ¼ãƒ ã—ãªã„
 
-            // ƒ}ƒEƒX‚ªw‚µ‚Ä‚¢‚éŠÔiƒY[ƒ€‘Oj
+            // ãƒã‚¦ã‚¹ãŒæŒ‡ã—ã¦ã„ã‚‹æ™‚é–“ï¼ˆã‚ºãƒ¼ãƒ å‰ï¼‰
             float timeAtMouse = (mouseLocalX + scrollOffsetX) * oldSecondsPerPixel;
 
-            // ƒY[ƒ€‚ÌXV
+            // ã‚ºãƒ¼ãƒ ã®æ›´æ–°
             float zoomFactor = 0.1f;
             if (e.delta.y > 0)
             {
@@ -407,10 +407,10 @@ public class WaveEditorWindow : EditorWindow
             }
             secondsPerPixel = Mathf.Clamp(secondsPerPixel, zoomMin, zoomMax);
 
-            // ƒY[ƒ€Œã‚Éƒ}ƒEƒXˆÊ’u‚ÌŠÔ‚ª“¯‚¶‚É‚È‚é‚æ‚¤scrollOffsetX‚ğ’²®
+            // ã‚ºãƒ¼ãƒ å¾Œã«ãƒã‚¦ã‚¹ä½ç½®ã®æ™‚é–“ãŒåŒã˜ã«ãªã‚‹ã‚ˆã†scrollOffsetXã‚’èª¿æ•´
             scrollOffsetX = timeAtMouse / secondsPerPixel - mouseLocalX;
 
-            // scrollOffsetX‚Í•‰‚É‚È‚ç‚È‚¢‚æ‚¤§ŒÀ
+            // scrollOffsetXã¯è² ã«ãªã‚‰ãªã„ã‚ˆã†åˆ¶é™
             scrollOffsetX = Mathf.Max(scrollOffsetX, 0f);
 
             e.Use();

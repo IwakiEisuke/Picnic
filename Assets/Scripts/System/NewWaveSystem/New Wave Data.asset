@@ -26,7 +26,7 @@ MonoBehaviour:
     position: {x: 10, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
   spawnEvents:
-  - time: 30
+  - time: 20.880001
     enemyIndex: 0
     spawnPointIndex: 1
   - time: 10
@@ -38,6 +38,6 @@ MonoBehaviour:
   - time: 26
     enemyIndex: 1
     spawnPointIndex: 2
-  - time: 50
+  - time: 57.24737
     enemyIndex: 0
     spawnPointIndex: 1
