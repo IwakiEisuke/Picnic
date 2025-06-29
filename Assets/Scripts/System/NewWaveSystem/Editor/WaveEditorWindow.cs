@@ -534,4 +534,45 @@ public class WaveEditorWindow : EditorWindow
             Repaint();
         }
     }
+
+    private void OnEnable()
+    {
+        Undo.undoRedoPerformed += OnUndoRedoPerformed;
+    }
+
+    private void OnDisable()
+    {
+        Undo.undoRedoPerformed -= OnUndoRedoPerformed;
+    }
+
+    private void OnUndoRedoPerformed()
+    {
+        if (currentWaveData == null)
+        {
+            selectedEvent = null;
+            Repaint();
+            return;
+        }
+
+        if (selectedEvent == null)
+        {
+            Repaint();
+            return;
+        }
+
+        // UndoでselectedEventが無効になるケースの対策として、
+        // currentWaveData.spawnEvents内で同じIDや特徴を持つイベントを探す処理が必要。
+        // もしEnemySpawnEventに一意なIDがあればそれで探すのが望ましいですが、
+        // そうでなければtime + spawnPointIndex + enemyIndexなど複合キーで探す
+
+        var matchedEvent = currentWaveData.spawnEvents.Find(evt =>
+            Mathf.Approximately(evt.time, selectedEvent.time) &&
+            evt.spawnPointIndex == selectedEvent.spawnPointIndex &&
+            evt.enemyIndex == selectedEvent.enemyIndex
+        );
+
+        selectedEvent = matchedEvent;
+
+        Repaint();
+    }
 }
