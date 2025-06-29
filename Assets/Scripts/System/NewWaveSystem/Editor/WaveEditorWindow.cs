@@ -116,7 +116,7 @@ public class WaveEditorWindow : EditorWindow
 
                 // ダイヤの対角線の長さ
                 float size = (r == 0) ? GetSizeFromSpawnCount(evt.spawnCountPerBatch) : 8f;
-                
+
 
                 Vector3 p1 = new Vector3(x, y - size / 2f);   // 上点
                 Vector3 p2 = new Vector3(x + size / 2f, y);   // 右点
@@ -129,7 +129,7 @@ public class WaveEditorWindow : EditorWindow
                 {
                     Handles.color = eventColor;
                     Handles.DrawAAConvexPolygon(diamondPoints);
-                    
+
                     if (evt == selectedEvent)
                     {
                         // 輪郭を追加（線の太さを出すため四辺を線で囲う）
@@ -560,16 +560,8 @@ public class WaveEditorWindow : EditorWindow
             return;
         }
 
-        // UndoでselectedEventが無効になるケースの対策として、
-        // currentWaveData.spawnEvents内で同じIDや特徴を持つイベントを探す処理が必要。
-        // もしEnemySpawnEventに一意なIDがあればそれで探すのが望ましいですが、
-        // そうでなければtime + spawnPointIndex + enemyIndexなど複合キーで探す
-
-        var matchedEvent = currentWaveData.spawnEvents.Find(evt =>
-            Mathf.Approximately(evt.time, selectedEvent.time) &&
-            evt.spawnPointIndex == selectedEvent.spawnPointIndex &&
-            evt.enemyIndex == selectedEvent.enemyIndex
-        );
+        // IDでマッチングしてselectedEventを更新
+        var matchedEvent = currentWaveData.spawnEvents.Find(evt => evt.id == selectedEvent.id);
 
         selectedEvent = matchedEvent;
 

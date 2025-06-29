@@ -23,7 +23,14 @@ public class EnemySpawnEvent
     [Min(1)] public int repeatCount = 1;
     [Min(0)] public float repeatInterval;
 
+    public string id;
+
     public int TotalSpawnCount => spawnCountPerBatch * repeatCount;
+
+    public EnemySpawnEvent()
+    {
+        id = Guid.NewGuid().ToString();
+    }
 }
 
 [Serializable]
