@@ -19,8 +19,8 @@ public class EnemySpawnEvent
     public int enemyIndex;
     public int spawnPointIndex;
 
-    [Min(1)] public int spawnCountPerBatch;
-    [Min(1)] public int repeatCount;
+    [Min(1)] public int spawnCountPerBatch = 1;
+    [Min(1)] public int repeatCount = 1;
     [Min(0)] public float repeatInterval;
 
     public int TotalSpawnCount => spawnCountPerBatch * repeatCount;

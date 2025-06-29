@@ -91,26 +91,57 @@ public class WaveEditorWindow : EditorWindow
         GUI.BeginGroup(timelineRect);
         var localRect = new Rect(0, 0, timelineRect.width, timelineRect.height);
 
+        // 対数スケールでサイズを決定（1〜100体で徐々に大きく）
+        float GetSizeFromSpawnCount(int count, float minSize = 10f, float maxSize = 15f)
+        {
+            if (count <= 1) return minSize;
+            float logValue = Mathf.Log10(count); // 1→0, 10→1, 100→2
+            float t = Mathf.Clamp01(logValue / 2f); // 正規化: log10(1)〜log10(100)
+            return Mathf.Lerp(minSize, maxSize, t);
+        }
+
         foreach (var evt in wave.spawnEvents)
         {
             if (evt.spawnPointIndex < 0 || evt.spawnPointIndex >= wave.SpawnPoints.Count) continue;
 
-            float x = evt.time / secondsPerPixel - scrollOffsetX;
-            float y = evt.spawnPointIndex * rowHeight + rowHeight / 2f; // 縦中央に配置
-
-            float size = 10f; // ダイヤの対角線長さ（調整可）
-
-            Vector3 p1 = new Vector3(x, y - size / 2f);   // 上点
-            Vector3 p2 = new Vector3(x + size / 2f, y);   // 右点
-            Vector3 p3 = new Vector3(x, y + size / 2f);   // 下点
-            Vector3 p4 = new Vector3(x - size / 2f, y);   // 左点
-
-            Vector3[] diamondPoints = new Vector3[] { p1, p2, p3, p4 };
-
-            if (x + size / 2f >= 0 && x - size / 2f <= localRect.width)
+            // 繰り返し回数分ループ
+            for (int r = 0; r < evt.repeatCount; r++)
             {
-                Handles.color = Color.red;
-                Handles.DrawAAConvexPolygon(diamondPoints);
+                float eventTime = evt.time + r * evt.repeatInterval;
+                float x = eventTime / secondsPerPixel - scrollOffsetX;
+                float y = evt.spawnPointIndex * rowHeight + rowHeight / 2f; // 縦中央に配置
+
+                // ダイヤの対角線の長さ
+                float size = (r == 0) ? GetSizeFromSpawnCount(evt.spawnCountPerBatch) : 8f;
+                
+
+                Vector3 p1 = new Vector3(x, y - size / 2f);   // 上点
+                Vector3 p2 = new Vector3(x + size / 2f, y);   // 右点
+                Vector3 p3 = new Vector3(x, y + size / 2f);   // 下点
+                Vector3 p4 = new Vector3(x - size / 2f, y);   // 左点
+
+                Vector3[] diamondPoints = new Vector3[] { p1, p2, p3, p4 };
+
+                if (x + size / 2f >= 0 && x - size / 2f <= localRect.width)
+                {
+                    Handles.color = Color.red;
+                    Handles.DrawAAConvexPolygon(diamondPoints);
+
+                    // スポーン数の数字を表示
+                    GUIStyle style = new GUIStyle(EditorStyles.miniLabel)
+                    {
+                        normal = { textColor = Color.white },
+                        alignment = TextAnchor.MiddleCenter,
+                        fontSize = (r == 0) ? 11 : 5
+                    };
+
+                    float labelWidth = 40f;
+                    float labelHeight = (r == 0) ? 14f : 12f;
+
+                    // ラベル位置（アイコンの上に表示）
+                    Rect labelRect = new Rect(x - labelWidth / 2f, y - size / 2f - labelHeight - 2, labelWidth, labelHeight);
+                    GUI.Label(labelRect, $"{evt.spawnCountPerBatch}", style);
+                }
             }
         }
 
