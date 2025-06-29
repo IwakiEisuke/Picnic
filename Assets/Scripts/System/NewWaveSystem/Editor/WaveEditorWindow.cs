@@ -213,6 +213,8 @@ public class WaveEditorWindow : EditorWindow
                             dragStartMousePos = mouseDownPos;
                             dragStartTime = draggingEvent.time;
                             dragStartSpawnPointIndex = draggingEvent.spawnPointIndex;
+
+                            selectedEvent = draggingEvent; // ドラッグ開始時に選択状態にする
                         }
                     }
 
@@ -357,8 +359,13 @@ public class WaveEditorWindow : EditorWindow
             {
                 Undo.RecordObject(currentWaveData, "Delete Spawn Event");
 
+                // 選択解除
+                if (selectedEvent == eventToDelete) selectedEvent = null;
                 currentWaveData.spawnEvents.Remove(eventToDelete);
                 EditorUtility.SetDirty(currentWaveData);
+
+                GUI.changed = true;
+                Repaint();
             });
         }
         else

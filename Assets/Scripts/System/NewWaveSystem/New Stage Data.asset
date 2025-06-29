@@ -69,7 +69,7 @@ MonoBehaviour:
     spawnCountPerBatch: 100
     repeatCount: 1
     repeatInterval: 0
-  - time: 10
+  - time: 8
     enemyIndex: 0
     spawnPointIndex: 0
     spawnCountPerBatch: 1
