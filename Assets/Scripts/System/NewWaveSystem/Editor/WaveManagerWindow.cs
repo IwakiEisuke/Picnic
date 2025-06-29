@@ -14,6 +14,14 @@ public class WaveManagerWindow : EditorWindow
         GetWindow<WaveManagerWindow>("Wave Manager");
     }
 
+    public static void OpenWithStage(StageData stage)
+    {
+        var window = GetWindow<WaveManagerWindow>();
+        window.titleContent = new GUIContent("Wave Manager");
+        window.selectedStageData = stage;
+        window.Show();
+    }
+
     private void SetupReorderableList()
     {
         if (selectedStageData == null) return;
