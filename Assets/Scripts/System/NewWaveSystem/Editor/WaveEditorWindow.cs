@@ -230,6 +230,9 @@ public class WaveEditorWindow : EditorWindow
             // 時間はfloatで入力
             selectedEvent.time = EditorGUILayout.FloatField("Time (s)", selectedEvent.time);
 
+            GUILayout.Space(10);
+            EditorGUILayout.LabelField("Spawn Settings", EditorStyles.boldLabel);
+
             // 敵はenemyPrefabsから選択できるようにPopup
             if (currentWaveData.EnemyPrefabs != null && currentWaveData.EnemyPrefabs.Count > 0)
             {
@@ -246,6 +249,18 @@ public class WaveEditorWindow : EditorWindow
             {
                 EditorGUILayout.LabelField("Enemy prefabs not assigned.");
             }
+
+            // 一度にスポーンさせる量
+            selectedEvent.spawnCountPerBatch = EditorGUILayout.IntField("Spawn Count Per Batch", selectedEvent.spawnCountPerBatch);
+            selectedEvent.spawnCountPerBatch = Mathf.Max(1, selectedEvent.spawnCountPerBatch);
+
+            // スポーンの繰り返し回数
+            selectedEvent.repeatCount = EditorGUILayout.IntField("Repeat Count", selectedEvent.repeatCount);
+            selectedEvent.repeatCount = Mathf.Max(1, selectedEvent.repeatCount);
+
+            // 繰り返し間隔（秒）
+            selectedEvent.repeatInterval = EditorGUILayout.FloatField("Repeat Interval (s)", selectedEvent.repeatInterval);
+            selectedEvent.repeatInterval = Mathf.Max(0f, selectedEvent.repeatInterval);
 
             // 編集したらデータをDirtyにする（保存フラグ）
             if (GUI.changed)

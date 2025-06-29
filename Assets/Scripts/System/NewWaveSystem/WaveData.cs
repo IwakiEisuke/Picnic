@@ -18,6 +18,12 @@ public class EnemySpawnEvent
     public float time;
     public int enemyIndex;
     public int spawnPointIndex;
+
+    [Min(1)] public int spawnCountPerBatch;
+    [Min(1)] public int repeatCount;
+    [Min(0)] public float repeatInterval;
+
+    public int TotalSpawnCount => spawnCountPerBatch * repeatCount;
 }
 
 [Serializable]
