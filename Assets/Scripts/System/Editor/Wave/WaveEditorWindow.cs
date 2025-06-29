@@ -167,7 +167,15 @@ public class WaveEditorWindow : EditorWindow
                     {
                         Vector2 delta = e.mousePosition - dragStartMousePos;
 
-                        draggingEvent.time = Mathf.Max(0, dragStartTime + delta.x * secondsPerPixel);
+                        float newTime = dragStartTime + delta.x * secondsPerPixel;
+
+                        // Ctrl押下中は1秒単位にスナップ
+                        if (e.control)
+                        {
+                            newTime = Mathf.Round(newTime); // 1秒単位でスナップ
+                        }
+
+                        draggingEvent.time = Mathf.Max(0, newTime);
                         draggingEvent.spawnPointIndex = Mathf.Clamp(dragStartSpawnPointIndex + Mathf.RoundToInt(delta.y / 40f), 0, currentWaveData.spawnPoints.Count - 1);
 
                         EditorUtility.SetDirty(currentWaveData);
