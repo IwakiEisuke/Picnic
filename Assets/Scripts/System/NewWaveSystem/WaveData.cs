@@ -6,9 +6,10 @@ using UnityEngine;
 public class WaveData : ScriptableObject
 {
     public StageData parentStage;
-    public List<GameObject> enemyPrefabs => parentStage.enemyPrefabs;
-    public List<SpawnPoint> spawnPoints => parentStage.spawnPoints;
     public List<EnemySpawnEvent> spawnEvents;
+
+    public List<GameObject> EnemyPrefabs => parentStage.enemyPrefabs;
+    public List<SpawnPoint> SpawnPoints => parentStage.spawnPoints;
 }
 
 [Serializable]

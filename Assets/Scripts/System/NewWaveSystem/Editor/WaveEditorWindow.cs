@@ -60,23 +60,23 @@ public class WaveEditorWindow : EditorWindow
         float indexColumnWidth = 50f;
         float rowHeight = 40f;
         float timelineWidth = position.width - indexColumnWidth;
-        float timelineHeight = wave.spawnPoints.Count * rowHeight;
-        float totalHeight = wave.spawnPoints.Count * rowHeight;
+        float timelineHeight = wave.SpawnPoints.Count * rowHeight;
+        float totalHeight = wave.SpawnPoints.Count * rowHeight;
 
-        Rect totalRect = GUILayoutUtility.GetRect(position.width, wave.spawnPoints.Count * rowHeight);
+        Rect totalRect = GUILayoutUtility.GetRect(position.width, wave.SpawnPoints.Count * rowHeight);
         Rect indexRect = new Rect(totalRect.x, totalRect.y, indexColumnWidth, totalRect.height);
         Rect timelineRect = new Rect(indexRect.xMax, totalRect.y, timelineWidth, totalRect.height);
 
         EditorGUI.DrawRect(indexRect, new Color(0.12f, 0.12f, 0.12f));
 
-        for (int i = 0; i < wave.spawnPoints.Count; i++)
+        for (int i = 0; i < wave.SpawnPoints.Count; i++)
         {
             float y = indexRect.y + i * rowHeight;
             Rect cell = new Rect(indexRect.x, y, indexRect.width, rowHeight);
             GUI.Label(new Rect(cell.x + 4, cell.y + 10, cell.width - 8, 20), i.ToString(), EditorStyles.boldLabel);
         }
 
-        for (int i = 0; i < wave.spawnPoints.Count; i++)
+        for (int i = 0; i < wave.SpawnPoints.Count; i++)
         {
             float y = timelineRect.y + i * rowHeight;
             Rect row = new Rect(timelineRect.x, y, timelineRect.width, rowHeight);
@@ -93,7 +93,7 @@ public class WaveEditorWindow : EditorWindow
 
         foreach (var evt in wave.spawnEvents)
         {
-            if (evt.spawnPointIndex < 0 || evt.spawnPointIndex >= wave.spawnPoints.Count) continue;
+            if (evt.spawnPointIndex < 0 || evt.spawnPointIndex >= wave.SpawnPoints.Count) continue;
 
             float x = evt.time / secondsPerPixel - scrollOffsetX;
             float y = evt.spawnPointIndex * rowHeight + rowHeight / 2f; // 縦中央に配置
@@ -183,7 +183,7 @@ public class WaveEditorWindow : EditorWindow
                         }
 
                         draggingEvent.time = Mathf.Max(0, newTime);
-                        draggingEvent.spawnPointIndex = Mathf.Clamp(dragStartSpawnPointIndex + Mathf.RoundToInt(delta.y / 40f), 0, currentWaveData.spawnPoints.Count - 1);
+                        draggingEvent.spawnPointIndex = Mathf.Clamp(dragStartSpawnPointIndex + Mathf.RoundToInt(delta.y / 40f), 0, currentWaveData.SpawnPoints.Count - 1);
 
                         EditorUtility.SetDirty(currentWaveData);
                         Repaint();
@@ -225,18 +225,18 @@ public class WaveEditorWindow : EditorWindow
             EditorGUILayout.LabelField("Selected Spawn Event Details", EditorStyles.boldLabel);
 
             // スポーンポイントは選択肢が限られるならPopupなどで編集可能に
-            selectedEvent.spawnPointIndex = EditorGUILayout.IntSlider("Spawn Point Index", selectedEvent.spawnPointIndex, 0, currentWaveData.spawnPoints.Count - 1);
+            selectedEvent.spawnPointIndex = EditorGUILayout.IntSlider("Spawn Point Index", selectedEvent.spawnPointIndex, 0, currentWaveData.SpawnPoints.Count - 1);
 
             // 時間はfloatで入力
             selectedEvent.time = EditorGUILayout.FloatField("Time (s)", selectedEvent.time);
 
             // 敵はenemyPrefabsから選択できるようにPopup
-            if (currentWaveData.enemyPrefabs != null && currentWaveData.enemyPrefabs.Count > 0)
+            if (currentWaveData.EnemyPrefabs != null && currentWaveData.EnemyPrefabs.Count > 0)
             {
-                string[] enemyNames = new string[currentWaveData.enemyPrefabs.Count];
+                string[] enemyNames = new string[currentWaveData.EnemyPrefabs.Count];
                 for (int i = 0; i < enemyNames.Length; i++)
                 {
-                    enemyNames[i] = currentWaveData.enemyPrefabs[i]?.name ?? "Null";
+                    enemyNames[i] = currentWaveData.EnemyPrefabs[i]?.name ?? "Null";
                 }
 
                 int newEnemyIndex = EditorGUILayout.Popup("Enemy", selectedEvent.enemyIndex, enemyNames);
@@ -263,7 +263,7 @@ public class WaveEditorWindow : EditorWindow
     {
         var menu = new GenericMenu();
 
-        if (currentWaveData == null || spawnPointIndex >= currentWaveData.spawnPoints.Count)
+        if (currentWaveData == null || spawnPointIndex >= currentWaveData.SpawnPoints.Count)
             return;
 
         // 追加：右クリック位置付近のイベントを検索（時間とスポーンポイントが一致）
@@ -293,9 +293,9 @@ public class WaveEditorWindow : EditorWindow
         }
 
         // 既存の追加メニュー
-        for (int i = 0; i < currentWaveData.enemyPrefabs.Count; i++)
+        for (int i = 0; i < currentWaveData.EnemyPrefabs.Count; i++)
         {
-            string enemyName = currentWaveData.enemyPrefabs[i]?.name ?? "Null";
+            string enemyName = currentWaveData.EnemyPrefabs[i]?.name ?? "Null";
             int ei = i;
             menu.AddItem(new GUIContent($"Add {enemyName}"), false, () =>
             {
