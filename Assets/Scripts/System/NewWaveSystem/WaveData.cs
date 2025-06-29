@@ -5,8 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Wave System/WaveData")]
 public class WaveData : ScriptableObject
 {
-    public List<GameObject> enemyPrefabs;
-    public List<SpawnPoint> spawnPoints;
+    public StageData parentStage;
+    public List<GameObject> enemyPrefabs => parentStage.enemyPrefabs;
+    public List<SpawnPoint> spawnPoints => parentStage.spawnPoints;
     public List<EnemySpawnEvent> spawnEvents;
 }
 

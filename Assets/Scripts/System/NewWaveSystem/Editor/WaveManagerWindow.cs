@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -19,7 +20,8 @@ public class WaveManagerWindow : EditorWindow
 
         reorderableWaveList = new ReorderableList(selectedStageData.waves, typeof(WaveData), true, true, true, true);
 
-        reorderableWaveList.drawHeaderCallback = (Rect rect) => {
+        reorderableWaveList.drawHeaderCallback = (Rect rect) =>
+        {
             EditorGUI.LabelField(rect, "Waves");
         };
 
@@ -40,14 +42,7 @@ public class WaveManagerWindow : EditorWindow
 
             if (GUI.Button(new Rect(rect.x + rect.width - 30, rect.y + 2, 25, EditorGUIUtility.singleLineHeight), "X"))
             {
-                if (EditorUtility.DisplayDialog("Delete Wave", "このウェーブを削除しますか？", "はい", "いいえ"))
-                {
-                    var assetPath = AssetDatabase.GetAssetPath(wave);
-                    selectedStageData.waves.RemoveAt(index);
-                    AssetDatabase.DeleteAsset(assetPath);
-                    EditorUtility.SetDirty(selectedStageData);
-                    AssetDatabase.SaveAssets();
-                }
+                RemoveWave(selectedStageData, wave);
             }
         };
 
@@ -59,20 +54,50 @@ public class WaveManagerWindow : EditorWindow
         reorderableWaveList.onAddCallback = (ReorderableList list) =>
         {
             // ScriptableObjectとして新規WaveData作成
-            WaveData newWave = ScriptableObject.CreateInstance<WaveData>();
-
-            // アセットとして保存
-            string stageAssetPath = AssetDatabase.GetAssetPath(selectedStageData);
-            string stageFolder = System.IO.Path.GetDirectoryName(stageAssetPath);
-            string waveAssetPath = AssetDatabase.GenerateUniqueAssetPath($"{stageFolder}/Wave_{selectedStageData.waves.Count}.asset");
-
-            AssetDatabase.CreateAsset(newWave, waveAssetPath);
-            AssetDatabase.SaveAssets();
-
+            WaveData newWave = CreateNewWave(selectedStageData);
             selectedStageData.waves.Add(newWave);
             EditorUtility.SetDirty(selectedStageData);
         };
 
+        reorderableWaveList.onRemoveCallback = (ReorderableList list) =>
+        {
+            if (list.index >= 0 && list.index < selectedStageData.waves.Count)
+            {
+                WaveData waveToRemove = selectedStageData.waves[list.index];
+                RemoveWave(selectedStageData, waveToRemove);
+            }
+        };
+    }
+
+    WaveData CreateNewWave(StageData stage)
+    {
+        var wave = ScriptableObject.CreateInstance<WaveData>();
+        wave.name = $"Wave_{selectedStageData.waves.Count}";
+        wave.parentStage = stage;
+        wave.spawnEvents = new List<EnemySpawnEvent>();
+        AssetDatabase.AddObjectToAsset(wave, stage); // ステージに内包させる場合
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        return wave;
+    }
+
+    void RemoveWave(StageData stageData, WaveData wave)
+    {
+        if (EditorUtility.DisplayDialog("Delete Wave", "このウェーブを削除しますか？", "はい", "いいえ"))
+        {
+            if (stageData.waves.Contains(wave))
+            {
+                stageData.waves.Remove(wave);
+
+                // 必ず参照を切ってから削除する
+                EditorUtility.SetDirty(stageData);  // 変更マーク
+                AssetDatabase.RemoveObjectFromAsset(wave); // これが安全に外す手段
+                Object.DestroyImmediate(wave, true);
+
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+        }
     }
 
 
