@@ -33,10 +33,9 @@ public class WaveManagerWindow : EditorWindow
 
             if (GUI.Button(new Rect(rect.x + rect.width - 55, rect.y + 2, 25, EditorGUIUtility.singleLineHeight), "Edit"))
             {
-                WaveEditorWindow.ShowWindow();
+                WaveEditorWindow.OpenWithWaveData(wave);
                 var window = EditorWindow.GetWindow<WaveEditorWindow>();
                 window.Focus();
-                // wave を渡す処理はここに追加
             }
 
             if (GUI.Button(new Rect(rect.x + rect.width - 30, rect.y + 2, 25, EditorGUIUtility.singleLineHeight), "X"))

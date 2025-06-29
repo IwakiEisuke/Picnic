@@ -28,6 +28,13 @@ public class WaveEditorWindow : EditorWindow
         GetWindow<WaveEditorWindow>("Wave Editor");
     }
 
+    public static void OpenWithWaveData(WaveData waveData)
+    {
+        var window = GetWindow<WaveEditorWindow>("Wave Editor");
+        window.currentWaveData = waveData;
+        window.Repaint();
+    }
+
     private WaveData currentWaveData;
 
     private void OnGUI()
