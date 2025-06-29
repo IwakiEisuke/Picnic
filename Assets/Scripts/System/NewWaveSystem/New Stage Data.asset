@@ -57,12 +57,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentStage: {fileID: 11400000}
   spawnEvents:
-  - time: 15
+  - time: 10
+    enemyIndex: 0
+    spawnPointIndex: 1
+    spawnCountPerBatch: 10
+    repeatCount: 7
+    repeatInterval: 1
+  - time: 4
     enemyIndex: 0
     spawnPointIndex: 0
-  - time: 5
+    spawnCountPerBatch: 100
+    repeatCount: 1
+    repeatInterval: 0
+  - time: 10
     enemyIndex: 0
     spawnPointIndex: 0
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
 --- !u!114 &8090537750868205266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,4 +88,10 @@ MonoBehaviour:
   m_Name: Wave_2
   m_EditorClassIdentifier: 
   parentStage: {fileID: 11400000}
-  spawnEvents: []
+  spawnEvents:
+  - time: 10.019317
+    enemyIndex: 0
+    spawnPointIndex: 1
+    spawnCountPerBatch: 0
+    repeatCount: 0
+    repeatInterval: 0

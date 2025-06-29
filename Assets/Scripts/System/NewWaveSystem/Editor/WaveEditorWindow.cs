@@ -19,6 +19,7 @@ public class WaveEditorWindow : EditorWindow
     private EnemySpawnEvent candidateSelectEvent = null;
     private Vector2 mouseDownPos;
     private bool isDragging = false;
+    private bool hasRecordedDragUndo = false;
 
 
 
@@ -217,6 +218,12 @@ public class WaveEditorWindow : EditorWindow
 
                     if (isDragging && draggingEvent != null)
                     {
+                        if (!hasRecordedDragUndo)
+                        {
+                            Undo.RecordObject(currentWaveData, "Move Spawn Event");
+                            hasRecordedDragUndo = true;
+                        }
+
                         Vector2 delta = e.mousePosition - dragStartMousePos;
 
                         float newTime = dragStartTime + delta.x * secondsPerPixel;
@@ -267,6 +274,11 @@ public class WaveEditorWindow : EditorWindow
 
         if (selectedEvent != null)
         {
+            // 編集を監視
+            EditorGUI.BeginChangeCheck();
+
+            Undo.RecordObject(currentWaveData, "Edit Spawn Event");
+
             EditorGUILayout.LabelField("Selected Spawn Event Details", EditorStyles.boldLabel);
 
             // スポーンポイントは選択肢が限られるならPopupなどで編集可能に
@@ -308,7 +320,7 @@ public class WaveEditorWindow : EditorWindow
             selectedEvent.repeatInterval = Mathf.Max(0f, selectedEvent.repeatInterval);
 
             // 編集したらデータをDirtyにする（保存フラグ）
-            if (GUI.changed)
+            if (EditorGUI.EndChangeCheck())
             {
                 EditorUtility.SetDirty(currentWaveData);
             }
@@ -343,6 +355,8 @@ public class WaveEditorWindow : EditorWindow
         {
             menu.AddItem(new GUIContent("Delete Spawn Event"), false, () =>
             {
+                Undo.RecordObject(currentWaveData, "Delete Spawn Event");
+
                 currentWaveData.spawnEvents.Remove(eventToDelete);
                 EditorUtility.SetDirty(currentWaveData);
             });
@@ -359,6 +373,8 @@ public class WaveEditorWindow : EditorWindow
             int ei = i;
             menu.AddItem(new GUIContent($"Add {enemyName}"), false, () =>
             {
+                Undo.RecordObject(currentWaveData, "Add Spawn Event");
+
                 var evt = new EnemySpawnEvent
                 {
                     time = time,
