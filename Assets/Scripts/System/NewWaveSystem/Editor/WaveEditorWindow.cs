@@ -105,6 +105,8 @@ public class WaveEditorWindow : EditorWindow
         {
             if (evt.spawnPointIndex < 0 || evt.spawnPointIndex >= wave.SpawnPoints.Count) continue;
 
+            Color eventColor = evt == selectedEvent ? Color.yellow : Color.red;
+
             // 繰り返し回数分ループ
             for (int r = 0; r < evt.repeatCount; r++)
             {
@@ -125,8 +127,15 @@ public class WaveEditorWindow : EditorWindow
 
                 if (x + size / 2f >= 0 && x - size / 2f <= localRect.width)
                 {
-                    Handles.color = Color.red;
+                    Handles.color = eventColor;
                     Handles.DrawAAConvexPolygon(diamondPoints);
+                    
+                    if (evt == selectedEvent)
+                    {
+                        // 輪郭を追加（線の太さを出すため四辺を線で囲う）
+                        Handles.color = Color.white;
+                        Handles.DrawAAPolyLine(3f, p1, p2, p3, p4, p1);
+                    }
 
                     // スポーン数の数字を表示
                     GUIStyle style = new GUIStyle(EditorStyles.miniLabel)
@@ -153,7 +162,11 @@ public class WaveEditorWindow : EditorWindow
                 float endX = endTime / secondsPerPixel - scrollOffsetX;
                 float centerY = evt.spawnPointIndex * rowHeight + rowHeight / 2f;
 
-                Handles.color = new Color(1, 0, 0, 0.5f);
+                Color lineColor = eventColor;
+                lineColor.a = 0.5f; // 半透明にする
+
+                Handles.color = lineColor;
+
                 Handles.DrawLine(new Vector3(startX, centerY, 0), new Vector3(endX, centerY, 0));
                 Handles.DrawLine(new Vector3(startX, centerY - 1, 0), new Vector3(endX, centerY - 1, 0));
                 Handles.DrawLine(new Vector3(startX, centerY + 1, 0), new Vector3(endX, centerY + 1, 0));
