@@ -36,7 +36,6 @@ public class EnemySpawnEvent
 [Serializable]
 public class SpawnPoint
 {
-    public string name;
     public Vector3 position;
     public Quaternion rotation;
     public SpawnPoint(Vector3 position, Quaternion rotation)
