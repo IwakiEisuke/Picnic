@@ -28,14 +28,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints:
   - name: 
-    position: {x: 0, y: 0, z: 0}
+    position: {x: 37.10342, y: 0, z: -3.9527607}
     rotation: {x: 0, y: 0, z: 0, w: 0}
   - name: 
-    position: {x: 0, y: 0, z: 0}
+    position: {x: -9.97935, y: 0, z: 38.77116}
     rotation: {x: 0, y: 0, z: 0, w: 0}
   - name: 
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
+    position: {x: -38.789272, y: 0, z: -30.20596}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
   enemyPrefabs:
   - {fileID: 8784338313791942373, guid: 3cb188f3798b1084da555d4ce8217112, type: 3}
   - {fileID: 8784338313791942373, guid: 57ab3c4f6eb9a2b4f9d1378bd1e07867, type: 3}
