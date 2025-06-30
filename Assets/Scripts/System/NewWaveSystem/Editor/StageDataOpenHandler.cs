@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEditor.Callbacks;
 
 public class StageDataOpenHandler
@@ -10,7 +10,7 @@ public class StageDataOpenHandler
         if (obj is StageData stageData)
         {
             WaveManagerWindow.OpenWithStage(stageData);
-            return true; // true ‚ğ•Ô‚·‚Æ Unity ‚ÌƒfƒtƒHƒ‹ƒg‹““®‚ğƒLƒƒƒ“ƒZƒ‹
+            return true; // true ã‚’è¿”ã™ã¨ Unity ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆæŒ™å‹•ã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«
         }
 
         return false;

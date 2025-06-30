@@ -63,18 +63,42 @@ MonoBehaviour:
     spawnCountPerBatch: 10
     repeatCount: 7
     repeatInterval: 1
+    id: 35cb1542-cec1-436e-b7f2-7a3aa6162a42
   - time: 4
     enemyIndex: 0
     spawnPointIndex: 0
     spawnCountPerBatch: 100
     repeatCount: 1
     repeatInterval: 0
+    id: 6688d1b9-198e-499e-88de-51326bef3e43
   - time: 8
     enemyIndex: 0
     spawnPointIndex: 0
     spawnCountPerBatch: 1
     repeatCount: 1
     repeatInterval: 0
+    id: a258616a-cbad-48dc-be3f-d4790c20b0dc
+  - time: 21.080002
+    enemyIndex: 0
+    spawnPointIndex: 0
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: c4338185-df16-484a-aa37-a6a38a07b1a9
+  - time: 30
+    enemyIndex: 0
+    spawnPointIndex: 0
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: 9fd0c7bb-83b2-4b85-9193-c89cc54e7fab
+  - time: 25
+    enemyIndex: 0
+    spawnPointIndex: 1
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: 7dd3d77c-e07a-4c53-90be-189f9fafac08
 --- !u!114 &8090537750868205266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,3 +119,4 @@ MonoBehaviour:
     spawnCountPerBatch: 0
     repeatCount: 0
     repeatInterval: 0
+    id: c3bc8a4a-cdc3-4c30-a634-5196ec2d4c67

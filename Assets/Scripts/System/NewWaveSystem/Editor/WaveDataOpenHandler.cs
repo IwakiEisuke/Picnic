@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEditor.Callbacks;
 
 public static class WaveDataOpenHandler
@@ -10,9 +10,9 @@ public static class WaveDataOpenHandler
         if (obj is WaveData wave)
         {
             WaveEditorWindow.OpenWithWaveData(wave);
-            return true; // ƒnƒ“ƒhƒ‹Ï‚İ
+            return true; // ãƒãƒ³ãƒ‰ãƒ«æ¸ˆã¿
         }
 
-        return false; // ‘¼‚ÌƒAƒZƒbƒg‚Í–³‹
+        return false; // ä»–ã®ã‚¢ã‚»ãƒƒãƒˆã¯ç„¡è¦–
     }
 }
