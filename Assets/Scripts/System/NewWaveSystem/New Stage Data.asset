@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Wave_1
   m_EditorClassIdentifier: 
   parentStage: {fileID: 11400000}
-  spawnEvents: []
+  spawnEvents:
+  - time: 9.640001
+    enemyIndex: 0
+    spawnPointIndex: 1
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: f70288b6-93c6-40f7-ae14-d21fd1221137
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,18 +34,16 @@ MonoBehaviour:
   m_Name: New Stage Data
   m_EditorClassIdentifier: 
   spawnPoints:
-  - name: 
-    position: {x: 37.10342, y: 0, z: -3.9527607}
+  - position: {x: 4.3759727, y: 0, z: -10.7024555}
     rotation: {x: 0, y: 0, z: 0, w: 0}
-  - name: 
-    position: {x: -9.97935, y: 0, z: 38.77116}
+  - position: {x: -9.97935, y: 0, z: 38.77116}
     rotation: {x: 0, y: 0, z: 0, w: 0}
-  - name: 
-    position: {x: -38.789272, y: 0, z: -30.20596}
+  - position: {x: -38.789272, y: 0, z: -30.20596}
     rotation: {x: 0, y: 0, z: 0, w: 1}
-  enemyPrefabs:
-  - {fileID: 8784338313791942373, guid: 3cb188f3798b1084da555d4ce8217112, type: 3}
-  - {fileID: 8784338313791942373, guid: 57ab3c4f6eb9a2b4f9d1378bd1e07867, type: 3}
+  entitiesData:
+  - {fileID: 11400000, guid: f79beb975ecbb28409bb707da529f8c3, type: 2}
+  - {fileID: 11400000, guid: 68bbc98e134322c4da44231c37203acf, type: 2}
+  - {fileID: 11400000, guid: aae2cced619273c47872eb833b5b5598, type: 2}
   waves:
   - {fileID: 3330345402108624172}
   - {fileID: -31294355290247084}
@@ -72,7 +77,7 @@ MonoBehaviour:
     repeatInterval: 0
     id: 6688d1b9-198e-499e-88de-51326bef3e43
   - time: 8
-    enemyIndex: 0
+    enemyIndex: 1
     spawnPointIndex: 0
     spawnCountPerBatch: 1
     repeatCount: 1
@@ -93,7 +98,7 @@ MonoBehaviour:
     repeatInterval: 0
     id: 9fd0c7bb-83b2-4b85-9193-c89cc54e7fab
   - time: 25
-    enemyIndex: 0
+    enemyIndex: 1
     spawnPointIndex: 1
     spawnCountPerBatch: 1
     repeatCount: 1

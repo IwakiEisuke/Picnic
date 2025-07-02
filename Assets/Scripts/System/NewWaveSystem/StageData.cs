@@ -5,6 +5,6 @@ using UnityEngine;
 public class StageData : ScriptableObject
 {
     public List<SpawnPoint> spawnPoints;
-    public List<GameObject> enemyPrefabs;
+    public List<SpawnEntityData> entitiesData;
     public List<WaveData> waves = new();
 }

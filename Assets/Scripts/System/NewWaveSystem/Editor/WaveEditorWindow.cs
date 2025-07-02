@@ -306,12 +306,12 @@ public class WaveEditorWindow : EditorWindow
             EditorGUILayout.LabelField("Spawn Settings", EditorStyles.boldLabel);
 
             // 敵はenemyPrefabsから選択できるようにPopup
-            if (currentWaveData.EnemyPrefabs != null && currentWaveData.EnemyPrefabs.Count > 0)
+            if (currentWaveData.EntitiesData != null && currentWaveData.EntitiesData.Count > 0)
             {
-                string[] enemyNames = new string[currentWaveData.EnemyPrefabs.Count];
+                string[] enemyNames = new string[currentWaveData.EntitiesData.Count];
                 for (int i = 0; i < enemyNames.Length; i++)
                 {
-                    enemyNames[i] = currentWaveData.EnemyPrefabs[i]?.name ?? "Null";
+                    enemyNames[i] = currentWaveData.EntitiesData[i]?.name ?? "Null";
                 }
 
                 int newEnemyIndex = EditorGUILayout.Popup("Enemy", selectedEvent.enemyIndex, enemyNames);
@@ -387,9 +387,9 @@ public class WaveEditorWindow : EditorWindow
         }
 
         // 既存の追加メニュー
-        for (int i = 0; i < currentWaveData.EnemyPrefabs.Count; i++)
+        for (int i = 0; i < currentWaveData.EntitiesData.Count; i++)
         {
-            string enemyName = currentWaveData.EnemyPrefabs[i]?.name ?? "Null";
+            string enemyName = currentWaveData.EntitiesData[i]?.name ?? "Null";
             int ei = i;
             menu.AddItem(new GUIContent($"Add {enemyName}"), false, () =>
             {

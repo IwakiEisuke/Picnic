@@ -8,7 +8,7 @@ public class WaveData : ScriptableObject
     public StageData parentStage;
     public List<EnemySpawnEvent> spawnEvents;
 
-    public List<GameObject> EnemyPrefabs => parentStage.enemyPrefabs;
+    public List<SpawnEntityData> EntitiesData => parentStage.entitiesData;
     public List<SpawnPoint> SpawnPoints => parentStage.spawnPoints;
 }
 
