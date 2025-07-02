@@ -114,28 +114,23 @@ public class WaveEditorWindow : EditorWindow
                 float x = eventTime / secondsPerPixel - scrollOffsetX;
                 float y = evt.spawnPointIndex * rowHeight + rowHeight / 2f; // 縦中央に配置
 
-                // ダイヤの対角線の長さ
+                // アイコンサイズを対数スケールで決定
                 float size = (r == 0) ? GetSizeFromSpawnCount(evt.spawnCountPerBatch) : 8f;
-
-
-                Vector3 p1 = new Vector3(x, y - size / 2f);   // 上点
-                Vector3 p2 = new Vector3(x + size / 2f, y);   // 右点
-                Vector3 p3 = new Vector3(x, y + size / 2f);   // 下点
-                Vector3 p4 = new Vector3(x - size / 2f, y);   // 左点
-
-                Vector3[] diamondPoints = new Vector3[] { p1, p2, p3, p4 };
 
                 if (x + size / 2f >= 0 && x - size / 2f <= localRect.width)
                 {
-                    Handles.color = eventColor;
-                    Handles.DrawAAConvexPolygon(diamondPoints);
+                    GUI.color = eventColor;
+                    GUI.DrawTexture(new Rect(x - size / 2f, y - size / 2f, size, size), wave.EntitiesData[evt.enemyIndex].icon);
 
                     if (evt == selectedEvent)
                     {
                         // 輪郭を追加（線の太さを出すため四辺を線で囲う）
-                        Handles.color = Color.white;
-                        Handles.DrawAAPolyLine(3f, p1, p2, p3, p4, p1);
+                        GUI.color = Color.white;
+                        size += 2f; // 輪郭分大きくする
+                        GUI.DrawTexture(new Rect(x - size / 2f, y - size / 2f, size, size), wave.EntitiesData[evt.enemyIndex].icon);
                     }
+
+                    GUI.color = Color.white; // 色をリセット
 
                     // スポーン数の数字を表示
                     GUIStyle style = new GUIStyle(EditorStyles.miniLabel)
