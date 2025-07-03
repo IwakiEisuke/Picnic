@@ -34,12 +34,9 @@ MonoBehaviour:
   m_Name: New Stage Data
   m_EditorClassIdentifier: 
   spawnPoints:
-  - position: {x: 4.3759727, y: 0, z: -10.7024555}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-  - position: {x: -9.97935, y: 0, z: 38.77116}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-  - position: {x: -38.789272, y: 0, z: -30.20596}
-    rotation: {x: 0, y: 0, z: 0, w: 1}
+  - rid: 4512083540528857152
+  - rid: 4512083540528857154
+  - rid: 4512083540528857155
   entitiesData:
   - {fileID: 11400000, guid: f79beb975ecbb28409bb707da529f8c3, type: 2}
   - {fileID: 11400000, guid: 68bbc98e134322c4da44231c37203acf, type: 2}
@@ -48,6 +45,26 @@ MonoBehaviour:
   - {fileID: 3330345402108624172}
   - {fileID: -31294355290247084}
   - {fileID: 8090537750868205266}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4512083540528857152
+      type: {class: CircleSpawnPoint, ns: , asm: Assembly-CSharp}
+      data:
+        position: {x: -11.269288, y: 0, z: 27.33398}
+        rotation: {x: 0, y: 0, z: 0, w: 0}
+        radius: 1
+    - rid: 4512083540528857154
+      type: {class: CircleSpawnPoint, ns: , asm: Assembly-CSharp}
+      data:
+        position: {x: -28.932516, y: 0, z: -14.366596}
+        rotation: {x: 0, y: 0, z: 0, w: 0}
+        radius: 1
+    - rid: 4512083540528857155
+      type: {class: SpawnPointBase, ns: , asm: Assembly-CSharp}
+      data:
+        position: {x: 24.206057, y: 0, z: -32.77055}
+        rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3330345402108624172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +116,7 @@ MonoBehaviour:
     id: 9fd0c7bb-83b2-4b85-9193-c89cc54e7fab
   - time: 25
     enemyIndex: 1
-    spawnPointIndex: 1
+    spawnPointIndex: 2
     spawnCountPerBatch: 1
     repeatCount: 1
     repeatInterval: 0

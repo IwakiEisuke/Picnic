@@ -9,7 +9,7 @@ public class WaveData : ScriptableObject
     public List<EnemySpawnEvent> spawnEvents;
 
     public List<SpawnEntityData> EntitiesData => parentStage.entitiesData;
-    public List<SpawnPoint> SpawnPoints => parentStage.spawnPoints;
+    public List<SpawnPointBase> SpawnPoints => parentStage.spawnPoints;
 }
 
 [Serializable]
@@ -34,13 +34,39 @@ public class EnemySpawnEvent
 }
 
 [Serializable]
-public class SpawnPoint
+public class SpawnPointBase
 {
     public Vector3 position;
     public Quaternion rotation;
-    public SpawnPoint(Vector3 position, Quaternion rotation)
+
+    public void Spawn(EnemySpawnEvent spawnEvent, StageData stageData)
     {
-        this.position = position;
-        this.rotation = rotation;
+        var spawnEntity = stageData.entitiesData[spawnEvent.enemyIndex];
+
+        for (int i = 0; i < spawnEvent.spawnCountPerBatch; i++)
+        {
+            // Spawn logic here, e.g. instantiate the enemy prefab at the position and rotation
+            // Example: Instantiate(spawnEntity.prefab, position, rotation);
+            GetSpawnPosition(out var spawnPos, out var spawnRot);
+            Debug.Log($"Spawning {spawnEntity.name} at {spawnPos} with rotation {spawnRot}");
+        }
+    }
+
+    protected virtual void GetSpawnPosition(out Vector3 spawnPosition, out Quaternion spawnRotation)
+    {
+        spawnPosition = position;
+        spawnRotation = rotation;
+    }
+}
+
+public class CircleSpawnPoint : SpawnPointBase
+{
+    public float radius = 1f;
+
+    protected override void GetSpawnPosition(out Vector3 spawnPosition, out Quaternion spawnRotation)
+    {
+        var randomPos = UnityEngine.Random.insideUnitCircle * radius;
+        spawnPosition = position + new Vector3(randomPos.x, 0, randomPos.y);
+        spawnRotation = rotation;
     }
 }
