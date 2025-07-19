@@ -1,6 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// 旧ウェーブシステム
+/// </summary>
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] WaveSO[] waves;
