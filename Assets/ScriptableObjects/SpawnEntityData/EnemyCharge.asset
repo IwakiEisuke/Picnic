@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f36b92b67c647244a47dd64063ea566, type: 3}
+  m_Name: EnemyCharge
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: b93acc4ada3397d4fb8516b10e345f39, type: 3}
+  entityPrefab: {fileID: 8784338313791942373, guid: 57ab3c4f6eb9a2b4f9d1378bd1e07867, type: 3}

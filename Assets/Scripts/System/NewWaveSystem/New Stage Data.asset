@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-31294355290247084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be9bccde791dbb428e7a44aa00a0978, type: 3}
+  m_Name: Wave_1
+  m_EditorClassIdentifier: 
+  parentStage: {fileID: 11400000}
+  spawnEvents:
+  - time: 9.640001
+    enemyIndex: 0
+    spawnPointIndex: 1
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: f70288b6-93c6-40f7-ae14-d21fd1221137
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71a20663e448b24aafc46af8287be62, type: 3}
+  m_Name: New Stage Data
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - rid: 4512083540528857152
+  - rid: 4512083540528857154
+  - rid: 4512083540528857155
+  entitiesData:
+  - {fileID: 11400000, guid: f79beb975ecbb28409bb707da529f8c3, type: 2}
+  - {fileID: 11400000, guid: 68bbc98e134322c4da44231c37203acf, type: 2}
+  - {fileID: 11400000, guid: aae2cced619273c47872eb833b5b5598, type: 2}
+  waves:
+  - {fileID: 3330345402108624172}
+  - {fileID: -31294355290247084}
+  - {fileID: 8090537750868205266}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4512083540528857152
+      type: {class: CircleSpawnPoint, ns: , asm: Assembly-CSharp}
+      data:
+        position: {x: -11.269288, y: 0, z: 27.33398}
+        rotation: {x: 0, y: 0, z: 0, w: 0}
+        radius: 1
+    - rid: 4512083540528857154
+      type: {class: CircleSpawnPoint, ns: , asm: Assembly-CSharp}
+      data:
+        position: {x: -28.932516, y: 0, z: -14.366596}
+        rotation: {x: 0, y: 0, z: 0, w: 0}
+        radius: 1
+    - rid: 4512083540528857155
+      type: {class: SpawnPointBase, ns: , asm: Assembly-CSharp}
+      data:
+        position: {x: 24.206057, y: 0, z: -32.77055}
+        rotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3330345402108624172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be9bccde791dbb428e7a44aa00a0978, type: 3}
+  m_Name: Wave_0
+  m_EditorClassIdentifier: 
+  parentStage: {fileID: 11400000}
+  spawnEvents:
+  - time: 5
+    enemyIndex: 0
+    spawnPointIndex: 2
+    spawnCountPerBatch: 1
+    repeatCount: 7
+    repeatInterval: 1
+    id: 35cb1542-cec1-436e-b7f2-7a3aa6162a42
+  - time: 1
+    enemyIndex: 0
+    spawnPointIndex: 0
+    spawnCountPerBatch: 10
+    repeatCount: 1
+    repeatInterval: 0
+    id: 6688d1b9-198e-499e-88de-51326bef3e43
+  - time: 3
+    enemyIndex: 1
+    spawnPointIndex: 1
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: a258616a-cbad-48dc-be3f-d4790c20b0dc
+  - time: 21.080002
+    enemyIndex: 0
+    spawnPointIndex: 0
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: c4338185-df16-484a-aa37-a6a38a07b1a9
+  - time: 30
+    enemyIndex: 0
+    spawnPointIndex: 0
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: 9fd0c7bb-83b2-4b85-9193-c89cc54e7fab
+  - time: 25
+    enemyIndex: 1
+    spawnPointIndex: 2
+    spawnCountPerBatch: 1
+    repeatCount: 1
+    repeatInterval: 0
+    id: 7dd3d77c-e07a-4c53-90be-189f9fafac08
+--- !u!114 &8090537750868205266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be9bccde791dbb428e7a44aa00a0978, type: 3}
+  m_Name: Wave_2
+  m_EditorClassIdentifier: 
+  parentStage: {fileID: 11400000}
+  spawnEvents:
+  - time: 10.019317
+    enemyIndex: 0
+    spawnPointIndex: 1
+    spawnCountPerBatch: 0
+    repeatCount: 0
+    repeatInterval: 0
+    id: c3bc8a4a-cdc3-4c30-a634-5196ec2d4c67
