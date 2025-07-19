@@ -79,23 +79,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentStage: {fileID: 11400000}
   spawnEvents:
-  - time: 10
+  - time: 5
     enemyIndex: 0
-    spawnPointIndex: 1
-    spawnCountPerBatch: 10
+    spawnPointIndex: 2
+    spawnCountPerBatch: 1
     repeatCount: 7
     repeatInterval: 1
     id: 35cb1542-cec1-436e-b7f2-7a3aa6162a42
-  - time: 4
+  - time: 1
     enemyIndex: 0
     spawnPointIndex: 0
-    spawnCountPerBatch: 100
+    spawnCountPerBatch: 10
     repeatCount: 1
     repeatInterval: 0
     id: 6688d1b9-198e-499e-88de-51326bef3e43
-  - time: 8
+  - time: 3
     enemyIndex: 1
-    spawnPointIndex: 0
+    spawnPointIndex: 1
     spawnCountPerBatch: 1
     repeatCount: 1
     repeatInterval: 0

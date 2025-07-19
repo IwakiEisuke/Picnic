@@ -39,16 +39,15 @@ public class SpawnPointBase
     public Vector3 position;
     public Quaternion rotation;
 
-    public void Spawn(EnemySpawnEvent spawnEvent, StageData stageData)
+    public void Spawn(RuntimeSpawnEvent spawnEvent)
     {
-        var spawnEntity = stageData.entitiesData[spawnEvent.enemyIndex];
+        var spawnEntity = spawnEvent.entityData;
 
-        for (int i = 0; i < spawnEvent.spawnCountPerBatch; i++)
+        for (int i = 0; i < spawnEvent.spawnCount; i++)
         {
-            // Spawn logic here, e.g. instantiate the enemy prefab at the position and rotation
-            // Example: Instantiate(spawnEntity.prefab, position, rotation);
             GetSpawnPosition(out var spawnPos, out var spawnRot);
-            Debug.Log($"Spawning {spawnEntity.name} at {spawnPos} with rotation {spawnRot}");
+            GameObject.Instantiate(spawnEntity.entityPrefab, spawnPos, spawnRot);
+            //Debug.Log($"Spawning {spawnEntity.name} at {spawnPos} with rotation {spawnRot}");
         }
     }
 
