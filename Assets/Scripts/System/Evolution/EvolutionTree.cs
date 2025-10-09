@@ -1,12 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
 
 [CreateAssetMenu(fileName = "EvolutionTree", menuName = "EvolutionTree", order = 1)]
 public class EvolutionTree : ScriptableObject
 {
     [SerializeField] EvolutionTreeNode[] treeNodes;
 
-    public EvolutionTreeNode[] TreeNodes => treeNodes;
+    public ReadOnlyArray<EvolutionTreeNode> TreeNodes => treeNodes;
 }
 
 [Serializable]
@@ -22,7 +23,7 @@ public class EvolutionTreeNode
 
     public string SpecieName => specieName;
     public string Description => description;
-    public EvolutionTreeEdge[] Edges => edges;
+    public ReadOnlyArray<EvolutionTreeEdge> Edges => edges;
     public UnitBase SpeciePrefab => speciePrefab;
     public Vector2 Position => pos;
     public Sprite Icon => icon;

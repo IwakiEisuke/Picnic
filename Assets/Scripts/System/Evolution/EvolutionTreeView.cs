@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -35,7 +36,7 @@ public class EvolutionTreeView : MonoBehaviour
         var parentObj = new GameObject("Tree");
         parentObj.transform.SetParent(treeViewParent, false);
 
-        for (int i = 0; i < tree.TreeNodes.Length; i++)
+        for (int i = 0; i < tree.TreeNodes.Count; i++)
         {
             var view = Instantiate(viewPrefab, parentObj.transform);
             view.Set(tree, i);

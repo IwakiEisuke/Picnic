@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
 
 public class RuntimeEvolutionTree
 {
@@ -6,7 +7,7 @@ public class RuntimeEvolutionTree
     EvolutionTreeNode currentNode;
     UnitBase owner;
 
-    public EvolutionTreeNode[] TreeNodes => _tree.TreeNodes;
+    public ReadOnlyArray<EvolutionTreeNode> TreeNodes => _tree.TreeNodes;
 
     public void SetTree(EvolutionTree tree)
     {
