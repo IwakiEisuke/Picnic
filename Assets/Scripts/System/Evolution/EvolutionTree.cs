@@ -68,7 +68,6 @@ public class EvolutionTree : ScriptableObject
 
         if (!currentNode.CanEvolve(to)) // 進化に必要な条件を満たしていない場合は終了
         {
-            Debug.LogWarning("EvolutionTree: 進化に失敗しました"); // 画面上で通知するように変更予定
             return false;
         }
 
@@ -133,10 +132,12 @@ public class EvolutionTreeNode
                     return true;
                 }
 
+                Debug.LogWarning("EvolutionTree: 進化に失敗しました（進化コスト分の資源を持っていません）");
                 return false; // コストが足りない場合は進化できない
             }
         }
 
+        Debug.LogWarning("EvolutionTree: 進化に失敗しました（現在ノードから選択されたノードへ到達できません）");
         return false;
     }
 }
