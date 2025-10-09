@@ -29,6 +29,8 @@ public class MouseInputManager : InputManagerBase
     [SerializeField] InputActionReference mousePoint;
     [SerializeField] InputActionReference openMenu;
 
+    [SerializeField] bool enableDebugInput;
+
     Vector3 _dragStartMousePos;
     Vector3 _dragEndMousePos;
 
@@ -63,13 +65,18 @@ public class MouseInputManager : InputManagerBase
             OpenMenu?.Invoke();
         };
 
-        //mousePress.action.started += (context) => Debug.Log("Click started");
-        //mousePress.action.performed += (context) => Debug.Log("Click performed");
-        //mousePress.action.canceled += (context) => Debug.Log("Click canceled");
+#if UNITY_EDITOR
+        if (enableDebugInput)
+        {
+            mousePress.action.started += (context) => Debug.Log("Click started");
+            mousePress.action.performed += (context) => Debug.Log("Click performed");
+            mousePress.action.canceled += (context) => Debug.Log("Click canceled");
 
-        //mousePressCtrl.action.started += (context) => Debug.Log("Click + Ctrl started");
-        //mousePressCtrl.action.performed += (context) => Debug.Log("Click + Ctrl performed");
-        //mousePressCtrl.action.canceled += (context) => Debug.Log("Click + Ctrl canceled");
+            mousePressCtrl.action.started += (context) => Debug.Log("Click + Ctrl started");
+            mousePressCtrl.action.performed += (context) => Debug.Log("Click + Ctrl performed");
+            mousePressCtrl.action.canceled += (context) => Debug.Log("Click + Ctrl canceled");
+        }
+#endif
     }
 
     public override void Update()
