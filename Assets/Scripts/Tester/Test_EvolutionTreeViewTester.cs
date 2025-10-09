@@ -13,8 +13,8 @@ public class Test_EvolutionTreeViewTester : MonoBehaviour
     [ContextMenu("SetTree")]
     public void SetTree()
     {
-        var testTree = ScriptableObject.CreateInstance<EvolutionTree>();
-        testTree.Copy(tree);
+        var testTree = new RuntimeEvolutionTree();
+        testTree.SetTree(tree);
         view.ShowTree(testTree);
     }
 }

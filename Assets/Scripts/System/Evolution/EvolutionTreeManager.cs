@@ -8,16 +8,17 @@ public class EvolutionTreeManager : MonoBehaviour
     [SerializeField] UnitBase initOwner;
     [SerializeField] EvolutionTree evolutionTreeAsset;
 
-    EvolutionTree evolutionTree;
+    RuntimeEvolutionTree evolutionTree;
 
-    public EvolutionTree EvolutionTree => evolutionTree;
+    public RuntimeEvolutionTree EvolutionTree => evolutionTree;
 
     private void Start()
     {
         if (evolutionTree == null && evolutionTreeAsset != null)
         {
-            evolutionTree = ScriptableObject.CreateInstance<EvolutionTree>();
-            evolutionTree.Copy(evolutionTreeAsset);
+            evolutionTree = new();
+            evolutionTree.SetTree(evolutionTreeAsset);
+
             if (initOwner)
             {
                 evolutionTree.SetOwner(initOwner);

@@ -17,7 +17,7 @@ public class EvolutionTreeNodeView : MonoBehaviour
     /// </summary>
     /// <param name="tree"></param>
     /// <param name="index"></param>
-    public void Set(EvolutionTree tree, int index)
+    public void Set(RuntimeEvolutionTree tree, int index)
     {
         node = tree.TreeNodes[index];
         icon.sprite = node.Icon;

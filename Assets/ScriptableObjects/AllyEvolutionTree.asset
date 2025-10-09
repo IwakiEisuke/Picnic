@@ -47,4 +47,3 @@ MonoBehaviour:
     pos: {x: -300, y: 400}
     icon: {fileID: 21300000, guid: 757140402f2bc9b4ab087c7b6443b564, type: 3}
     isUnlocked: 0
-  viewPrefab: {fileID: 5447473488537624786, guid: 4077f2b2c02f29946bc3faf8091784b9, type: 3}
