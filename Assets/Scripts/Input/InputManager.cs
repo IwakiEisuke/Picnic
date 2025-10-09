@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
@@ -6,6 +6,12 @@ public class InputManager : MonoBehaviour
     [SerializeField] InputActionAsset inputActionAsset;
     [SerializeField] InputManagerBase[] inputManagers;
 
+    /// <summary>
+    /// Initializes all configured input managers and configures input action maps for gameplay.
+    /// </summary>
+    /// <remarks>
+    /// Calls Init() on each entry in <c>inputManagers</c>, enables the "Player" action map, and disables the "UI" action map.
+    /// </remarks>
     private void Start()
     {
         foreach (var manager in inputManagers)
@@ -17,6 +23,9 @@ public class InputManager : MonoBehaviour
         inputActionAsset.FindActionMap("UI").Disable();
     }
 
+    /// <summary>
+    /// Calls the per-frame update on each configured input manager.
+    /// </summary>
     private void Update()
     {
         foreach (var manager in inputManagers)
@@ -25,6 +34,9 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Resets actions on all configured input managers when this object is destroyed.
+    /// </summary>
     private void OnDestroy()
     {
         foreach (var manager in inputManagers)
