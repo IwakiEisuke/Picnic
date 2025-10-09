@@ -64,9 +64,9 @@ public class UnitController : MonoBehaviour
             return;
         }
 
-        if (unitSelector.ControlTarget.TryGetComponent<UnitBase>(out var unit))
+        if (unitSelector.ControlTarget.TryGetComponent<EvolutionTreeManager>(out var evo))
         {
-            evolutionTreeView.ShowTree(unit.EvolutionTreeManager.EvolutionTree);
+            evolutionTreeView.ShowTree(evo.EvolutionTree);
         }
         else
         {
