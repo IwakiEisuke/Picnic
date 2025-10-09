@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -35,6 +34,12 @@ public class EvolutionTreeNodeView : MonoBehaviour
             arrow.rectTransform.rotation = Quaternion.Euler(0, 0, angleY);
         }
 
-        iconButton.onClick.AddListener(() => tree.TryEvolve(index));
+        iconButton.onClick.AddListener(() =>
+        {
+            if (tree.TryEvolve(index))
+            {
+                iconButton.interactable = false;
+            }
+        });
     }
 }

@@ -58,19 +58,25 @@ public class EvolutionTree : ScriptableObject
     /// 指定したノードに進化を試みます。
     /// </summary>
     /// <param name="to"></param>
-    public void TryEvolve(int to)
+    public bool TryEvolve(int to)
     {
-        if (owner == null) // 進化させる対象となるオーナーが設定されていない場合は警告を表示して終了
+        if (owner == null) // 進化させる対象となるオーナーが設定されていない場合は終了
         {
             Debug.LogWarning("EvolutionTree: Owner is not set. Please assign a UnitBase to the owner field.");
-            return;
+            return false;
         }
 
-        if (!currentNode.CanEvolve(to)) return; // 進化に必要な条件を満たしていない場合は終了
+        if (!currentNode.CanEvolve(to)) // 進化に必要な条件を満たしていない場合は終了
+        {
+            Debug.LogWarning("EvolutionTree: 進化に失敗しました"); // 画面上で通知するように変更予定
+            return false;
+        }
 
         currentNode = treeNodes[to]; // 進化に成功したら現在のノードを更新
 
         Evolve();
+
+        return true;
 
         void Evolve()
         {
