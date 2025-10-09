@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
@@ -7,14 +6,15 @@ public class InputManager : MonoBehaviour
     [SerializeField] InputActionAsset inputActionAsset;
     [SerializeField] InputManagerBase[] inputManagers;
 
-    bool isFirstFrame = true;
-
     private void Start()
     {
         foreach (var manager in inputManagers)
         {
             manager.Init();
         }
+
+        inputActionAsset.FindActionMap("Player").Enable();
+        inputActionAsset.FindActionMap("UI").Disable();
     }
 
     private void Update()
@@ -23,11 +23,6 @@ public class InputManager : MonoBehaviour
         {
             manager.Update();
         }
-
-        if (isFirstFrame)
-            isFirstFrame = false;
-        else
-            inputActionAsset.FindActionMap("UI").Disable();
     }
 
     private void OnDestroy()
