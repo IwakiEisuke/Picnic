@@ -9,7 +9,7 @@ public class EvolutionTreeView : MonoBehaviour
 {
     [SerializeField] Transform treeViewParent;
     [SerializeField] Button closeButton;
-    [SerializeField] EvolutionTreeNodeView viewPrefab;
+    [SerializeField] EvolutionTreeNodeView nodeViewPrefab;
 
     GameObject currentTreePanel;
 
@@ -33,12 +33,17 @@ public class EvolutionTreeView : MonoBehaviour
 
     GameObject GeneratePanel(RuntimeEvolutionTree tree)
     {
+        if (!nodeViewPrefab)
+        {
+            Debug.LogWarning("EvolutionTreeView: viewPrefabが設定されていません。viewPrefabフィールド");
+        }
+
         var parentObj = new GameObject("Tree");
         parentObj.transform.SetParent(treeViewParent, false);
 
         for (int i = 0; i < tree.TreeNodes.Count; i++)
         {
-            var view = Instantiate(viewPrefab, parentObj.transform);
+            var view = Instantiate(nodeViewPrefab, parentObj.transform);
             view.Set(tree, i);
         }
 
