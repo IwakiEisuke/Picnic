@@ -8,20 +8,20 @@ public class EvolutionTreeManager : MonoBehaviour
     [SerializeField] UnitBase initOwner;
     [SerializeField] EvolutionTree evolutionTreeAsset;
 
-    RuntimeEvolutionTree evolutionTree;
+    RuntimeEvolutionTree runtimeEvolutionTree;
 
-    public RuntimeEvolutionTree EvolutionTree => evolutionTree;
+    public RuntimeEvolutionTree EvolutionTree => runtimeEvolutionTree;
 
     private void Start()
     {
-        if (evolutionTree == null && evolutionTreeAsset != null)
+        if (runtimeEvolutionTree == null && evolutionTreeAsset != null)
         {
-            evolutionTree = new();
-            evolutionTree.SetTree(evolutionTreeAsset);
+            runtimeEvolutionTree = new();
+            runtimeEvolutionTree.SetTree(evolutionTreeAsset);
 
             if (initOwner)
             {
-                evolutionTree.SetOwner(initOwner);
+                runtimeEvolutionTree.SetOwner(initOwner);
             }
             else
             {
@@ -30,9 +30,10 @@ public class EvolutionTreeManager : MonoBehaviour
         }
     }
 
+    // 他のEvolutionTreeManagerから進化ツリーのデータをコピーします。
     public void Copy(EvolutionTreeManager origin)
     {
-        origin.evolutionTree.SetOwner(initOwner);
-        evolutionTree = origin.evolutionTree;
+        origin.runtimeEvolutionTree.SetOwner(initOwner);
+        runtimeEvolutionTree = origin.runtimeEvolutionTree;
     }
 }
