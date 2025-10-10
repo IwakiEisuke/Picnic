@@ -39,23 +39,40 @@ public class RuntimeEvolutionTree
 
         currentNode = _tree.TreeNodes[to]; // 進化に成功したら現在のノードを更新
 
-        Evolve();
+        return TryEvolveUnit();
 
-        return true;
-
-        void Evolve()
+        bool TryEvolveUnit()
         {
             // 進化後のユニットを生成し、元のユニットを破棄
             var evolved = Object.Instantiate(currentNode.SpeciePrefab, owner.transform.position, owner.transform.rotation);
-            Object.Destroy(owner.gameObject);
 
-            // 状態異常の引き継ぎ
+            var oldEvo = owner.GetComponent<EvolutionTreeManager>();
+            var newEvo = evolved.GetComponent<EvolutionTreeManager>();
+
+            // 進化元・進化先のユニットにEvolutionTreeManagerが存在しない場合は終了
+            if (oldEvo == null)
+            {
+                Debug.LogWarning("EvolutionTree: 進化に失敗しました（進化元のユニットにEvolutionTreeManagerが存在しません）");
+                Object.Destroy(evolved.gameObject);
+                return false;
+            }
+            else if (newEvo == null)
+            {
+                Debug.LogWarning("EvolutionTree: 進化に失敗しました（進化先のユニットにEvolutionTreeManagerが存在しません）");
+                Object.Destroy(evolved.gameObject);
+                return false;
+            }
+            else
+            {
+                Object.Destroy(oldEvo.gameObject);
+            }
+
+            // 状態異常の引き継ぎが必要な場合はここで実装
 
             // 進化状態の引き継ぎ
-            if (owner.TryGetComponent<EvolutionTreeManager>(out var evo))
-            {
-                evolved.GetComponent<EvolutionTreeManager>().Copy(evo);
-            }
+            newEvo.Copy(oldEvo);
+
+            return true;
         }
     }
 }
