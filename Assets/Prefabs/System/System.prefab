@@ -296,6 +296,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2616280256819354239}
     m_Modifications:
+    - target: {fileID: 1621575689634941309, guid: fe19852836dd205479056bdc8189cc16, type: 3}
+      propertyPath: viewPrefab
+      value: 
+      objectReference: {fileID: 5447473488537624786, guid: 4077f2b2c02f29946bc3faf8091784b9, type: 3}
     - target: {fileID: 5510677804096618866, guid: fe19852836dd205479056bdc8189cc16, type: 3}
       propertyPath: m_Name
       value: EvolutionTree

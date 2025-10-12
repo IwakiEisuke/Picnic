@@ -8,6 +8,7 @@ public class EvolutionTreeView : MonoBehaviour
 {
     [SerializeField] Transform treeViewParent;
     [SerializeField] Button closeButton;
+    [SerializeField] EvolutionTreeNodeView nodeViewPrefab;
 
     GameObject currentTreePanel;
 
@@ -17,7 +18,7 @@ public class EvolutionTreeView : MonoBehaviour
         PanelClose();
     }
 
-    public void ShowTree(EvolutionTree tree)
+    public void ShowTree(RuntimeEvolutionTree tree)
     {
         // 前に表示されていた進化ツリーパネルを破棄する
         if (currentTreePanel != null)
@@ -25,8 +26,27 @@ public class EvolutionTreeView : MonoBehaviour
             Destroy(currentTreePanel);
         }
 
-        currentTreePanel = tree.GeneratePanel(treeViewParent);
+        currentTreePanel = GeneratePanel(tree);
         PanelOpen();
+    }
+
+    GameObject GeneratePanel(RuntimeEvolutionTree tree)
+    {
+        if (!nodeViewPrefab)
+        {
+            Debug.LogWarning("EvolutionTreeView: viewPrefabが設定されていません。viewPrefabフィールド");
+        }
+
+        var parentObj = new GameObject("Tree");
+        parentObj.transform.SetParent(treeViewParent, false);
+
+        for (int i = 0; i < tree.TreeNodes.Count; i++)
+        {
+            var view = Instantiate(nodeViewPrefab, parentObj.transform);
+            view.Set(tree, i);
+        }
+
+        return parentObj;
     }
 
     public void PanelOpen()

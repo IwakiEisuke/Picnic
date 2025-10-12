@@ -2592,6 +2592,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8894262881278903054, guid: afa0cdc38ada26640af53328e06b37f3, type: 3}
+      propertyPath: nodeViewPrefab
+      value: 
+      objectReference: {fileID: 5447473488537624786, guid: 4077f2b2c02f29946bc3faf8091784b9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

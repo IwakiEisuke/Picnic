@@ -15,11 +15,6 @@ public abstract class UnitBase : EntityBase
     [SerializeField] protected StatusEffectManager statusEffectManager;
     [SerializeField] protected ActionManager actionManager;
 
-    [SerializeField] protected EvolutionTreeManager evolutionTreeManager;
-    //[SerializeField] protected EvolutionTree evolutionTreeAsset;
-    //[SerializeField] protected Transform evolutionTreeViewParent;
-    //[SerializeField] protected EvolutionTree evolutionTree;
-
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
     protected Collider[] _hits = new Collider[1];
@@ -33,8 +28,6 @@ public abstract class UnitBase : EntityBase
     public StatusEffectManager StatusEffectManager => statusEffectManager;
     public ActionManager ActionManager => actionManager;
     public AttackController AttackController => attackController;
-    //public EvolutionTree EvolutionTree => evolutionTree;
-    public EvolutionTreeManager EvolutionTreeManager => evolutionTreeManager;
     public UnitGameStatus Status => status;
 
     protected virtual void Awake()
@@ -59,15 +52,6 @@ public abstract class UnitBase : EntityBase
         observer = new EntityObserver(stats.name);
         observer.Register();
         actionManager.SetActions(stats.Actions);
-
-        //if (evolutionTree == null && evolutionTreeAsset != null)
-        //{
-        //    evolutionTree = ScriptableObject.CreateInstance<EvolutionTree>();
-        //    evolutionTree.owner = this;
-        //    evolutionTree.Copy(evolutionTreeAsset);
-        //    evolutionTree.GeneratePanel(evolutionTreeViewParent);
-        //    PanelClose();
-        //}
     }
 
     public void Die()
@@ -75,33 +59,6 @@ public abstract class UnitBase : EntityBase
         observer.Remove();
         InvokeOnDied();
         StopAllCoroutines();
-    }
-
-    //public void PanelOpen()
-    //{
-    //    evolutionTreeViewParent.gameObject.SetActive(true);
-    //}
-
-    //public void PanelClose()
-    //{
-    //    evolutionTreeViewParent.gameObject.SetActive(false);
-    //}
-
-    public void Evolve(UnitBase prefab)
-    {
-        var evolved = Instantiate(prefab, transform.position, transform.rotation);
-
-        // 状態異常の引き継ぎ
-
-        // 進化状態の引き継ぎ
-        if (evolutionTreeManager != null)
-        {
-            //evolved.evolutionTree.Copy(evolutionTree);
-            evolved.evolutionTreeManager.Copy(evolutionTreeManager);
-        }
-
-
-        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()
