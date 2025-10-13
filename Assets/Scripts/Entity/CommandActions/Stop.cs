@@ -19,5 +19,10 @@ namespace Entity.CommandActions
         {
             _unit.Agent.isStopped = true;
         }
+
+        public override void Exit()
+        {
+            _unit.Agent.isStopped = false;
+        }
     }
 }
