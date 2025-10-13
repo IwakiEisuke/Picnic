@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandNameKey: InteractTarget
   _icon: {fileID: 21300000, guid: fc796d1ea0060e346bff59fce7f5ee32, type: 3}
+  _targetType: 4

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandNameKey: Auto
   _icon: {fileID: 21300000, guid: de7b5aed5d6bcf544a20832336ed85c0, type: 3}
+  _targetType: 6

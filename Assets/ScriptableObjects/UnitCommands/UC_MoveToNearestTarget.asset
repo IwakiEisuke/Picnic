@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandNameKey: MoveToNearestTarget
   _icon: {fileID: 21300000, guid: 1369ad7b05d319e4d93ce840fa99091a, type: 3}
+  _targetType: 6

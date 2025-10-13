@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandNameKey: MoveToClickPos
   _icon: {fileID: 21300000, guid: b93acc4ada3397d4fb8516b10e345f39, type: 3}
+  _targetType: 5

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandNameKey: MoveToHive
   _icon: {fileID: 21300000, guid: 262a55931b7cd1a4ca865971d829a0a3, type: 3}
+  _targetType: 6

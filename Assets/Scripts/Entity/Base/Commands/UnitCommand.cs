@@ -8,4 +8,17 @@ public class UnitCommand : ScriptableObject
 {
     [SerializeField] string _commandNameKey;
     [SerializeField] Sprite _icon;
+    [SerializeField] CommandTarget _targetType;
+
+    public enum CommandTarget
+    {
+        Self,
+        Ally,
+        Enemy,
+        Unit,
+        Entity,
+        Location,
+        None,
+        Specific
+    }
 }

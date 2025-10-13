@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandNameKey: Stop
   _icon: {fileID: 21300000, guid: 44cb7cd4f61b61a4f8ef51b079c16e56, type: 3}
+  _targetType: 6

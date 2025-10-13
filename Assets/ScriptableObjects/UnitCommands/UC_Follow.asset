@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _commandNameKey: Follow
   _icon: {fileID: 21300000, guid: 757140402f2bc9b4ab087c7b6443b564, type: 3}
+  _targetType: 4
