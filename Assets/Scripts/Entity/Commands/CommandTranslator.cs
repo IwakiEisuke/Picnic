@@ -26,21 +26,24 @@ public class CommandTranslator : MonoBehaviour
             if (data.command == null)
             {
                 Debug.LogWarning("CommandTranslator: Command cannot be Null");
-                return;
+                continue;
             }
 
             if (data.commandAction == null)
             {
                 Debug.LogWarning($"CommandTranslator: CommandAction for {data.command} is not assigned");
-                return;
+                continue;
             }
-            else
-            {
-                data.commandAction = Instantiate(data.commandAction);
-                data.commandAction.Init(gameObject);
 
-                translateTable.Add(data.command, data.commandAction);
+            if (translateTable.ContainsKey(data.command))
+            {
+                Debug.LogWarning($"CommandTranslator: Duplicate command {data.command.name} found, skipping");
+                continue;
             }
+
+            data.commandAction = Instantiate(data.commandAction);
+            data.commandAction.Init(gameObject);
+            translateTable.Add(data.command, data.commandAction);
         }
     }
 
