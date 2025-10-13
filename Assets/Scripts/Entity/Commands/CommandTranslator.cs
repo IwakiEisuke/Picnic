@@ -49,9 +49,9 @@ public class CommandTranslator : MonoBehaviour
 
     public IEnumerable<UnitCommand> GetCommands()
     {
-        foreach (var command in translateDatas)
+        foreach (var command in translateTable.Keys)
         {
-            yield return command.command;
+            yield return command;
         }
     }
 
