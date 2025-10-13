@@ -10,6 +10,10 @@ public class UnitCommand : ScriptableObject
     [SerializeField] Sprite _icon;
     [SerializeField] CommandTarget _targetType;
 
+    public string CommandNameKey => _commandNameKey;
+    public Sprite Icon => _icon;
+    public CommandTarget TargetType => _targetType;
+
     public enum CommandTarget
     {
         Self,
