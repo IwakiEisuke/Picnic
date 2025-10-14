@@ -2498,6 +2498,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8377a96403c3664eabbb54520c2603e, type: 3}
+--- !u!114 &2128886553 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9213439298733982907, guid: afa0cdc38ada26640af53328e06b37f3, type: 3}
+  m_PrefabInstance: {fileID: 3647653551386609798}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3647653551386609798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2594,6 +2605,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4747583711405788967, guid: afa0cdc38ada26640af53328e06b37f3, type: 3}
+      propertyPath: canvasScaler
+      value: 
+      objectReference: {fileID: 2128886553}
     - target: {fileID: 4747583711405788967, guid: afa0cdc38ada26640af53328e06b37f3, type: 3}
       propertyPath: unitController
       value: 

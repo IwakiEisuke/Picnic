@@ -10,7 +10,7 @@ public class UnitControlMenu : MonoBehaviour
     [SerializeField] RectTransform menuPanel;
     [SerializeField] Vector3 menuOffset;
     [SerializeField] MouseInputManager mouseInput;
-    [SerializeField] GameObject canvasScaler;
+    [SerializeField] CanvasScaler canvasScaler;
     [SerializeField] CommandMenuGenerator commandMenuGenerator;
 
     public bool IsMenuOpened => menuPanel.gameObject.activeSelf;
@@ -39,9 +39,8 @@ public class UnitControlMenu : MonoBehaviour
         menuPanel.gameObject.SetActive(true);
 
         // メニューの表示位置を計算
-        var scaler = canvasScaler.GetComponent<CanvasScaler>();
-        var scaleX = Screen.width / scaler.referenceResolution.x;
-        var scaleY = Screen.height / scaler.referenceResolution.y;
+        var scaleX = Screen.width / canvasScaler.referenceResolution.x;
+        var scaleY = Screen.height / canvasScaler.referenceResolution.y;
         var scaledOffset = new Vector3(menuOffset.x * scaleX, menuOffset.y * scaleY);
 
         menuPanel.position = screenPos + scaledOffset;
