@@ -81,7 +81,7 @@ public class UnitSelector : MonoBehaviour
         SetEffectSelecting(target, false);
     }
 
-    void ClearSelecting()
+    public void ClearSelecting()
     {
         foreach (var s in selecting)
         {

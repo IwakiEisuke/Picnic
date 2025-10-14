@@ -25,29 +25,28 @@ public class UnitController : MonoBehaviour
     {
         actions = new List<InputActionWrapper>
         {
-            new(unitMove, _ => UnitSetState(Ally.State.MoveToNearestTarget)),
-            new(unitFreeMove, _ => UnitSetState(Ally.State.MoveToClickPos)),
-            new(unitFollow, _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); }),
-            new(unitStop, _ => UnitSetState(Ally.State.Stop)),
-            new(unitMoveToHive, _ => UnitSetState(Ally.State.MoveToHive)),
+            //new(unitMove, _ => UnitSetState(Ally.State.MoveToNearestTarget)),
+            //new(unitFreeMove, _ => UnitSetState(Ally.State.MoveToClickPos)),
+            //new(unitFollow, _ => { if (unitSelector.ControlTarget != null) UnitSetState(Ally.State.Follow); }),
+            //new(unitStop, _ => UnitSetState(Ally.State.Stop)),
+            //new(unitMoveToHive, _ => UnitSetState(Ally.State.MoveToHive)),
             new(openUnitPanel, _ => OpenUnitPanel()),
         };
     }
 
-    private void UnitSetState(Ally.State nextState)
+    public void ExecuteCommand(UnitCommand command, IReadOnlyList<UnitBase> targets)
     {
-        foreach (var ally in unitSelector.SelectingAllies)
+        foreach (var unit in targets)
         {
-            ally.Next(nextState);
-            unitSelector.Deselect(ally.transform);
+            if (unit == null) continue;
+
+            if (unit.TryGetComponent<CommandExecutor>(out var executor))
+            {
+                executor.Next(command);
+            }
         }
 
-        unitControlMenu.CloseMenu();
-    }
-
-    public void UnitSetState(int nextState)
-    {
-        UnitSetState((Ally.State)nextState);
+        unitSelector.ClearSelecting();
     }
 
     public void OpenUnitPanel()

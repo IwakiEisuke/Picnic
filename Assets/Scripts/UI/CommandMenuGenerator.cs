@@ -20,7 +20,7 @@ public class CommandMenuGenerator : MonoBehaviour
         {
             var b = _commandButtonFactory.CreateCommandCell(command, () =>
             {
-                // ここにコマンド実行処理を追加
+                _unitController.ExecuteCommand(command, _commandCollector.GetUnitsAbleToExecuteCommand(command));
                 _unitControlMenu.CloseMenu();
             });
 
