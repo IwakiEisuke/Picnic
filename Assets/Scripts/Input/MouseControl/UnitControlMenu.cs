@@ -2,13 +2,16 @@
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// ユニットの操作メニューを管理するクラス
+/// </summary>
 public class UnitControlMenu : MonoBehaviour
 {
-    [SerializeField] UnitSelector unitSelector;
     [SerializeField] RectTransform menuPanel;
     [SerializeField] Vector3 menuOffset;
     [SerializeField] MouseInputManager mouseInput;
-    [SerializeField] GameObject canvasScaler;
+    [SerializeField] CanvasScaler canvasScaler;
+    [SerializeField] CommandMenuGenerator commandMenuGenerator;
 
     public bool IsMenuOpened => menuPanel.gameObject.activeSelf;
 
@@ -21,19 +24,36 @@ public class UnitControlMenu : MonoBehaviour
 
     public void ToggleMenu(Vector3 screenPos)
     {
-        menuPanel.gameObject.SetActive(!menuPanel.gameObject.activeSelf);
-        
-        var scaler = canvasScaler.GetComponent<CanvasScaler>();
-        var scaleX = Screen.width / scaler.referenceResolution.x;
-        var scaleY = Screen.height / scaler.referenceResolution.y;
+        if (!menuPanel.gameObject.activeSelf)
+        {
+            OpenMenu(screenPos);
+        }
+        else
+        {
+            CloseMenu();
+        }
+    }
 
+    public void OpenMenu(Vector3 screenPos)
+    {
+        menuPanel.gameObject.SetActive(true);
+
+        // メニューの表示位置を計算
+        var scaleX = Screen.width / canvasScaler.referenceResolution.x;
+        var scaleY = Screen.height / canvasScaler.referenceResolution.y;
         var scaledOffset = new Vector3(menuOffset.x * scaleX, menuOffset.y * scaleY);
 
         menuPanel.position = screenPos + scaledOffset;
+
+        // コマンドメニューを生成  
+        commandMenuGenerator.CreateMenu();
     }
 
     public void CloseMenu()
     {
+        // コマンドメニューをクリア
+        commandMenuGenerator.ClearMenu();
+        // メニューを非表示
         menuPanel.gameObject.SetActive(false);
     }
 }

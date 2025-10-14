@@ -9,8 +9,6 @@ public class Flower : EntityBase, IInteractable
     public float Duration => duration;
     public bool IsInteractable => remainNectar > 0;
 
-    public event Action CancelInteract;
-
     private void Awake()
     {
         RegisterEntityBase();
@@ -22,10 +20,6 @@ public class Flower : EntityBase, IInteractable
         {
             remainNectar -= amountNectarOnce;
             GameManager.Inventory.AddHoney(amountNectarOnce);
-        }
-        else
-        {
-            CancelInteract?.Invoke();
         }
     }
 }
