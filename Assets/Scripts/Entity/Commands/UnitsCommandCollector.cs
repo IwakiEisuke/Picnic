@@ -58,7 +58,7 @@ public class UnitsCommandCollector : MonoBehaviour
         {
             return units;
         }
-        return null;
+        return new List<UnitBase>();
     }
 
     /// <summary>
