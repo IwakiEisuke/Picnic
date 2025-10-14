@@ -15,6 +15,8 @@ public class CommandMenuGenerator : MonoBehaviour
 
     public void CreateMenu()
     {
+        // 既存メニューのクリア（冪等性確保）
+        ClearMenu();
         _commandCollector.CollectCommands();
         foreach (var command in _commandCollector.CollectedCommands)
         {
