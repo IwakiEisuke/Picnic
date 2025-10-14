@@ -1,6 +1,4 @@
-﻿using System;
-
-public interface IInteractable
+﻿public interface IInteractable
 {
     public float Duration { get; }
 
@@ -8,8 +6,6 @@ public interface IInteractable
     /// インタラクト可能な状態かどうかを示します。
     /// </summary>
     public bool IsInteractable { get; }
-
-    public event Action CancelInteract;
 
     void Interact();
 }
