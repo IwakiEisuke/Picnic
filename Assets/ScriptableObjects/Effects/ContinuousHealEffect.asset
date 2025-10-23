@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f1bf5b1e04ffc4c8a6069d1f002b77, type: 3}
   m_Name: ContinuousHealEffect
   m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
   _duration: 3
+  _effectType: 0
+  _cancelConditions:
+  - {fileID: 11400000, guid: 814b5ef62dd25f240b3fed3795eb49b1, type: 2}
   effectValue: 1

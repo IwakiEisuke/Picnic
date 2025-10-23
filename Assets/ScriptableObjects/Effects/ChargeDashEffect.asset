@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 0}
   _duration: 1.5
+  _effectType: 0
+  _cancelConditions:
+  - {fileID: 11400000, guid: 814b5ef62dd25f240b3fed3795eb49b1, type: 2}
   effectValue: 5
