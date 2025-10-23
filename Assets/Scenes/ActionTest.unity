@@ -2669,6 +2669,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6189568492427186425, guid: afa0cdc38ada26640af53328e06b37f3, type: 3}
+      propertyPath: selectableLayers.m_Bits
+      value: 1216
+      objectReference: {fileID: 0}
     - target: {fileID: 6859484313290269936, guid: afa0cdc38ada26640af53328e06b37f3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
