@@ -13,11 +13,6 @@ public class ChargeDashEffect : StatusEffectAssetBase
         target.speed += effectValue;
     }
 
-    public override void SetCancelCondition(UnitGameStatus status, StatusEffector effector)
-    {
-        status.owner.HitManager.OnAttacked += info => effector.Cancel();
-    }
-
     public override float Evaluate(UnitBase unit)
     {
         // 実際にはActionの発動範囲に入るまでが移動時間なので、過大評価されている

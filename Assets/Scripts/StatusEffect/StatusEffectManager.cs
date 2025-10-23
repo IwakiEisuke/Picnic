@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -23,7 +22,6 @@ public class StatusEffectManager : MonoBehaviour
         }
 
         var effector = new StatusEffector(effect);
-        effector.SetCancelCondition(unitBase.Status, () => RemoveEffect(effector));
         effects.Add(effector);
     }
 
@@ -63,8 +61,8 @@ public class StatusEffectManager : MonoBehaviour
         foreach (var effect in effects)
         {
             effect.Apply(status);
-            
-            if (!effect.Consume(dt))
+
+            if (!effect.Consume(dt) || effect.IsCanceled(status))
             {
                 _consumed.Add(effect);
             }
@@ -92,7 +90,6 @@ public class StatusEffector
 {
     readonly StatusEffectAssetBase effect;
     float duration;
-    event Action CancelAction;
 
     public EffectType EffectType => effect.EffectType;
 
@@ -120,15 +117,9 @@ public class StatusEffector
         effect.Apply(status);
     }
 
-    public void Cancel()
+    public bool IsCanceled(UnitGameStatus status)
     {
-        CancelAction?.Invoke();
-    }
-
-    public void SetCancelCondition(UnitGameStatus status, Action cancelAction)
-    {
-        CancelAction += cancelAction;
-        effect.SetCancelCondition(status, this);
+        return effect.IsCanceled(status);
     }
 }
 
@@ -140,6 +131,7 @@ public abstract class StatusEffectAssetBase : ScriptableObject
     [SerializeField] protected Sprite _icon;
     [SerializeField] protected float _duration;
     [SerializeField] protected EffectType _effectType;
+    [SerializeField] protected EffectCancelConditionBase[] _cancelConditions;
 
     public Sprite Icon => _icon;
     public float Duration => _duration;
@@ -148,19 +140,23 @@ public abstract class StatusEffectAssetBase : ScriptableObject
     public abstract void Apply(UnitGameStatus status);
 
     /// <summary>
-    /// コールバックからキャンセルできるようにしたいときに使用する。
-    /// </summary>
-    public virtual void SetCancelCondition(UnitGameStatus status, StatusEffector effector)
-    {
-        
-    }
-
-    /// <summary>
     /// このステータスエフェクトがどれくらい有効かを評価するメソッド。
     /// </summary>
     /// <param name="unit"></param>
     /// <returns></returns>
     public abstract float Evaluate(UnitBase unit);
+
+    public bool IsCanceled(UnitGameStatus status)
+    {
+        foreach (var condition in _cancelConditions)
+        {
+            if (condition.IsCancel(status))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 public enum EffectType
