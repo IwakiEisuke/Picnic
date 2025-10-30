@@ -10,11 +10,6 @@ public class HealEffect : StatusEffectAssetBase
         target.owner.Health.Heal(effectValue);
     }
 
-    public override void SetCancelCondition(UnitGameStatus status, StatusEffector effector)
-    {
-        status.owner.HitManager.OnAttacked += info => effector.Cancel();
-    }
-
     public override float Evaluate(UnitBase unit)
     {
         return 1 - unit.Health.HealthRatio;

@@ -13,6 +13,9 @@ public class HitManager : MonoBehaviour
     public event Action<AttackReceiveInfo> OnDamaged;
     public event Action<AttackReceiveInfo> OnAttacked;
 
+    public bool IsDamaged { get; private set; }
+    public bool IsAttacked { get; private set; }
+
     public void ReceiveHit(AttackReceiveInfo info)
     {
         if (health == null)
@@ -32,10 +35,12 @@ public class HitManager : MonoBehaviour
             var response = health.ApplyDamage(info);
             owner.StatusEffectManager.AddEffect(info.statusEffects);
 
+            IsDamaged = true;
             OnDamaged?.Invoke(info);
 
             if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
             {
+                attackerHitManagerComponent.IsAttacked = true;
                 attackerHitManagerComponent.OnAttacked?.Invoke(info);
                 if (response != null)
                 {
@@ -48,6 +53,12 @@ public class HitManager : MonoBehaviour
     private void Update()
     {
         damageHistoryManager.Update();
+    }
+
+    private void LateUpdate()
+    {
+        IsDamaged = false;
+        IsAttacked = false;
     }
 
     private void Start()

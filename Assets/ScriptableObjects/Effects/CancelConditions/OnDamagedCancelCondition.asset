@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2b904cab8f8ab04ba075e2d025af7e8, type: 3}
-  m_Name: ChargeDashEffect
+  m_Script: {fileID: 11500000, guid: 9e3ca5f3e6de52c489b98a0abeaac4e4, type: 3}
+  m_Name: OnDamagedCancelCondition
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _duration: 1.5
-  _effectType: 0
-  _cancelConditions:
-  - {fileID: 11400000, guid: 62e070342c1b24e4d8b2df18e0f9db9f, type: 2}
-  effectValue: 5
