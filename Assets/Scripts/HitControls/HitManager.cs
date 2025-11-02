@@ -8,7 +8,7 @@ public class HitManager : MonoBehaviour
     [SerializeField] bool debugMode;
     [SerializeField] Health health;
     [SerializeField] UnitBase owner;
-    [SerializeField] HitManagerRegistry registry;
+    [SerializeField] HitManagerRegistry _registry;
 
     readonly DamageHistoryManager damageHistoryManager = new();
 
@@ -90,12 +90,18 @@ public class HitManager : MonoBehaviour
 
     private void OnEnable()
     {
-        registry.Register(this);
+        if (_registry == null)
+        {
+            Debug.LogWarning("HitManager: HitManagerRegistryがアサインされていません", this);
+            return;
+        }
+
+        _registry.Register(this);
     }
 
     private void OnDisable()
     {
-        registry.Unregister(this);
+        _registry?.Unregister(this);
     }
 }
 
