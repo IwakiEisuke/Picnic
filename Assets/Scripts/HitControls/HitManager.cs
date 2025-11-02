@@ -101,7 +101,13 @@ public class HitManager : MonoBehaviour
 
     private void OnDisable()
     {
-        _registry?.Unregister(this);
+        if (_registry == null)
+        {
+            Debug.LogWarning("HitManager: HitManagerRegistryがアサインされていません", this);
+            return;
+        }
+
+        _registry.Unregister(this);
     }
 }
 
