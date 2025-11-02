@@ -9,11 +9,25 @@ public abstract class GameInstanceRegistry<T> : ScriptableObject
 
     public void Register(T instance)
     {
-        _instances.Add(instance);
+        if (instance == null)
+        {
+            Debug.LogWarning($"{GetType()}: Attempted to register a null instance");
+            return;
+        }
+
+        if (!_instances.Add(instance))
+        {
+            Debug.LogWarning($"{GetType()}: Instance {typeof(T).Name} is already registered");
+        }
     }
 
     public void Unregister(T instance)
     {
+        if (instance == null)
+        {
+            Debug.LogWarning($"{GetType()}: Attempted to unregister a null instance from registry");
+            return;
+        }
         _instances.Remove(instance);
     }
 }
