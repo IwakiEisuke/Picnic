@@ -149,7 +149,7 @@ public class DamageHistoryManager
     public void Update()
     {
         var dt = Time.deltaTime;
-        for (int i = 0; i < damageHistories.Count; i++)
+        for (int i = damageHistories.Count - 1; i >= 0; i--)
         {
             damageHistories[i].duration -= dt;
             if (damageHistories[i].duration <= 0)
