@@ -28,6 +28,10 @@ public abstract class GameInstanceRegistry<T> : ScriptableObject
             Debug.LogWarning($"{GetType()}: Attempted to unregister a null instance from registry");
             return;
         }
-        _instances.Remove(instance);
+
+        if (!_instances.Remove(instance))
+        {
+            Debug.LogWarning($"{GetType()}: Instance {typeof(T).Name} was not found in registry");
+        }
     }
 }
