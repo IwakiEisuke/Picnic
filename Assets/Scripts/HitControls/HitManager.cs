@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder((int)ExecutionOrder.HitManager)]
 public class HitManager : MonoBehaviour
 {
     [SerializeField] bool debugMode;
     [SerializeField] Health health;
     [SerializeField] UnitBase owner;
+    [SerializeField] HitManagerRegistry _registry;
 
     readonly DamageHistoryManager damageHistoryManager = new();
 
@@ -15,6 +17,8 @@ public class HitManager : MonoBehaviour
 
     public bool IsDamaged { get; private set; }
     public bool IsAttacked { get; private set; }
+
+    readonly List<AttackReceiveInfo> _attackReceiveInfos = new();
 
     public void ReceiveHit(AttackReceiveInfo info)
     {
@@ -32,33 +36,44 @@ public class HitManager : MonoBehaviour
 
         if (damageHistoryManager.CanHit(info))
         {
-            var response = health.ApplyDamage(info);
-            owner.StatusEffectManager.AddEffect(info.statusEffects);
+            _attackReceiveInfos.Add(info);
+        }
+    }
 
-            IsDamaged = true;
-            OnDamaged?.Invoke(info);
+    private void ApplyHit(AttackReceiveInfo info)
+    {
+        var response = health.ApplyDamage(info);
+        owner.StatusEffectManager.AddEffect(info.statusEffects);
 
-            if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
+        IsDamaged = true;
+        OnDamaged?.Invoke(info);
+
+        if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
+        {
+            attackerHitManagerComponent.IsAttacked = true;
+            attackerHitManagerComponent.OnAttacked?.Invoke(info);
+            if (response != null)
             {
-                attackerHitManagerComponent.IsAttacked = true;
-                attackerHitManagerComponent.OnAttacked?.Invoke(info);
-                if (response != null)
-                {
-                    attackerHitManagerComponent.health.ApplyRawDamage(response.damage);
-                }
+                attackerHitManagerComponent.health.ApplyRawDamage(response.damage);
             }
         }
     }
 
-    private void Update()
-    {
-        damageHistoryManager.Update();
-    }
-
-    private void LateUpdate()
+    public void ClearHitStates()
     {
         IsDamaged = false;
         IsAttacked = false;
+    }
+
+    private void Update()
+    {
+        foreach (var info in _attackReceiveInfos)
+        {
+            ApplyHit(info);
+        }
+        _attackReceiveInfos.Clear();
+
+        damageHistoryManager.Update();
     }
 
     private void Start()
@@ -71,6 +86,28 @@ public class HitManager : MonoBehaviour
         {
             if (debugMode) Debug.Log($"Attacked: {info.damage} damage to {gameObject.name} from {info.attacker.name} with ID {info.id}");
         };
+    }
+
+    private void OnEnable()
+    {
+        if (_registry == null)
+        {
+            Debug.LogWarning("HitManager: HitManagerRegistryがアサインされていません", this);
+            return;
+        }
+
+        _registry.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        if (_registry == null)
+        {
+            Debug.LogWarning("HitManager: HitManagerRegistryがアサインされていません", this);
+            return;
+        }
+
+        _registry.Unregister(this);
     }
 }
 
@@ -135,7 +172,7 @@ public class DamageHistoryManager
     public void Update()
     {
         var dt = Time.deltaTime;
-        for (int i = 0; i < damageHistories.Count; i++)
+        for (int i = damageHistories.Count - 1; i >= 0; i--)
         {
             damageHistories[i].duration -= dt;
             if (damageHistories[i].duration <= 0)

@@ -313,6 +313,7 @@ MonoBehaviour:
   debugMode: 0
   health: {fileID: 1476775191128089322}
   owner: {fileID: 0}
+  _registry: {fileID: 11400000, guid: 9489e0474ce11f74682b7c853798d4a9, type: 2}
 --- !u!114 &7778223179493459700
 MonoBehaviour:
   m_ObjectHideFlags: 0
