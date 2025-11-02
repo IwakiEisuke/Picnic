@@ -2560,6 +2560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: System
       objectReference: {fileID: 0}
+    - target: {fileID: 7921886895545172202, guid: afa0cdc38ada26640af53328e06b37f3, type: 3}
+      propertyPath: _hitManagerRegistry
+      value: 
+      objectReference: {fileID: 11400000, guid: 9489e0474ce11f74682b7c853798d4a9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

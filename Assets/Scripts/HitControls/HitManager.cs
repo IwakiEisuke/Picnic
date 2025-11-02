@@ -8,6 +8,7 @@ public class HitManager : MonoBehaviour
     [SerializeField] bool debugMode;
     [SerializeField] Health health;
     [SerializeField] UnitBase owner;
+    [SerializeField] HitManagerRegistry registry;
 
     readonly DamageHistoryManager damageHistoryManager = new();
 
@@ -85,6 +86,16 @@ public class HitManager : MonoBehaviour
         {
             if (debugMode) Debug.Log($"Attacked: {info.damage} damage to {gameObject.name} from {info.attacker.name} with ID {info.id}");
         };
+    }
+
+    private void OnEnable()
+    {
+        registry.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        registry.Unregister(this);
     }
 }
 

@@ -3,16 +3,11 @@ using UnityEngine;
 [DefaultExecutionOrder((int)ExecutionOrder.HitEventManager)]
 public class HitEventManager : MonoBehaviour
 {
-    HitManager[] _hitManagers;
-
-    void Start()
-    {
-        _hitManagers = FindObjectsByType<HitManager>(FindObjectsSortMode.None);
-    }
+    [SerializeField] HitManagerRegistry _hitManagerRegistry;
 
     void Update()
     {
-        foreach (var hitManager in _hitManagers)
+        foreach (var hitManager in _hitManagerRegistry.Instances)
         {
             hitManager.ClearHitStates();
         }
