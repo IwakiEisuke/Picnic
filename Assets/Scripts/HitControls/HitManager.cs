@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder((int)ExecutionOrder.HitManager)]
 public class HitManager : MonoBehaviour
 {
     [SerializeField] bool debugMode;
@@ -15,6 +16,8 @@ public class HitManager : MonoBehaviour
 
     public bool IsDamaged { get; private set; }
     public bool IsAttacked { get; private set; }
+
+    readonly List<AttackReceiveInfo> _attackReceiveInfos = new();
 
     public void ReceiveHit(AttackReceiveInfo info)
     {
@@ -32,33 +35,41 @@ public class HitManager : MonoBehaviour
 
         if (damageHistoryManager.CanHit(info))
         {
-            var response = health.ApplyDamage(info);
-            owner.StatusEffectManager.AddEffect(info.statusEffects);
+            _attackReceiveInfos.Add(info);
+        }
+    }
 
-            IsDamaged = true;
-            OnDamaged?.Invoke(info);
+    private void ApplyHit(AttackReceiveInfo info)
+    {
+        var response = health.ApplyDamage(info);
+        owner.StatusEffectManager.AddEffect(info.statusEffects);
 
-            if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
+        IsDamaged = true;
+        OnDamaged?.Invoke(info);
+
+        if (info.attacker.TryGetComponent<HitManager>(out var attackerHitManagerComponent))
+        {
+            attackerHitManagerComponent.IsAttacked = true;
+            attackerHitManagerComponent.OnAttacked?.Invoke(info);
+            if (response != null)
             {
-                attackerHitManagerComponent.IsAttacked = true;
-                attackerHitManagerComponent.OnAttacked?.Invoke(info);
-                if (response != null)
-                {
-                    attackerHitManagerComponent.health.ApplyRawDamage(response.damage);
-                }
+                attackerHitManagerComponent.health.ApplyRawDamage(response.damage);
             }
         }
     }
 
     private void Update()
     {
-        damageHistoryManager.Update();
-    }
-
-    private void LateUpdate()
-    {
         IsDamaged = false;
         IsAttacked = false;
+
+        foreach (var info in _attackReceiveInfos)
+        {
+            ApplyHit(info);
+        }
+        _attackReceiveInfos.Clear();
+
+        damageHistoryManager.Update();
     }
 
     private void Start()
