@@ -58,11 +58,14 @@ public class HitManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void ClearHitStates()
     {
         IsDamaged = false;
         IsAttacked = false;
+    }
 
+    private void Update()
+    {
         foreach (var info in _attackReceiveInfos)
         {
             ApplyHit(info);
